@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Autenticacao.API.Controllers
 {
-    [Route("api/identidade")]
+    [Route("api/auth")]
     public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
