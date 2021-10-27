@@ -7,10 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using NSE.Identidade.API.Extensions;
 using System.Text;
 
-namespace NSE.Identidade.API.Configuration
+namespace GISA.Autenticacao.API.Configuration
 {
     public static class IdentityConfig
     {

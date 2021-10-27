@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace NSE.Identidade.API.Configuration
+namespace GISA.Autenticacao.API.Configuration
 {
     public static class ApiConfig
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace NSE.Identidade.API.Extensions
+namespace GISA.Autenticacao.API.Extensions
 {
     public class IdentityMensagensPortugues : IdentityErrorDescriber
     {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 
-namespace NSE.Identidade.API.Configuration
+namespace GISA.Autenticacao.API.Configuration
 {
     public static class SwaggerConfig
     {
