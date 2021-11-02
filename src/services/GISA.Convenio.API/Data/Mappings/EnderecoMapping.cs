@@ -37,10 +37,6 @@ namespace GISA.Convenio.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            // 1 : 1 => Endereco : Convenio
-            builder.HasOne(e => e.Convenio)
-                .WithOne(c => c.Endereco);
-
             builder.ToTable("Enderecos");
         }
     }

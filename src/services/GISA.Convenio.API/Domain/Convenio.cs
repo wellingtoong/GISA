@@ -5,7 +5,6 @@ namespace GISA.Convenio.API.Domain
 {
     public class Convenio : Entity, IAggregateRoot
     {
-        public Guid EnderecoId { get; private set; }
         public string NomeFantasia { get; private set; }
         public string RazaoSocial { get; private set; }
         public string InscricaoMunicipal { get; private set; }
@@ -48,7 +47,6 @@ namespace GISA.Convenio.API.Domain
         public void AlterarEndereco(Endereco endereco)
         {
             Endereco = endereco;
-            EnderecoId = endereco.Id;
         }
     }
 }
