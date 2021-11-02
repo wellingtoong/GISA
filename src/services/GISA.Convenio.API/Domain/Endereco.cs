@@ -11,6 +11,7 @@ namespace GISA.Convenio.API.Domain
         public string Bairro { get; private set; }
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
+        public Convenio Convenio { get; set; }
 
         protected Endereco() { }
 

@@ -8,7 +8,7 @@ namespace GISA.Core.DomainObjects
     {
         public Guid Id { get; set; }
 
-        public Entity()
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }

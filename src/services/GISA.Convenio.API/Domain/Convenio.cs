@@ -17,7 +17,7 @@ namespace GISA.Convenio.API.Domain
         public DateTime DataCadastro { get; private set; }
         public Endereco Endereco { get; private set; }
 
-        protected Convenio() { }
+        public Convenio() { }
 
         public Convenio(string nomeFantasia, 
                         string razaoSocial, 
