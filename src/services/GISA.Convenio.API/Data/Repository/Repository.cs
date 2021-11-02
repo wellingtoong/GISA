@@ -35,22 +35,22 @@ namespace GISA.Convenio.API.Data
             return await DbSet.ToListAsync();
         }
 
-        public virtual async Task Adicionar(TEntity entity)
+        public virtual async Task<int> Adicionar(TEntity entity)
         {
             DbSet.Add(entity);
-            await SaveChanges();
+            return await SaveChanges();
         }
 
-        public virtual async Task Atualizar(TEntity entity)
+        public virtual async Task<int> Atualizar(TEntity entity)
         {
             DbSet.Update(entity);
-            await SaveChanges();
+            return await SaveChanges();
         }
 
-        public virtual async Task Remover(Guid id)
+        public virtual async Task<int> Remover(Guid id)
         {
             DbSet.Remove(new TEntity { Id = id });
-            await SaveChanges();
+            return await SaveChanges();
         }
 
         public async Task<int> SaveChanges()

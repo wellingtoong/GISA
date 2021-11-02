@@ -1,4 +1,5 @@
 ﻿using GISA.Core.DomainObjects;
+using System;
 
 namespace GISA.Convenio.API.Domain
 {
@@ -11,7 +12,8 @@ namespace GISA.Convenio.API.Domain
         public string Bairro { get; private set; }
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
-        public Convenio Convenio { get; set; }
+        public Guid ConvenioId { get; private set; }
+        public Convenio Convenio { get; protected set; }
 
         protected Endereco() { }
 

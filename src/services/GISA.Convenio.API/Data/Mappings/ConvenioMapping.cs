@@ -24,7 +24,7 @@ namespace GISA.Convenio.API.Data.Mappings
             builder.Property(c => c.InscricaoEstadual)
                 .HasColumnType("varchar(200)");
 
-            builder.Property(c => c.InscricaoEstadual)
+            builder.Property(c => c.Cnpj)
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
