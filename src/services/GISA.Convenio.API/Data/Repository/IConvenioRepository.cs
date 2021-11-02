@@ -2,7 +2,7 @@
 
 namespace GISA.Convenio.API.Data.Repository
 {
-    interface IConvenioRepository : IRepository<Domain.Convenio>
+    public interface IConvenioRepository : IRepository<Domain.Convenio>
     {
         // TODO: meus metodos
     }
