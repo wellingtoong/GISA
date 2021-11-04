@@ -7,10 +7,10 @@ namespace GISA.Convenio.API.Service
 {
     public interface IConvenioService : IDisposable
     {
-        Task<int> Adicionar(ConvenioViewModel convenio);
-        Task Atualizar(ConvenioViewModel convenio);
+        Task<int> Adicionar(Domain.Convenio convenio);
+        Task Atualizar(Domain.Convenio convenio);
 
-        Task<IList<ConvenioViewModel>> ObterTodos();
+        Task<IEnumerable<Domain.Convenio>> ObterTodos();
         Task Remover(Guid id);
     }
 }

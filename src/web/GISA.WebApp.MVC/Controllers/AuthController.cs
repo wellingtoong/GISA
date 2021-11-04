@@ -63,7 +63,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             await RealizarLogin(resposta);
 
-            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Privacy", "Home");
 
             return LocalRedirect(returnUrl);
         }

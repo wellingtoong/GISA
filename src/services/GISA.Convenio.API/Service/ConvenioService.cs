@@ -8,23 +8,20 @@ using System.Threading.Tasks;
 namespace GISA.Convenio.API.Service
 {
     public class ConvenioService : IConvenioService
-    {
-        private readonly IMapper _mapper;
+    { 
         private readonly IConvenioRepository _convenioRepository;
 
-        public ConvenioService(IConvenioRepository convenioRepository,
-                               IMapper mapper)
+        public ConvenioService(IConvenioRepository convenioRepository)
         {
             _convenioRepository = convenioRepository;
-            _mapper = mapper;
         }
 
-        public async Task<int> Adicionar(ConvenioViewModel convenio)
+        public async Task<int> Adicionar(Domain.Convenio convenio)
         {
-            return await _convenioRepository.Adicionar(_mapper.Map<Domain.Convenio>(convenio));
+            return await _convenioRepository.Adicionar(convenio);
         }
 
-        public Task Atualizar(ConvenioViewModel convenio)
+        public Task Atualizar(Domain.Convenio convenio)
         {
             throw new NotImplementedException();
         }
@@ -34,9 +31,9 @@ namespace GISA.Convenio.API.Service
             _convenioRepository?.Dispose();
         }
 
-        public async Task<IList<ConvenioViewModel>> ObterTodos()
+        public async Task<IEnumerable<Domain.Convenio>> ObterTodos()
         {
-            return _mapper.Map<IList<ConvenioViewModel>>(await _convenioRepository.ObterTodos());
+            return await _convenioRepository.ObterTodos();
         }
 
         public Task Remover(Guid id)

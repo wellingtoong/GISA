@@ -14,7 +14,7 @@ namespace GISA.Convenio.API.Domain
         public string Email { get; private set; }
         public bool Ativo { get; private set; }
         public DateTime DataCadastro { get; private set; }
-        public Endereco Endereco { get; private set; }
+        public virtual Endereco Endereco { get; private set; }
 
         public Convenio() { }
 

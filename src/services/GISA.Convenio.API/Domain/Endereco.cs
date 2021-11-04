@@ -13,7 +13,7 @@ namespace GISA.Convenio.API.Domain
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
         public Guid ConvenioId { get; private set; }
-        public Convenio Convenio { get; protected set; }
+        public virtual Convenio Convenio { get; protected set; }
 
         protected Endereco() { }
 

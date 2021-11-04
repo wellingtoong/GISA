@@ -3,6 +3,7 @@ using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Models;
 using GISA.Convenio.API.Service;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,9 +26,10 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet("obter-todos")]
-        public async Task<IList<ConvenioViewModel>> ObterTodos()
-        { 
-            return await _convenioService.ObterTodos();
+        public async Task<IEnumerable<ConvenioViewModel>> ObterTodos()
+        {
+            var convenios = await _convenioService.ObterTodos();
+            return _mapper.Map<IEnumerable<ConvenioViewModel>>(convenios);
         }
 
         [HttpPost("novo-convenio")]
@@ -37,6 +39,12 @@ namespace GISA.Convenio.API.Controllers
 
             var convenio = _mapper.Map<Domain.Convenio>(convenioViewModel);
             return Ok(await _convenioRepository.Adicionar(convenio));
+        }
+
+        private async Task<ConvenioViewModel> ObterConvenio(Guid id) 
+        {
+            var convenio = _mapper.Map<ConvenioViewModel>(await _convenioRepository.ObterConvenioEndereco(id));
+            return convenio;
         }
     }
 }
