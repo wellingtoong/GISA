@@ -13,6 +13,9 @@ namespace GISA.WebApp.MVC.Configuration
         {
             services.AddControllersWithViews();
 
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
+
             services.Configure<AppSettings>(configuration);
         }
 
