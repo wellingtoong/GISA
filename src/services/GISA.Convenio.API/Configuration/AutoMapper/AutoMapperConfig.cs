@@ -7,7 +7,8 @@ namespace GISA.Convenio.API.Configuration.AutoMapper
     {
         public AutoMapperConfig()
         {
-            CreateMap<Domain.Convenio, ConvenioViewModel>().ReverseMap();
+            CreateMap<Domain.Convenio, ConvenioViewModel>()
+                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.Endereco)).ReverseMap();
             CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
         }
     }

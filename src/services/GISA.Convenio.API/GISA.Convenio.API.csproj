@@ -10,6 +10,8 @@
   <ItemGroup>
     <Compile Remove="Data\20211102194803_Initial.cs" />
     <Compile Remove="Data\20211102194803_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211102194922_Initial.cs" />
+    <Compile Remove="Data\Migrations\20211102194922_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +29,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GISA.Core\GISA.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 

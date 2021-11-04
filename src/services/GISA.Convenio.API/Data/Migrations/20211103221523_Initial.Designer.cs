@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GISA.Convenio.API.Data.Migrations
 {
     [DbContext(typeof(ConvenioDbContext))]
-    [Migration("20211102194922_Initial")]
+    [Migration("20211103221523_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,6 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(150)");
 
-                    b.Property<Guid>("EnderecoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("InscricaoEstadual")
                         .HasColumnType("varchar(200)");
 
@@ -61,9 +58,6 @@ namespace GISA.Convenio.API.Data.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnderecoId")
-                        .IsUnique();
 
                     b.ToTable("Convenios");
                 });
@@ -85,6 +79,9 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<Guid>("ConvenioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("varchar(2)");
@@ -103,23 +100,26 @@ namespace GISA.Convenio.API.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConvenioId")
+                        .IsUnique();
+
                     b.ToTable("Enderecos");
-                });
-
-            modelBuilder.Entity("GISA.Convenio.API.Domain.Convenio", b =>
-                {
-                    b.HasOne("GISA.Convenio.API.Domain.Endereco", "Endereco")
-                        .WithOne("Convenio")
-                        .HasForeignKey("GISA.Convenio.API.Domain.Convenio", "EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("GISA.Convenio.API.Domain.Endereco", b =>
                 {
+                    b.HasOne("GISA.Convenio.API.Domain.Convenio", "Convenio")
+                        .WithOne("Endereco")
+                        .HasForeignKey("GISA.Convenio.API.Domain.Endereco", "ConvenioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Convenio");
+                });
+
+            modelBuilder.Entity("GISA.Convenio.API.Domain.Convenio", b =>
+                {
+                    b.Navigation("Endereco");
                 });
 #pragma warning restore 612, 618
         }
