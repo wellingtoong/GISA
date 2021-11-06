@@ -44,9 +44,6 @@ namespace GISA.Convenio.API.Domain
         public void Ativar() => Ativo = true;
         public void Desativar() => Ativo = false;
 
-        public void AlterarEndereco(Endereco endereco)
-        {
-            Endereco = endereco;
-        }
+        public void AlterarEndereco(Endereco endereco) => Endereco = endereco;
     }
 }

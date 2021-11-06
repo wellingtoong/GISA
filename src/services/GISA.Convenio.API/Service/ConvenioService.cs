@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using GISA.Convenio.API.Data.Repository;
-using GISA.Convenio.API.Models;
+﻿using GISA.Convenio.API.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,19 +14,30 @@ namespace GISA.Convenio.API.Service
             _convenioRepository = convenioRepository;
         }
 
-        public async Task<int> Adicionar(Domain.Convenio convenio)
+        public async Task<bool> Adicionar(Domain.Convenio convenio)
         {
             return await _convenioRepository.Adicionar(convenio);
         }
 
-        public Task Atualizar(Domain.Convenio convenio)
+        public async Task<bool> Atualizar(Guid id, Domain.Convenio convenio)
         {
-            throw new NotImplementedException();
+            var enderecoAtual = await _convenioRepository.ObterEnderecoPorId(id);
+            convenio.AlterarEndereco(enderecoAtual);
+
+            return await _convenioRepository.Atualizar(convenio);
         }
 
-        public void Dispose()
+        public async Task<bool> AtualizarEndereco(Guid id, Domain.Convenio convenio)
         {
-            _convenioRepository?.Dispose();
+            var convenioAtual = await _convenioRepository.ObterConvenioEnderecoPorId(id);
+            convenioAtual.AlterarEndereco(convenio.Endereco);
+
+            return await _convenioRepository.Atualizar(convenioAtual);
+        }
+
+        public async Task<Domain.Endereco> ObterEnderecoPorId(Guid id)
+        {
+            return await _convenioRepository.ObterEnderecoPorId(id);
         }
 
         public async Task<IEnumerable<Domain.Convenio>> ObterTodos()
@@ -36,9 +45,10 @@ namespace GISA.Convenio.API.Service
             return await _convenioRepository.ObterTodos();
         }
 
-        public Task Remover(Guid id)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _convenioRepository?.Dispose();
         }
+
     }
 }
