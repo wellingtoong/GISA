@@ -2,6 +2,7 @@
 using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Models;
 using GISA.Convenio.API.Service;
+using GISA.Core.DomainObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-convenios")]
+        [Route("convenios")]
         public async Task<IActionResult> ObterTodos()
         {
             var convenios = _mapper.Map<IEnumerable<ConvenioViewModel>>(await _convenioRepository.ObterTodosConvenioEndereco());
@@ -41,7 +42,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-convenio/{id:guid}")]
+        [Route("convenio/{id:guid}")]
         public async Task<IActionResult> ObterConvenioPorId(Guid id)
         {
             var convenio = _mapper.Map<ConvenioViewModel>(await _convenioRepository.ObterConvenioEnderecoPorId(id));
@@ -56,10 +57,12 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-convenio/{id:guid}")]
+        [Route("convenio/{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
             var convenio = _mapper.Map<Domain.Convenio>(convenioViewModel);
 
@@ -75,7 +78,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-convenio/{id:guid}/endereco")]
+        [Route("convenio/{id:guid}/endereco")]
         public async Task<IActionResult> AtualizarEndereco(Guid id, ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -99,6 +102,8 @@ namespace GISA.Convenio.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();           
+
             var result = await _convenioRepository.Adicionar(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
             if (!result)
@@ -108,6 +113,22 @@ namespace GISA.Convenio.API.Controllers
             }
 
             return CustomResponse();
+        }
+
+        private bool EmailValido(string email)
+        {
+            try
+            {
+                var result = new Email(email);
+                if (!String.IsNullOrWhiteSpace(result.Endereco)) return true;
+            }
+            catch (DomainException)
+            {
+                AdicionarErroProcessamento("Endereço de e-mail inválido.");
+                return false;
+            }
+
+            return false;
         }
     }
 }

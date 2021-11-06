@@ -35,9 +35,6 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(150)");
-
                     b.Property<string>("InscricaoEstadual")
                         .HasColumnType("varchar(200)");
 
@@ -102,6 +99,29 @@ namespace GISA.Convenio.API.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("GISA.Convenio.API.Domain.Convenio", b =>
+                {
+                    b.OwnsOne("GISA.Core.DomainObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("ConvenioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Endereco")
+                                .IsRequired()
+                                .HasColumnType("varchar(150)")
+                                .HasColumnName("Email");
+
+                            b1.HasKey("ConvenioId");
+
+                            b1.ToTable("Convenios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ConvenioId");
+                        });
+
+                    b.Navigation("Email");
                 });
 
             modelBuilder.Entity("GISA.Convenio.API.Domain.Endereco", b =>

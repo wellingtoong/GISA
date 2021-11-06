@@ -18,8 +18,8 @@ namespace GISA.Convenio.API.Data.Migrations
                     InscricaoEstadual = table.Column<string>(type: "varchar(200)", nullable: true),
                     Cnpj = table.Column<string>(type: "varchar(14)", nullable: false),
                     Telefone = table.Column<string>(type: "varchar(20)", nullable: true),
-                    Email = table.Column<string>(type: "varchar(150)", nullable: true),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    Email = table.Column<string>(type: "varchar(150)", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

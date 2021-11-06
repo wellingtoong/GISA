@@ -11,10 +11,10 @@ namespace GISA.Convenio.API.Domain
         public string InscricaoEstadual { get; private set; }
         public string Cnpj { get; private set; }
         public string Telefone { get; private set; }
-        public string Email { get; private set; }
         public bool Ativo { get; private set; }
-        public DateTime DataCadastro { get; private set; }
+        public Email Email { get; private set; }
         public virtual Endereco Endereco { get; private set; }
+        public DateTime DataCadastro { get; private set; }
 
         public Convenio() { }
 
@@ -24,9 +24,8 @@ namespace GISA.Convenio.API.Domain
                         string inscricaoEstadual, 
                         string cnpj, 
                         string telefone, 
-                        string email, 
                         bool ativo, 
-                        DateTime dataCadastro,
+                        Email email, 
                         Endereco endereco)
         {
             NomeFantasia = nomeFantasia;
@@ -37,7 +36,6 @@ namespace GISA.Convenio.API.Domain
             Telefone = telefone;
             Email = email;
             Ativo = ativo;
-            DataCadastro = dataCadastro;
             Endereco = endereco;
         }
 

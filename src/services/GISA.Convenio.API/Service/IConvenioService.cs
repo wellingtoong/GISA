@@ -1,5 +1,4 @@
 ﻿using GISA.Convenio.API.Domain;
-using GISA.Convenio.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
