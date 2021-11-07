@@ -11,7 +11,7 @@ namespace GISA.Pessoa.API.Configuration
         {
             // repositorys
             services.AddScoped<ApplicationDbContext>();
-            //services.AddScoped<IPessoaRepository, PessoaRepository>();
+            services.AddScoped<IPessoaRepository, PessoaRepository>();
 
             // services
             services.AddScoped<IPessoaService, PessoaService>();
