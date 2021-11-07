@@ -11,7 +11,6 @@ namespace GISA.Convenio.API.Service
         Task<bool> Atualizar(Guid id, Domain.Convenio convenio);
         Task<Endereco> ObterEnderecoPorId(Guid id);
         Task<bool> AtualizarEndereco(Guid id, Domain.Convenio convenio);
-
         Task<IEnumerable<Domain.Convenio>> ObterTodos();
     }
 }
