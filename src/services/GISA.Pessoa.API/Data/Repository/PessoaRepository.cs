@@ -2,7 +2,7 @@
 
 namespace GISA.Pessoa.API.Data.Repository
 {
-    public class PessoaRepository : Repository<Domain.Pessoa>, IPessoaService
+    public class PessoaRepository : Repository<Domain.Pessoa>, IPessoaRepository
     {
         public PessoaRepository(ApplicationDbContext context) : base(context) { }
     }
