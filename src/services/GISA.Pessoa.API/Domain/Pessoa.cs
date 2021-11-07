@@ -9,6 +9,7 @@ namespace GISA.Pessoa.API.Domain
         public string NomeCompleto { get; private set; }
         public string Rg { get; private set; }
         public string Cpf { get; private set; }
+        public string Telefone { get; private set; }
         public bool Ativo { get; private set; }
         public Email Email { get; private set; }
         public virtual Endereco Endereco { get; private set; }
