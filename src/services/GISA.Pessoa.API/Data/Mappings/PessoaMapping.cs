@@ -21,6 +21,9 @@ namespace GISA.Pessoa.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
+            builder.Property(c => c.Telefone)
+                .HasColumnType("varchar(20)");
+
             builder.Property(p => p.Ativo)
                 .IsRequired();
 
