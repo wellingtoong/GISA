@@ -50,7 +50,6 @@ namespace GISA.Convenio.API.Data.Mappings
                 .WithOne(e => e.Convenio);
 
             builder.ToTable("Convenios");
-
         }
     }
 }
