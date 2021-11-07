@@ -1,8 +1,5 @@
 using GISA.Convenio.API.Configuration;
 using GISA.Convenio.API.Data;
-using GISA.Convenio.API.Data.Repository;
-using GISA.Convenio.API.Service;
-using GISA.Core.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

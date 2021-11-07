@@ -1,4 +1,4 @@
-﻿using GISA.Core.Data;
+﻿using GISA.Convenio.API.Data.Repository;
 using GISA.Core.DomainObjects;
 using Microsoft.EntityFrameworkCore;
 using System;

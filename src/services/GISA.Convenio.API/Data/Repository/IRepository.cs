@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace GISA.Core.Data
+namespace GISA.Convenio.API.Data.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
