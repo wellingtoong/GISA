@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GISA.Pessoa.API.Models;
 
 namespace GISA.Pessoa.API.Configuration.AutoMapper
 {
@@ -6,7 +7,13 @@ namespace GISA.Pessoa.API.Configuration.AutoMapper
     {
         public AutoMapperConfig()
         {
+            CreateMap<Domain.Pessoa, PessoaViewModel>()
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Endereco))
+                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.Endereco))
+                .ReverseMap()
+                .ForPath(dest => dest.Email.Endereco, opt => opt.MapFrom(src => src.Email));
 
+            CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
         }
     }
 }
