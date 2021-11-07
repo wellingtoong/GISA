@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GISA.Convenio.API.Models;
-using GISA.Core.DomainObjects;
 
 namespace GISA.Convenio.API.Configuration.AutoMapper
 {
