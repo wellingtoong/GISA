@@ -13,6 +13,7 @@ namespace GISA.Pessoa.API.Domain
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
         public Guid PessoaId { get; private set; }
+        public virtual Pessoa Pessoa { get; private set; }
 
         protected Endereco() { }
 

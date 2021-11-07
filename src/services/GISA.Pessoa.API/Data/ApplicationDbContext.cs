@@ -9,6 +9,7 @@ namespace GISA.Pessoa.API.Data
             : base(options) { }
 
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(

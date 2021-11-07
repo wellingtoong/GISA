@@ -11,11 +11,11 @@ namespace GISA.Pessoa.API.Domain
         public string Cpf { get; private set; }
         public bool Ativo { get; private set; }
         public Email Email { get; private set; }
-        public Endereco Endereco { get; private set; }
+        public virtual Endereco Endereco { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public TipoPessoaEnum TipoPessoaEnum { get; private set; }
 
-        protected Pessoa() { }
+        public Pessoa() { }
 
         public Pessoa(string nomeCompleto, string rg, string cpf, bool ativo, Endereco endereco, TipoPessoaEnum tipoPessoaEnum)
         {
