@@ -15,34 +15,40 @@ namespace GISA.Pessoa.API.Service
             _pessoaRepository = pessoaRepository;
         }
 
-        public Task<bool> Adicionar(Domain.Pessoa pessoa)
+        public async Task<bool> Adicionar(Domain.Pessoa pessoa)
         {
-            throw new NotImplementedException();
+            return await _pessoaRepository.Adicionar(pessoa);
         }
 
-        public Task<bool> Atualizar(Guid id, Domain.Pessoa convenio)
+        public async Task<bool> Atualizar(Guid id, Domain.Pessoa pessoa)
         {
-            throw new NotImplementedException();
+            var enderecoAtual = await _pessoaRepository.ObterEnderecoPorId(id);
+            pessoa.AlterarEndereco(enderecoAtual);
+
+            return await _pessoaRepository.Atualizar(pessoa);
         }
 
-        public Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa convenio)
+        public async Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa pessoa)
         {
-            throw new NotImplementedException();
+            var pessoaAtual = await _pessoaRepository.ObterPessoaEnderecoPorId(id);
+            pessoaAtual.AlterarEndereco(pessoa.Endereco);
+
+            return await _pessoaRepository.Atualizar(pessoaAtual);
+        }
+
+        public async Task<Endereco> ObterEnderecoPorId(Guid id)
+        {
+            return await _pessoaRepository.ObterEnderecoPorId(id);
+        }
+
+        public async Task<IEnumerable<Domain.Pessoa>> ObterTodos()
+        {
+            return await _pessoaRepository.ObterTodos();
         }
 
         public void Dispose()
         {
             _pessoaRepository?.Dispose();
-        }
-
-        public Task<Endereco> ObterEnderecoPorId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Domain.Pessoa>> ObterTodos()
-        {
-            throw new NotImplementedException();
         }
     }
 }

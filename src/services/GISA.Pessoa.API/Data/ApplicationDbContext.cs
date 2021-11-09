@@ -9,6 +9,7 @@ namespace GISA.Pessoa.API.Data
             : base(options) { }
 
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
+        public DbSet<Domain.Endereco> Enderecos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
