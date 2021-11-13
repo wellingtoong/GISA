@@ -14,6 +14,7 @@ namespace GISA.Pessoa.API.Configuration.AutoMapper
                 .ForPath(dest => dest.Email.Endereco, opt => opt.MapFrom(src => src.Email));
 
             CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
+            CreateMap<Domain.Plano, PlanoViewModel>().ReverseMap();
         }
     }
 }
