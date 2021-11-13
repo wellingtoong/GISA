@@ -1,6 +1,5 @@
 ﻿using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Domain;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

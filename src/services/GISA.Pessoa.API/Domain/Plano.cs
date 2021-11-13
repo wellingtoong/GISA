@@ -14,14 +14,5 @@ namespace GISA.Pessoa.API.Domain
         public DateTime DataCadastro { get; private set; }
 
         public Plano() { }
-
-        public Plano(string nome, TipoPlanoEnum tipoPlanoEnum, string descricao, decimal valor, bool ativo)
-        {
-            Nome = nome;
-            TipoPlanoEnum = tipoPlanoEnum;
-            Descricao = descricao;
-            Valor = valor;
-            Ativo = ativo;
-        }
     }
 }
