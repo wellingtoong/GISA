@@ -21,7 +21,8 @@ namespace GISA.Pessoa.API.Data.Mappings
                 .HasColumnType("varchar(200)");
 
             builder.Property(c => c.Valor)
-                .IsRequired();
+                .IsRequired()
+                .HasColumnType("decimal(5,2)");
 
             builder.Property(p => p.Ativo)
                 .IsRequired();
