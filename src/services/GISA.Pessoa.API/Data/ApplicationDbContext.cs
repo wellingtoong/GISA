@@ -12,6 +12,8 @@ namespace GISA.Pessoa.API.Data
         public DbSet<Domain.Endereco> Enderecos { get; set; }
         public DbSet<Domain.Plano> Planos { get; set; }
 
+        public DbSet<Domain.PlanoCliente> PlanoClientes { get; private set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(

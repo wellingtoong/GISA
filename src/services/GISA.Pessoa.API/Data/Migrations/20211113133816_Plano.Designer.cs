@@ -4,14 +4,16 @@ using GISA.Pessoa.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GISA.Pessoa.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211113133816_Plano")]
+    partial class Plano
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,40 +123,11 @@ namespace GISA.Pessoa.API.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Planos");
-                });
-
-            modelBuilder.Entity("GISA.Pessoa.API.Domain.PlanoCliente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Acrescimo")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("Desconto")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("PessoaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PlanoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("ValorFinal")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanoClientes");
+                    b.ToTable("Planos");
                 });
 
             modelBuilder.Entity("GISA.Pessoa.API.Domain.Endereco", b =>
