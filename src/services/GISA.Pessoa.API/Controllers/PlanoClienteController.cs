@@ -4,6 +4,7 @@ using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Controllers
@@ -27,35 +28,35 @@ namespace GISA.Pessoa.API.Controllers
             _mapper = mapper;
         }
 
-        //[HttpGet]
-        //[Route("planos-clientes")]
-        //public async Task<IActionResult> ObterTodos()
-        //{
-        //    var planoCliente = _mapper.Map<IEnumerable<PlanoClienteViewModel>>(await _planoClienteRepository.ObterTodasPessoasEndereco());
+        [HttpGet]
+        [Route("planos-clientes")]
+        public async Task<IActionResult> ObterTodos()
+        {
+            var planoCliente = _mapper.Map<IEnumerable<PlanoClienteViewModel>>(await _planoClienteRepository.ObterTodos());
 
-        //    if (planoCliente == null)
-        //    {
-        //        AdicionarErroProcessamento("Não foi possível listar as pessoas. Tente novamente!");
-        //        return CustomResponse();
-        //    }
+            if (planoCliente == null)
+            {
+                AdicionarErroProcessamento("Não foi possível listar os planos clientes. Tente novamente!");
+                return CustomResponse();
+            }
 
-        //    return CustomResponse(planoCliente);
-        //}
+            return CustomResponse(planoCliente);
+        }
 
-        //[HttpGet]
-        //[Route("plano-cliente/{id:guid}")]
-        //public async Task<IActionResult> ObterPessoaPorId(Guid id)
-        //{
-        //    var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPessoaEnderecoPorId(id));
+        [HttpGet]
+        [Route("plano-cliente/{id:guid}")]
+        public async Task<IActionResult> ObterPessoaPorId(Guid id)
+        {
+            var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPorId(id));
 
-        //    if (planoCliente == null)
-        //    {
-        //        AdicionarErroProcessamento("Não foi possível obter a pessoa. Tente novamente!");
-        //        return CustomResponse();
-        //    }
+            if (planoCliente == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter o plano cliente. Tente novamente!");
+                return CustomResponse();
+            }
 
-        //    return CustomResponse(planoCliente);
-        //}
+            return CustomResponse(planoCliente);
+        }
 
         [HttpPut]
         [Route("plano-cliente/{id:guid}")]
@@ -74,7 +75,7 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!result)
             {
-                AdicionarErroProcessamento("Não foi possível atualizar a pessoa. Tente novamente!");
+                AdicionarErroProcessamento("Não foi possível atualizar o plano cliente. Tente novamente!");
                 return CustomResponse();
             }
 
@@ -96,7 +97,7 @@ namespace GISA.Pessoa.API.Controllers
 
             if (plano == null)
             {
-                AdicionarErroProcessamento("Não é possível obter o plano. Tente novamente!");
+                AdicionarErroProcessamento("Não é possível obter o plano cliente. Tente novamente!");
                 return CustomResponse();
             }
 
@@ -110,7 +111,7 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!result)
             {
-                AdicionarErroProcessamento("Não foi possível registrar o plano para cliente. Tente novamente!");
+                AdicionarErroProcessamento("Não foi possível registrar o plano 2wcliente. Tente novamente!");
                 return CustomResponse();
             }
 
