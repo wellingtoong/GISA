@@ -15,6 +15,7 @@ namespace GISA.Pessoa.API.Configuration.AutoMapper
 
             CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
             CreateMap<Domain.Plano, PlanoViewModel>().ReverseMap();
+            CreateMap<Domain.PlanoCliente, PlanoClienteViewModel>().ReverseMap();
         }
     }
 }
