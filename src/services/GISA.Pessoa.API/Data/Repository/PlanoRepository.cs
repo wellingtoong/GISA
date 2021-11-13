@@ -1,4 +1,8 @@
-﻿namespace GISA.Pessoa.API.Data.Repository
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+
+namespace GISA.Pessoa.API.Data.Repository
 {
     public class PlanoRepository : Repository<Domain.Plano>, IPlanoRepository
     {

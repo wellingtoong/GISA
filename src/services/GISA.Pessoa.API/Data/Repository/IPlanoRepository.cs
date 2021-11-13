@@ -1,4 +1,8 @@
-﻿namespace GISA.Pessoa.API.Data.Repository
+﻿using System;
+using System.Threading.Tasks;
+
+namespace GISA.Pessoa.API.Data.Repository
 {
-    public interface IPlanoRepository : IRepository<Domain.Plano> { }
+    public interface IPlanoRepository : IRepository<Domain.Plano>
+    { }
 }
