@@ -21,11 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    
+    <Compile Remove="Controllers\NewFolder\**" />
+    <Content Remove="Controllers\NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\NewFolder\**" />
+    <None Remove="Controllers\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Auth\" />
+    <Folder Include="Views\Pessoa\" />
   </ItemGroup>
 
 </Project>
