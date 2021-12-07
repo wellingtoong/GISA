@@ -28,5 +28,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
+  </ItemGroup>
+
 
 </Project>
