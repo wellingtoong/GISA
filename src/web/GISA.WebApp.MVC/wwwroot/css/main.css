@@ -1,4 +1,4 @@
-﻿body {
+﻿body, .modal-body {
     background-color: #edf2f6 !important;
 }
 
@@ -25,9 +25,19 @@
     color: #526278;
 }
 
+/* modal */
+.modal-header{
+    background-color: #2c3748;
+}
+
+.title-modal {
+    color: #fff;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
 
 /* SIDER BAR */
-
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 :root {
@@ -212,7 +222,6 @@ a {
         padding-left: calc(var(--nav-width) + 188px)
     }
 }
-
 
 /* data table */
 
