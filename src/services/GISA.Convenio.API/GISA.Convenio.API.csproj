@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GISA.Core\GISA.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>

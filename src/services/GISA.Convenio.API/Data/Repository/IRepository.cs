@@ -12,7 +12,7 @@ namespace GISA.Convenio.API.Data.Repository
         Task<TEntity> ObterPorId(Guid id);
         Task<List<TEntity>> ObterTodos();
         Task<bool> Atualizar(TEntity entity);
-        Task<bool> Remover(Guid id);
+        //Task<bool> Remover(Guid id);
         Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate);
         Task<bool> SaveChanges();
     }

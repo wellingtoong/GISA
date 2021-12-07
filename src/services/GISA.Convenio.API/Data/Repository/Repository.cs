@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Convenio.API.Data
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly ConvenioDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
@@ -47,11 +47,11 @@ namespace GISA.Convenio.API.Data
             return await SaveChanges();
         }
 
-        public virtual async Task<bool> Remover(Guid id)
-        {
-            DbSet.Remove(new TEntity { Id = id });
-            return await SaveChanges();
-        }
+        //public virtual async Task<bool> Remover(Guid id)
+        //{
+        //    DbSet.Remove(new TEntity { Id = id });
+        //    return await SaveChanges();
+        //}
 
         public async Task<bool> SaveChanges()
         {

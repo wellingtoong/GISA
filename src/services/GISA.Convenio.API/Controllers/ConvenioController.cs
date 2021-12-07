@@ -3,6 +3,8 @@ using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Models;
 using GISA.Convenio.API.Service;
 using GISA.Core.DomainObjects;
+using GISA.Core.Messages.Integration;
+using GISA.MessageBus;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,14 +18,17 @@ namespace GISA.Convenio.API.Controllers
         private readonly IConvenioService _convenioService;
         private readonly IConvenioRepository _convenioRepository;
         private readonly IMapper _mapper;
+        private readonly IMessageBus _bus;
 
         public ConvenioController(IConvenioService convenioService,
                                   IConvenioRepository convenioRepository,
-                                  IMapper mapper)
+                                  IMapper mapper,
+                                  IMessageBus bus)
         {
             _convenioService = convenioService;
             _convenioRepository = convenioRepository;
             _mapper = mapper;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -102,11 +107,17 @@ namespace GISA.Convenio.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();           
+            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            var result = await _convenioRepository.Adicionar(_mapper.Map<Domain.Convenio>(convenioViewModel));
+            //var result = await _convenioRepository.Adicionar(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!result)
+            var convenio = _mapper.Map<Domain.Convenio>(convenioViewModel);
+
+            var teste = await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(convenio);
+
+            var responseMessage = new ResponseMessage(teste.Sucesso);
+
+            if (!responseMessage.Sucesso)
             {
                 AdicionarErroProcessamento("Não foi possível registrar o convenio. Tente novamente!");
                 return CustomResponse();

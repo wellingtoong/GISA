@@ -1,6 +1,7 @@
 ﻿using GISA.Convenio.API.Data;
 using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Service;
+using GISA.Convenio.API.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GISA.Convenio.API.Configuration

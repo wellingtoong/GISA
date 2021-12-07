@@ -38,9 +38,11 @@ namespace GISA.Convenio.API
 
             services.AddSwaggerConfiguration();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.ResolveDependencies();
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddMessageBusConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
