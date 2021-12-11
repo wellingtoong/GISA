@@ -26,7 +26,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("planos")]
+        [Route("obter-planos")]
         public async Task<IActionResult> ObterTodos()
         {
             var pessoa = _mapper.Map<IEnumerable<PlanoViewModel>>(await _planoRepository.ObterTodos());
@@ -41,7 +41,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("plano/{id:guid}")]
+        [Route("obter-plano/{id:guid}")]
         public async Task<IActionResult> ObterPlanoPorId(Guid id)
         {
             var plano = _mapper.Map<PlanoViewModel>(await _planoRepository.ObterPorId(id));
@@ -56,7 +56,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("plano")]
+        [Route("atualizar-plano")]
         public async Task<IActionResult> Atualizar(PlanoViewModel planoViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -75,7 +75,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPost]
-        [Route("registrar")]
+        [Route("novo-registro")]
         public async Task<IActionResult> Registrar(PlanoViewModel planoViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
