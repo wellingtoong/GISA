@@ -9,12 +9,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace GISA.Convenio.API.Services.Consumer
 {
-    public class RegistroClienteIntegration : BackgroundService
+    public class RegistroConvenioIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistroClienteIntegration(
+        public RegistroConvenioIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -36,10 +36,7 @@ namespace GISA.Convenio.API.Services.Consumer
             return Task.CompletedTask;
         }
 
-        private void OnConnect(object s, EventArgs e)
-        {
-            SetResponder();
-        }
+        private void OnConnect(object s, EventArgs e) => SetResponder();
 
         private async Task<ResponseMessage> RegistrarCliente(Domain.Convenio convenio)
         {
