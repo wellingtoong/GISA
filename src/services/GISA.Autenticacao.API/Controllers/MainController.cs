@@ -12,10 +12,7 @@ namespace GISA.Autenticacao.API.Controllers
 
         protected ActionResult CustomResponse(object result = null)
         {
-            if (OperacaoValida())
-            {
-                return Ok(result);
-            }
+            if (OperacaoValida()) return Ok(result);
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
@@ -26,7 +23,7 @@ namespace GISA.Autenticacao.API.Controllers
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
-            
+
             foreach (var erro in erros)
             {
                 AdicionarErroProcessamento(erro.ErrorMessage);
@@ -35,19 +32,10 @@ namespace GISA.Autenticacao.API.Controllers
             return CustomResponse();
         }
 
-        protected bool OperacaoValida()
-        {
-            return !Erros.Any();
-        }
+        protected bool OperacaoValida() => !Erros.Any();
 
-        protected void AdicionarErroProcessamento(string erro)
-        {
-            Erros.Add(erro);
-        }
+        protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);
 
-        protected void LimparErrosProcessamento()
-        {
-            Erros.Clear();
-        }
+        protected void LimparErrosProcessamento() => Erros.Clear();
     }
 }
