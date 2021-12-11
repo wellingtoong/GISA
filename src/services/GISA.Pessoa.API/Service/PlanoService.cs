@@ -13,24 +13,12 @@ namespace GISA.Pessoa.API.Service
             _planoRepository = planoRepository;
         }
 
-        public async Task<bool> Adicionar(Plano plano)
-        {
-            return await _planoRepository.Adicionar(plano);
-        }
+        public async Task<bool> Adicionar(Plano plano) => await _planoRepository.Adicionar(plano);
 
-        public async Task<bool> Atualizar(Plano plano)
-        {
-            return await _planoRepository.Atualizar(plano);
-        }
+        public async Task<bool> Atualizar(Plano plano) => await _planoRepository.Atualizar(plano);
 
-        public async Task<IEnumerable<Plano>> ObterTodos()
-        {
-            return await _planoRepository.ObterTodos();
-        }
+        public async Task<IEnumerable<Plano>> ObterTodos() => await _planoRepository.ObterTodos();
 
-        public void Dispose()
-        {
-            _planoRepository?.Dispose();
-        }
+        public void Dispose() => _planoRepository?.Dispose();
     }
 }

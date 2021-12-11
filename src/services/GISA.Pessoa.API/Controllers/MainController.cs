@@ -12,10 +12,7 @@ namespace GISA.Pessoa.API.Controllers
 
         protected ActionResult CustomResponse(object result = null)
         {
-            if (OperacaoValida())
-            {
-                return Ok(result);
-            }
+            if (OperacaoValida()) return Ok(result);
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
@@ -35,19 +32,10 @@ namespace GISA.Pessoa.API.Controllers
             return CustomResponse();
         }
 
-        protected bool OperacaoValida()
-        {
-            return !Erros.Any();
-        }
+        protected bool OperacaoValida() => !Erros.Any();
 
-        protected void AdicionarErroProcessamento(string erro)
-        {
-            Erros.Add(erro);
-        }
+        protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);
 
-        protected void LimparErrosProcessamento()
-        {
-            Erros.Clear();
-        }
+        protected void LimparErrosProcessamento() => Erros.Clear();
     }
 }

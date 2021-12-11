@@ -1,5 +1,5 @@
-﻿using GISA.Core.DomainObjects;
-using GISA.Pessoa.API.Data.Repository;
+﻿using GISA.Core.Data;
+using GISA.Core.DomainObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,20 +20,12 @@ namespace GISA.Pessoa.API.Data
             DbSet = db.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
-        }
+        public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate) 
+            => await DbSet.AsNoTracking().Where(predicate).ToListAsync();
 
-        public virtual async Task<TEntity> ObterPorId(Guid id)
-        {
-            return await DbSet.FindAsync(id);
-        }
+        public virtual async Task<TEntity> ObterPorId(Guid id) => await DbSet.FindAsync(id);
 
-        public virtual async Task<List<TEntity>> ObterTodos()
-        {
-            return await DbSet.ToListAsync();
-        }
+        public virtual async Task<List<TEntity>> ObterTodos() => await DbSet.ToListAsync();
 
         public virtual async Task<bool> Adicionar(TEntity entity)
         {
@@ -47,20 +39,8 @@ namespace GISA.Pessoa.API.Data
             return await SaveChanges();
         }
 
-        public virtual async Task<bool> Remover(Guid id)
-        {
-            DbSet.Remove(new TEntity { Id = id });
-            return await SaveChanges();
-        }
+        public async Task<bool> SaveChanges() => await Db.SaveChangesAsync() > 0;
 
-        public async Task<bool> SaveChanges()
-        {
-            return await Db.SaveChangesAsync() > 0;
-        }
-
-        public void Dispose()
-        {
-            Db?.Dispose();
-        }
+        public void Dispose() => Db?.Dispose();
     }
 }

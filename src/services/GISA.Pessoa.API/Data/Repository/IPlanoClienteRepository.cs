@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GISA.Core.Data;
+using System;
 using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Data.Repository
