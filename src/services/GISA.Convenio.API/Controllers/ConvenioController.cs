@@ -32,7 +32,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("convenios")]
+        [Route("obter-convenios")]
         public async Task<IActionResult> ObterTodos()
         {
             var convenios = _mapper.Map<IEnumerable<ConvenioViewModel>>(await _convenioRepository.ObterTodosConvenioEndereco());
@@ -47,7 +47,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("convenio/{id:guid}")]
+        [Route("obter-convenio/{id:guid}")]
         public async Task<IActionResult> ObterConvenioPorId(Guid id)
         {
             var convenio = _mapper.Map<ConvenioViewModel>(await _convenioRepository.ObterConvenioEnderecoPorId(id));
@@ -62,18 +62,17 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPut]
-        [Route("convenio/{id:guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
+        [Route("atualizar-convenio")]
+        public async Task<IActionResult> Atualizar(ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            var convenio = _mapper.Map<Domain.Convenio>(convenioViewModel);
+            var result = 
+                await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            var result = await _convenioService.Atualizar(id, convenio);
-
-            if (!result)
+            if (!result.Sucesso)
             {
                 AdicionarErroProcessamento("Não foi possível atualizar o convenio. Tente novamente!");
                 return CustomResponse();
@@ -83,7 +82,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPut]
-        [Route("convenio/{id:guid}/endereco")]
+        [Route("atualizar-convenio/{id:guid}/endereco")]
         public async Task<IActionResult> AtualizarEndereco(Guid id, ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -102,22 +101,16 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPost]
-        [Route("registrar")]
+        [Route("novo-registro")]
         public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            //var result = await _convenioRepository.Adicionar(_mapper.Map<Domain.Convenio>(convenioViewModel));
+            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            var convenio = _mapper.Map<Domain.Convenio>(convenioViewModel);
-
-            var teste = await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(convenio);
-
-            var responseMessage = new ResponseMessage(teste.Sucesso);
-
-            if (!responseMessage.Sucesso)
+            if (!result.Sucesso)
             {
                 AdicionarErroProcessamento("Não foi possível registrar o convenio. Tente novamente!");
                 return CustomResponse();

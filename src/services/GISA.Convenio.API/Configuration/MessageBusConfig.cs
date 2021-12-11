@@ -1,4 +1,4 @@
-﻿using GISA.Convenio.API.Services;
+﻿using GISA.Convenio.API.Services.Consumer;
 using GISA.Core.Utils;
 using GISA.MessageBus;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +12,8 @@ namespace GISA.Convenio.API.Configuration
             IConfiguration configuration)
         {
             services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
-                .AddHostedService<RegistroClienteIntegration>();
+                .AddHostedService<RegistroConvenioIntegration>()
+                .AddHostedService<AtualizarConvenioIntegration>();
         }
     }
 }

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GISA.Convenio.API.Services.Consumer;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GISA.Convenio.API
 {
