@@ -101,11 +101,10 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            if (planoClienteViewModel.Acrescimo > 0) 
-                planoClienteViewModel.ValorFinal = CalcularAcrescimo(planoClienteViewModel.Acrescimo, plano.Valor);
+            CalcularValorAcrescimo(planoClienteViewModel, plano.Valor);
+            CalcularValorDesconto(planoClienteViewModel, plano.Valor);
 
-            if (planoClienteViewModel.Desconto > 0)
-                planoClienteViewModel.ValorFinal = CalcularDesconto(planoClienteViewModel.Desconto, plano.Valor);
+            return CustomResponse();
 
             var result = await _planoClienteRepository.Adicionar(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
 
@@ -138,16 +137,37 @@ namespace GISA.Pessoa.API.Controllers
             }
         }
 
-        private decimal CalcularAcrescimo(int acrescimo, decimal valor)
+        private void CalcularValorAcrescimo(PlanoClienteViewModel plano, decimal valor)
         {
-            var aumento = 1 + (acrescimo/100);
-            return valor * aumento;
+            decimal acrescimo = 0;
+            decimal porcentagem = 0;
+            decimal valorFinal = plano.ValorFinal;
+
+            if (plano.Acrescimo.HasValue)
+            {
+                porcentagem = plano.Acrescimo.Value / 100;
+                acrescimo = valor * porcentagem;
+            }
+
+            decimal total = (valor + acrescimo) + valorFinal;
+            plano.ValorFinal = valorFinal < 0 ? 0 : total;
         }
 
-        private decimal CalcularDesconto(int desconto, decimal valor)
+        private void CalcularValorDesconto(PlanoClienteViewModel plano, decimal valor)
         {
-            var desc = valor * desconto/100;
-            return valor - desc;
+            decimal desconto = 0;
+            decimal porcentagem = 0;
+            decimal valorFinal = plano.ValorFinal;
+
+            if (plano.Desconto.HasValue)
+            {
+                porcentagem = (valor * plano.Desconto.Value) / 100;
+                desconto = valor -= porcentagem;
+            }
+
+            decimal total = (valor - desconto) + valorFinal;
+            decimal dif = valorFinal - total;
+            plano.ValorFinal = valorFinal < 0 ? 0 : (total + dif);
         }
     }
 }

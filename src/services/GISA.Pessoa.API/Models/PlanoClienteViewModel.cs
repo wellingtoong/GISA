@@ -16,9 +16,9 @@ namespace GISA.Pessoa.API.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public Guid PlanoId { get; set; }
 
-        public int Acrescimo { get; set; }
+        public decimal? Acrescimo { get; set; }
 
-        public int Desconto { get; set; }
+        public decimal? Desconto { get; set; }
 
         public decimal ValorFinal { get; set; }
 
