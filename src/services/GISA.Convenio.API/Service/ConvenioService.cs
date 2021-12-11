@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace GISA.Convenio.API.Service
 {
     public class ConvenioService : IConvenioService
-    { 
+    {
         private readonly IConvenioRepository _convenioRepository;
 
         public ConvenioService(IConvenioRepository convenioRepository)
@@ -15,9 +15,7 @@ namespace GISA.Convenio.API.Service
         }
 
         public async Task<bool> Adicionar(Domain.Convenio convenio)
-        {
-            return await _convenioRepository.Adicionar(convenio);
-        }
+            => await _convenioRepository.Adicionar(convenio);
 
         public async Task<bool> Atualizar(Guid id, Domain.Convenio convenio)
         {
@@ -36,19 +34,11 @@ namespace GISA.Convenio.API.Service
         }
 
         public async Task<Domain.Endereco> ObterEnderecoPorId(Guid id)
-        {
-            return await _convenioRepository.ObterEnderecoPorId(id);
-        }
+            => await _convenioRepository.ObterEnderecoPorId(id);
 
-        public async Task<IEnumerable<Domain.Convenio>> ObterTodos()
-        {
-            return await _convenioRepository.ObterTodos();
-        }
+        public async Task<IEnumerable<Domain.Convenio>> ObterTodos() 
+            => await _convenioRepository.ObterTodos();
 
-        public void Dispose()
-        {
-            _convenioRepository?.Dispose();
-        }
-
+        public void Dispose() => _convenioRepository?.Dispose();
     }
 }
