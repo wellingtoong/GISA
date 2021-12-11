@@ -23,7 +23,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var loginContent = ObterConteudo(usuarioLogin);
 
-            var response = await _httpClient.PostAsync("/api/auth/autenticar", loginContent);
+            var response = await _httpClient.PostAsync("/api/auth/authentication", loginContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -40,7 +40,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var registroContent = ObterConteudo(usuarioRegistro);
 
-            var response = await _httpClient.PostAsync("/api/auth/nova-conta", registroContent);
+            var response = await _httpClient.PostAsync("/api/auth/novo-registro", registroContent);
 
             if (!TratarErrosResponse(response))
             {

@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Auth\" />
-    <Folder Include="Views\Pessoa\" />
   </ItemGroup>
 
 </Project>
