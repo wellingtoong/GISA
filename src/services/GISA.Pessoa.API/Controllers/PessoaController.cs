@@ -27,7 +27,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("pessoas")]
+        [Route("obter-pessoas")]
         public async Task<IActionResult> ObterTodos()
         {
             var pessoa = _mapper.Map<IEnumerable<PessoaViewModel>>(await _pessoaRepository.ObterTodasPessoasEndereco());
@@ -42,7 +42,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("pessoa/{id:guid}")]
+        [Route("obter-pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPessoaPorId(Guid id)
         {
             var pessoa = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPessoaEnderecoPorId(id));
@@ -57,7 +57,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("convenio/{id:guid}")]
+        [Route("atualizar-convenio/{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -78,7 +78,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPost]
-        [Route("registrar")]
+        [Route("novo-registro")]
         public async Task<IActionResult> Registrar(PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
