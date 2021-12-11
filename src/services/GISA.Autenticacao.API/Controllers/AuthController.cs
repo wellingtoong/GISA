@@ -30,7 +30,7 @@ namespace GISA.Autenticacao.API.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [HttpPost("nova-conta")]
+        [HttpPost("novo-registro")]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -57,7 +57,7 @@ namespace GISA.Autenticacao.API.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("autenticar")]
+        [HttpPost("authentication")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
