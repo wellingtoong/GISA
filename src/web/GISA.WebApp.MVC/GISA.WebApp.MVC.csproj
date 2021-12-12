@@ -31,4 +31,8 @@
     <Folder Include="Views\Auth\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
+  </ItemGroup>
+
 </Project>

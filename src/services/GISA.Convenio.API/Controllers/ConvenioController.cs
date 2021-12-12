@@ -5,6 +5,7 @@ using GISA.Convenio.API.Service;
 using GISA.Core.DomainObjects;
 using GISA.Core.Messages.Integration;
 using GISA.MessageBus;
+using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,6 @@
 ﻿using GISA.Autenticacao.API.Extensions;
 using GISA.Autenticacao.API.Models;
+using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
+    <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
   </ItemGroup>
 
 

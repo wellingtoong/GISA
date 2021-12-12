@@ -2,6 +2,7 @@
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
+using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

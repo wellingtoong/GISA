@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : MainController
     {
         public IActionResult Index()
         {
