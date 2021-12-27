@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace GISA.Core.Messages.Integration
+﻿namespace GISA.Core.Messages.Integration
 {
     public class ResponseMessage : Message
     {

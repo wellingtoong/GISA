@@ -35,8 +35,6 @@ namespace GISA.Autenticacao.API
 
             services.AddSwaggerConfiguration();
 
-            services.AddApiConfiguration();
-
             services.AddMessageBusConfiguration(Configuration);
         }
 

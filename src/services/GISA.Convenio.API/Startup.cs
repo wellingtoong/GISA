@@ -1,5 +1,6 @@
 using GISA.Convenio.API.Configuration;
 using GISA.Convenio.API.Data;
+using GISA.WebApi.Core.Autenticacao;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,12 +32,11 @@ namespace GISA.Convenio.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddApiConfiguration(Configuration);
 
-            services.AddDbContext<ConvenioDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfiguration();
+            services.AddSwaggerConfiguration(); 
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -47,23 +47,9 @@ namespace GISA.Convenio.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseSwaggerConfiguration();
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseApiConfiguration(env);
         }
     }
 }

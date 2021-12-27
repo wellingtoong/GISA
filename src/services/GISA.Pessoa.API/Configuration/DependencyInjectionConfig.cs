@@ -1,6 +1,7 @@
 ﻿using GISA.Pessoa.API.Data;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Service;
+using GISA.WebApi.Core.Usuario;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GISA.Pessoa.API.Configuration
@@ -19,6 +20,7 @@ namespace GISA.Pessoa.API.Configuration
             services.AddScoped<IPessoaService, PessoaService>();
             services.AddScoped<IPlanoService, PlanoService>();
             services.AddScoped<IPlanoClienteService, PlanoClienteService>();
+            //services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
         }

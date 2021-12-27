@@ -6,6 +6,7 @@ using GISA.Core.DomainObjects;
 using GISA.Core.Messages.Integration;
 using GISA.MessageBus;
 using GISA.WebAPI.Core.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Convenio.API.Controllers
 {
+    [Authorize]
     [Route("api/convenio")]
     public class ConvenioController : MainController
     {
@@ -117,7 +119,7 @@ namespace GISA.Convenio.API.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         private bool EmailValido(string email)

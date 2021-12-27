@@ -81,7 +81,6 @@ namespace GISA.MessageBus
             if (IsConnected) return;
 
             var policy = Policy.Handle<EasyNetQException>()
-                .Or<EasyNetQResponderException>()
                 .Or<BrokerUnreachableException>()
                 .WaitAndRetry(3, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
@@ -97,7 +96,6 @@ namespace GISA.MessageBus
         private void OnDisconnect(object s, EventArgs e)
         {
             var policy = Policy.Handle<EasyNetQException>()
-                .Or<EasyNetQResponderException>()
                 .Or<BrokerUnreachableException>()
                 .RetryForever();
 

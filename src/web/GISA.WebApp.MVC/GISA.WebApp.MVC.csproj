@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Auth\" />
+    <Folder Include="wwwroot\js\jquery-mask\" />
   </ItemGroup>
 
   <ItemGroup>

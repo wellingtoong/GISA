@@ -1,4 +1,5 @@
-﻿@{
+﻿@model GISA.WebApp.MVC.Models.ConvenioViewModel
+@{
     ViewData["Title"] = "Convênio";
     Layout = "_LayoutPrivate";
 }
@@ -26,7 +27,7 @@
             <div class="card-body">
                 <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos convênios ou voltar a página inicial</span>
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novo_convenio">Novo Convênio</button>
+                    <a class="btn btn-primary" asp-action="Registrar">Novo Convênio</a>
                     <button type="button" class="btn btn-light ml-10">Voltar</button>
                 </div>
             </div>
@@ -91,7 +92,7 @@
 </div>
 
 <!-- Modal - cadastro convênio -->
-<div class="container">
+@*<div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="modal fade" id="novo_convenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,72 +103,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-
+                            <form asp-controller="Convenio" asp-action="Registrar" method="post">
                                 <vc:Summary></vc:Summary>
 
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <label for="exampleFormControlInput1" class="form-label">Nome Fantasia</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <label for="exampleFormControlInput1" class="form-label">Razão Social</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Inscrição Municipal</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Inscrição Estadual</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
-                                        <label for="exampleFormControlInput1" class="form-label">CNPJ</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                    <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
-                                        <label for="exampleFormControlInput1" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-2 col-lg-3">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Ativo</label>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        </div>
-                                    </div>
-                                </div>
+                                <partial name="_Convenio" />
 
                                 <h4>Endereço</h4>
                                 <hr />
-
-                                <partial name="_Endereco">
+                                <partial name="_Endereco" />
 
                                 <br />
                                 <div class="row">
                                     <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
                                         <button type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="modal">Sair</button>
-                                        <button type="button" class="btn btn-primary float-end">Salvar</button>
+                                        <button type="submit" class="btn btn-primary float-end">Salvar</button>
                                     </div>
                                 </div>
 
@@ -178,7 +127,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <script>

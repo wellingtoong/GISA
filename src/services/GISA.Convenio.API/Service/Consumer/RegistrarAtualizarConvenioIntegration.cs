@@ -9,12 +9,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace GISA.Convenio.API.Services.Consumer
 {
-    public class RegistroConvenioIntegration : BackgroundService
+    public class RegistrarAtualizarConvenioIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistroConvenioIntegration(
+        public RegistrarAtualizarConvenioIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -25,7 +25,7 @@ namespace GISA.Convenio.API.Services.Consumer
         private void SetResponder()
         {
             _bus.RespondAsync<Domain.Convenio, ResponseMessage>(async request =>
-                await RegistrarCliente(request));
+                await ConsumerRegistrarAtualizarConvenio(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
@@ -38,14 +38,22 @@ namespace GISA.Convenio.API.Services.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessage> RegistrarCliente(Domain.Convenio convenio)
+        private async Task<ResponseMessage> ConsumerRegistrarAtualizarConvenio(Domain.Convenio convenio)
         {
             bool sucesso = false;
 
             using (var scope = _serviceProvider.CreateScope())
             {
                 var _convenioRepository = scope.ServiceProvider.GetRequiredService<IConvenioRepository>();
-                sucesso = await _convenioRepository.Adicionar(convenio);
+
+                if (convenio.Id == null)
+                {
+                    sucesso = await _convenioRepository.Adicionar(convenio);
+                }
+                else
+                {
+                    sucesso = await _convenioRepository.Atualizar(convenio);
+                }
             }
 
             return new ResponseMessage(sucesso);

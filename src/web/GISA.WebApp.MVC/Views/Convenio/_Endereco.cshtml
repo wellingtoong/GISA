@@ -1,43 +1,74 @@
-﻿@*@model GISA.WebApp.MVC.Models.ConvenioViewModel*@
+﻿@model GISA.WebApp.MVC.Models.ConvenioViewModel
 
 <div class="row">
     <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
-        <label for="exampleFormControlInput1" class="form-label">CEP</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Cep" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Cep" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Cep" class="text-danger"></span>
     </div>
     <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
-        <label for="exampleFormControlInput1" class="form-label">Logradouro</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Logradouro" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Logradouro" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Logradouro" class="text-danger"></span>
     </div>
     <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
-        <label for="exampleFormControlInput1" class="form-label">Número</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Numero" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Numero" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Numero" class="text-danger"></span>
     </div>
 </div>
 
 <div class="row">
     <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
-        <label for="exampleFormControlInput1" class="form-label">Bairro</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Bairro" class="form-label">Bairro</label>
+        <input asp-for="EnderecoViewModel.Bairro" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Bairro" class="text-danger"></span>
     </div>
     <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
-        <label for="exampleFormControlInput1" class="form-label">Complemento</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Complemento" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Complemento" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Complemento" class="text-danger"></span>
     </div>
 </div>
 
 <div class="row">
     <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
-        <label for="exampleFormControlInput1" class="form-label">Estado</label>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <label asp-for="EnderecoViewModel.Estado" class="form-label"></label>
+        <select asp-for="EnderecoViewModel.Estado" class="form-select">
+            <option selected disabled>-Selecine um estado-</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
         </select>
+        <span asp-validation-for="EnderecoViewModel.Estado" class="text-danger"></span>
     </div>
     <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
-        <label for="exampleFormControlInput1" class="form-label">Municipio</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <label asp-for="EnderecoViewModel.Municipio" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Municipio" class="form-control">
+        <span asp-validation-for="EnderecoViewModel.Municipio" class="text-danger"></span>
     </div>
 </div>

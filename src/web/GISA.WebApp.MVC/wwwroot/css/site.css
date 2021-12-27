@@ -72,6 +72,13 @@ body {
     line-height: 60px;
 }
 
+label {
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+    font-weight: 600;
+    color: #565d67;
+}
+
 .ml-10 {
     margin-left: 10px;
 }

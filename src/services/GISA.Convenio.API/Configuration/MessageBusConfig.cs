@@ -12,8 +12,7 @@ namespace GISA.Convenio.API.Configuration
             IConfiguration configuration)
         {
             services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
-                .AddHostedService<RegistroConvenioIntegration>()
-                .AddHostedService<AtualizarConvenioIntegration>();
+                .AddHostedService<RegistrarAtualizarConvenioIntegration>();
         }
     }
 }
