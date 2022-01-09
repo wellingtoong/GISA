@@ -49,28 +49,28 @@ namespace GISA.MessageBus
         }
 
         public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessage
+            where TResponse : ResponseMessageDefault
         {
             TryConnect();
             return _bus.Request<TRequest, TResponse>(request);
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessage
+            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
         {
             TryConnect();
             return await _bus.RequestAsync<TRequest, TResponse>(request);
         }
 
         public IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessage
+            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
         {
             TryConnect();
             return _bus.Respond(responder);
         }
 
         public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessage
+            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
         {
             TryConnect();
             return _bus.RespondAsync(responder);

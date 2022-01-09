@@ -16,7 +16,7 @@ namespace GISA.Convenio.API.Data.Migrations
                     RazaoSocial = table.Column<string>(type: "varchar(200)", nullable: false),
                     InscricaoMunicipal = table.Column<string>(type: "varchar(200)", nullable: true),
                     InscricaoEstadual = table.Column<string>(type: "varchar(200)", nullable: true),
-                    Cnpj = table.Column<string>(type: "varchar(14)", nullable: false),
+                    Cnpj = table.Column<string>(type: "varchar(18)", nullable: false),
                     Telefone = table.Column<string>(type: "varchar(20)", nullable: true),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Email = table.Column<string>(type: "varchar(150)", nullable: true),
@@ -32,7 +32,7 @@ namespace GISA.Convenio.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Cep = table.Column<string>(type: "varchar(8)", nullable: false),
+                    Cep = table.Column<string>(type: "varchar(9)", nullable: false),
                     Logradouro = table.Column<string>(type: "varchar(200)", nullable: false),
                     Numero = table.Column<string>(type: "varchar(50)", nullable: false),
                     Complemento = table.Column<string>(type: "varchar(200)", nullable: true),

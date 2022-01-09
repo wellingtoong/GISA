@@ -64,6 +64,25 @@ namespace GISA.Convenio.API.Controllers
             return CustomResponse(convenio);
         }
 
+        [HttpPost]
+        [Route("novo-registro")]
+        public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
+
+            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessageDefault>(_mapper.Map<Domain.Convenio>(convenioViewModel));
+
+            if (!result.Sucess)
+            {
+                AdicionarErroProcessamento("Não foi possível registrar o convenio. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(result);
+        }
+
         [HttpPut]
         [Route("atualizar-convenio")]
         public async Task<IActionResult> Atualizar(ConvenioViewModel convenioViewModel)
@@ -72,16 +91,15 @@ namespace GISA.Convenio.API.Controllers
 
             if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            var result = 
-                await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(_mapper.Map<Domain.Convenio>(convenioViewModel));
+            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessageDefault>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!result.Sucesso)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível atualizar o convenio. Tente novamente!");
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         [HttpPut]
@@ -101,25 +119,6 @@ namespace GISA.Convenio.API.Controllers
             }
 
             return CustomResponse();
-        }
-
-        [HttpPost]
-        [Route("novo-registro")]
-        public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
-
-            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessage>(_mapper.Map<Domain.Convenio>(convenioViewModel));
-
-            if (!result.Sucesso)
-            {
-                AdicionarErroProcessamento("Não foi possível registrar o convenio. Tente novamente!");
-                return CustomResponse();
-            }
-
-            return CustomResponse(result);
         }
 
         private bool EmailValido(string email)

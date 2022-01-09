@@ -21,18 +21,18 @@ namespace GISA.MessageBus
 
         TResponse Request<TRequest, TResponse>(TRequest request)
             where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessage;
+            where TResponse : ResponseMessageDefault;
 
         Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
             where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessage;
+            where TResponse : ResponseMessageDefault;
 
         IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
             where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessage;
+            where TResponse : ResponseMessageDefault;
 
         IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
             where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessage;
+            where TResponse : ResponseMessageDefault;
     }
 }

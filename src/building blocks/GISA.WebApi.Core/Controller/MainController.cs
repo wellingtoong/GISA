@@ -32,16 +32,6 @@ namespace GISA.WebAPI.Core.Controllers
             return CustomResponse();
         }
 
-        protected ActionResult CustomResponse(ValidationResult validationResult)
-        {
-            foreach (var erro in validationResult.Errors)
-            {
-                AdicionarErroProcessamento(erro.ErrorMessage);
-            }
-
-            return CustomResponse();
-        }
-
         protected bool OperacaoValida() => !Erros.Any();
 
         protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);

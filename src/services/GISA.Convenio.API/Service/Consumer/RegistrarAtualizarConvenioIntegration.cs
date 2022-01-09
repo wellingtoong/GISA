@@ -24,7 +24,7 @@ namespace GISA.Convenio.API.Services.Consumer
 
         private void SetResponder()
         {
-            _bus.RespondAsync<Domain.Convenio, ResponseMessage>(async request =>
+            _bus.RespondAsync<Domain.Convenio, ResponseMessageDefault>(async request =>
                 await ConsumerRegistrarAtualizarConvenio(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
@@ -38,7 +38,7 @@ namespace GISA.Convenio.API.Services.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessage> ConsumerRegistrarAtualizarConvenio(Domain.Convenio convenio)
+        private async Task<ResponseMessageDefault> ConsumerRegistrarAtualizarConvenio(Domain.Convenio convenio)
         {
             bool sucesso = false;
 
@@ -46,7 +46,7 @@ namespace GISA.Convenio.API.Services.Consumer
             {
                 var _convenioRepository = scope.ServiceProvider.GetRequiredService<IConvenioRepository>();
 
-                if (convenio.Id == null)
+                if (convenio.Id == null || convenio.Id == Guid.Empty)
                 {
                     sucesso = await _convenioRepository.Adicionar(convenio);
                 }
@@ -56,7 +56,7 @@ namespace GISA.Convenio.API.Services.Consumer
                 }
             }
 
-            return new ResponseMessage(sucesso);
+            return new ResponseMessageDefault() { Sucess = sucesso };
         }
     }
 }

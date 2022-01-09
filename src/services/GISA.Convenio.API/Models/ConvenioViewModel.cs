@@ -7,7 +7,7 @@ namespace GISA.Convenio.API.Models
     public class ConvenioViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [DisplayName("Nome Fantasia")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
@@ -27,7 +27,7 @@ namespace GISA.Convenio.API.Models
         public string InscricaoEstadual { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [MaxLength(14, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
+        [MaxLength(18, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
         public string Cnpj { get; set; }
 
         [MaxLength(20, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
