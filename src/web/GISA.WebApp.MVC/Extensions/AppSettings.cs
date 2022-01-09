@@ -4,5 +4,6 @@
     {
         public string AutenticacaoUrl { get; set; }
         public string ConvenioUrl { get; set; }
+        public string PessoaUrl { get; set; }
     }
 }

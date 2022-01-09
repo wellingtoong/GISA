@@ -26,7 +26,7 @@
             <div class="card-body">
                 <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos clientes ou voltar a página inicial</span>
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary ml-10" data-bs-toggle="modal" data-bs-target="#novo_admin">Novo cliente</button>
+                    <a class="btn btn-primary" asp-action="Registrar">Novo Cliente</a>
                     <button type="button" class="btn btn-light ml-10">Voltar</button>
                 </div>
             </div>
@@ -39,125 +39,92 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <!-- Componente - DataTable -->
-        <table id="example" class="table table-striped table-bordered" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>Usuário</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Categoria</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>wellingtoong</td>
-                    <td>Wellington Gonzalez</td>
-                    <td>wellington.gonzalez@hotmail.com</td>
-                    <td>Administrador</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                </tr>
-                <tr>
-                    <td>bruna.gabriela</td>
-                    <td>Bruna Gabriela</td>
-                    <td>bruna.gabriela.pereira98@gmail.com</td>
-                    <td>Médica</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                </tr>
-                <tr>
-                    <td>maa.caroline</td>
-                    <td>Mariane Carolina Santos Gonzalez</td>
-                    <td>mariane.gonzalez@hotmail.com</td>
-                    <td>Funcionário</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                </tr>
-                <tr>
-                    <td>gustavo.santos</td>
-                    <td>Gustavo Santos Pereira</td>
-                    <td>gustanvo.santos@hotmail.com</td>
-                    <td>Funcionário</td>
-                    <td><span class="badge bg-danger">Inativo</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-@*Modal - cadastro configurações*@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="modal fade" id="novo_admin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title title-modal" id="exampleModalLabel">Cadastro de Convênio</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-
-                                <vc:Summary></vc:Summary>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <label for="exampleFormControlInput1" class="form-label">Nome Completo</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Confirmação de senha</label>
-                                        <input type="password" class="form-control" id="exampleFormControlInput1">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-2 col-lg-3">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Ativo</label>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br />
-                                <div class="row">
-                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                                        <button type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="modal">Sair</button>
-                                        <button type="button" class="btn btn-primary float-end">Salvar</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="listaPessoa"></div>
     </div>
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#example').DataTable({
-                "language": {
-                    "url": '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json'
-                }
-            });
+            // Obter todas pessoas
+            function ObterTodasPessoas() {
+                $.ajax({
+                    url: '/pessoa/obter-todos',
+                    type: 'GET',
+                    success: function (result) {
+                        var listaPessoas = [];
+
+                        result.forEach(function (item, index, arr) {
+                            var status = (item.ativo == true)
+                                ? "<td><span class='badge bg-success'>Ativo</span></td>"
+                                : "<td><span class='badge bg-danger'>Inativo</span></td>"
+
+                            var obj = {
+                                id: item.id,
+                                nome: item.nomeCompleto,
+                                cidade: item.enderecoViewModel.municipio,
+                                endereco: item.enderecoViewModel.logradouro,
+                                telefone: item.telefone,
+                                tipoPessoa: item.tipoPessoaEnum,
+                                status: status,
+                                acao: '<a class="btn btn-danger btn-sm" onclick="EditarPessoa(\'' + item.id + '\');"></a>'
+                            }
+
+                            listaPessoas.push(obj);
+                        });
+
+                        CarregarTabelaPessoa(listaPessoas);
+                    },
+                    error: function (err) {
+                        console.log('error', err)
+                    }
+                });
+            }
+
+            function CarregarTabelaPessoa(data) {
+                console.log('>> Listando data', data)
+
+                $('#example').DataTable({
+                    processing: true,
+                    data: data,
+                    columns: [
+                        { data: "nome" },
+                        { data: "cidade" },
+                        { data: "endereco" },
+                        { data: "telefone" },
+                        { data: "tipoPessoa" },
+                        { data: "status" },
+                        { data: "acao" }
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json',
+                        processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
+                    }
+                });
+            }
+
+            // Inicializando criação data table pessoa
+            var pessoa = {}
+            pessoa.template = {
+                tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Cidade</th>
+                                        <th>Endereço</th>
+                                        <th>Telefone</th>
+                                        <th>Tipo</th>
+                                        <th>Status</th>
+                                        <th>Acao</th>
+                                    </tr>
+                                </thead>
+                            </table>`
+            }
+
+            $('#listaPessoa').html('');
+            $('#listaPessoa').append(pessoa.template.tabela);
+
+            ObterTodasPessoas();
         });
     </script>
 }

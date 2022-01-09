@@ -36,6 +36,5 @@ namespace GISA.Pessoa.API.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [MaxLength(200, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
         public string Municipio { get; set; }
-
     }
 }

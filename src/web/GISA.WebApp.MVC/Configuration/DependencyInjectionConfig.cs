@@ -14,6 +14,7 @@ namespace GISA.WebApp.MVC.Configuration
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
+            services.AddHttpClient<IPessoaService, PessoaService>();
 
             services.AddHttpClient<IConvenioService, ConvenioService>()
               .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();

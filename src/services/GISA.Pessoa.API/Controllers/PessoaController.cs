@@ -58,7 +58,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-convenio/{id:guid}")]
+        [Route("atualizar-pessoa/{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
