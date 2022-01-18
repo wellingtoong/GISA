@@ -14,10 +14,12 @@ namespace GISA.WebApp.MVC.Configuration
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
-            services.AddHttpClient<IPessoaService, PessoaService>();
+
+            services.AddHttpClient<IPessoaService, PessoaService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IConvenioService, ConvenioService>()
-              .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();

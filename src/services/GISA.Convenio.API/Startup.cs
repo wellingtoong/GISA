@@ -1,9 +1,7 @@
 using GISA.Convenio.API.Configuration;
-using GISA.Convenio.API.Data;
 using GISA.WebApi.Core.Autenticacao;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

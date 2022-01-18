@@ -31,7 +31,7 @@ namespace GISA.Pessoa.API.Data.Migrations
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("varchar(8)");
+                        .HasColumnType("varchar(9)");
 
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(200)");

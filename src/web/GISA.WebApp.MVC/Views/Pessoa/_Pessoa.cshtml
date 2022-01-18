@@ -27,11 +27,19 @@
 </div>
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
+    <div class="mb-3 col-sm-12 col-md-3 col-lg-3">
+        <label asp-for="TipoPessoaEnum" class="form-label"></label>
+        <select asp-for="TipoPessoaEnum" class="form-select">
+            <option selected disabled>-selecine um tipo pessoa-</option>
+            <option value="0">Associado</option>
+            <option value="1">Colaborador</option>
+        </select>
+    </div>
+    <div class="mb-3 col-sm-12 col-md-3 col-lg-3">
         <label asp-for="Telefone" class="form-label"></label>
         <input asp-for="Telefone" type="text" class="form-control">
     </div>
-    <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
+    <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
         <label asp-for="Email" class="form-label"></label>
         <input asp-for="Email" type="text" class="form-control">
     </div>

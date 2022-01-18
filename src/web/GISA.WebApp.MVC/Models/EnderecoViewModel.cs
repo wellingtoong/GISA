@@ -7,7 +7,7 @@ namespace GISA.WebApp.MVC.Models
     public class EnderecoViewModel
     {
         [Key]
-        public Guid? Id { get; set; }
+        public Guid? Id { get; set; } = Guid.Empty;
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [MaxLength(9, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]

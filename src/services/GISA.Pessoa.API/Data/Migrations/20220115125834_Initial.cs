@@ -27,11 +27,45 @@ namespace GISA.Pessoa.API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlanoClientes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlanoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Acrescimo = table.Column<int>(type: "int", nullable: true),
+                    Desconto = table.Column<int>(type: "int", nullable: true),
+                    ValorFinal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanoClientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Planos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
+                    TipoPlanoEnum = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Planos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Enderecos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Cep = table.Column<string>(type: "varchar(8)", nullable: false),
+                    Cep = table.Column<string>(type: "varchar(9)", nullable: false),
                     Logradouro = table.Column<string>(type: "varchar(200)", nullable: false),
                     Numero = table.Column<string>(type: "varchar(50)", nullable: false),
                     Complemento = table.Column<string>(type: "varchar(200)", nullable: true),
@@ -62,6 +96,12 @@ namespace GISA.Pessoa.API.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Enderecos");
+
+            migrationBuilder.DropTable(
+                name: "PlanoClientes");
+
+            migrationBuilder.DropTable(
+                name: "Planos");
 
             migrationBuilder.DropTable(
                 name: "Pessoas");

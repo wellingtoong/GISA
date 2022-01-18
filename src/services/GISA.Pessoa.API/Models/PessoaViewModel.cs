@@ -1,5 +1,4 @@
-﻿using GISA.Pessoa.API.Enums;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,7 +7,7 @@ namespace GISA.Pessoa.API.Models
     public class PessoaViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [DisplayName("Nome Completo")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
@@ -33,7 +32,7 @@ namespace GISA.Pessoa.API.Models
 
         [DisplayName("Tipo Pessoa")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        public TipoPessoaEnum TipoPessoaEnum { get; set; }
+        public int TipoPessoaEnum { get; set; }
         
         public DateTime DataNascimento { get; set; }
         public EnderecoViewModel EnderecoViewModel { get; set; }

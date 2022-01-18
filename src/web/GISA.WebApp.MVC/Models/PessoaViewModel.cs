@@ -7,7 +7,7 @@ namespace GISA.WebApp.MVC.Models
     public class PessoaViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [DisplayName("Nome Completo")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]

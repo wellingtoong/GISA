@@ -7,7 +7,7 @@ namespace GISA.Pessoa.API.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
-
+        
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
         public DbSet<Domain.Endereco> Enderecos { get; set; }
         public DbSet<Domain.Plano> Planos { get; set; }

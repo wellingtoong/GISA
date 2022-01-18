@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20211107205739_Initial.cs" />
+    <Compile Remove="Data\Migrations\20211107205739_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211113133816_Plano.cs" />
+    <Compile Remove="Data\Migrations\20211113133816_Plano.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.cs" />
+    <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
@@ -23,7 +32,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GISA.Core\GISA.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 

@@ -11,7 +11,7 @@ namespace GISA.Pessoa.API.Data.Mappings
 
             builder.Property(e => e.Cep)
                 .IsRequired()
-                .HasColumnType("varchar(8)");
+                .HasColumnType("varchar(9)");
 
             builder.Property(e => e.Logradouro)
                 .IsRequired()

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using GISA.Core.DomainObjects;
+using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
+using GISA.Core.Messages.Integration;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,14 +19,17 @@ namespace GISA.Pessoa.API.Controllers
         private readonly IPessoaService _pessoaService;
         private readonly IPessoaRepository _pessoaRepository;
         private readonly IMapper _mapper;
+        private readonly IMessageBus _bus;
 
         public PessoaController(IPessoaService pessoaService,
                                 IPessoaRepository pessoaRepository,
-                                IMapper mapper)
+                                IMapper mapper,
+                                IMessageBus bus)
         {
             _pessoaService = pessoaService;
             _pessoaRepository = pessoaRepository;
             _mapper = mapper;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -68,6 +73,7 @@ namespace GISA.Pessoa.API.Controllers
             var pessoa = _mapper.Map<Domain.Pessoa>(pessoaViewModel);
 
             var result = await _pessoaService.Atualizar(id, pessoa);
+            //var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoa));
 
             if (!result)
             {
@@ -75,7 +81,7 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         [HttpPost]
@@ -87,6 +93,7 @@ namespace GISA.Pessoa.API.Controllers
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
             var result = await _pessoaRepository.Adicionar(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
+            //var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
             if (!result)
             {
@@ -94,7 +101,7 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         private bool EmailValido(string email)
