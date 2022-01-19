@@ -92,10 +92,10 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
-            var result = await _pessoaRepository.Adicionar(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
-            //var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
+            //var result = await _pessoaRepository.Adicionar(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
+            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível registrar a pessoa. Tente novamente!");
                 return CustomResponse();

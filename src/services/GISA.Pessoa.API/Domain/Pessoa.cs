@@ -16,7 +16,7 @@ namespace GISA.Pessoa.API.Domain
         public DateTime DataNascimento { get; private set; }
         public TipoPessoaEnum TipoPessoaEnum { get; private set; }
 
-        public Pessoa() { }
+        protected Pessoa() { }
 
         public Pessoa(string nomeCompleto, string rg, string cpf, bool ativo, Endereco endereco, TipoPessoaEnum tipoPessoaEnum)
         {
@@ -28,8 +28,8 @@ namespace GISA.Pessoa.API.Domain
             TipoPessoaEnum = tipoPessoaEnum;
         }
 
-        private void Ativar() => Ativo = true;
-        private void Desativar() => Ativo = false;
+        public void Ativar() => Ativo = true;
+        public void Desativar() => Ativo = false;
         public void AlterarEndereco(Endereco endereco) => Endereco = endereco;
     }
 }

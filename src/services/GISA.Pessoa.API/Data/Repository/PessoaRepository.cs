@@ -11,8 +11,7 @@ namespace GISA.Pessoa.API.Data.Repository
         public PessoaRepository(ApplicationDbContext context) : base(context) { }
 
         public async Task<Domain.Pessoa> ObterPessoaEnderecoPorId(Guid id) 
-            => await Db.Pessoas.AsNoTracking().Include(e => e.Endereco)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            => await Db.Pessoas.AsNoTracking().Include(e => e.Endereco).FirstOrDefaultAsync(p => p.Id == id);
 
         public async Task<Endereco> ObterEnderecoPorId(Guid id) => await Db.Enderecos.FindAsync(id);
 

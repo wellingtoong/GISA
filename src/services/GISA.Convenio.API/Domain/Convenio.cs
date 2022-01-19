@@ -16,7 +16,7 @@ namespace GISA.Convenio.API.Domain
         public virtual Endereco Endereco { get; private set; }
         public DateTime DataCadastro { get; private set; }
 
-        protected Convenio() { }
+        public Convenio() { }
 
         public Convenio(string nomeFantasia,
                         string razaoSocial,
