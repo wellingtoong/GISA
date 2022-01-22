@@ -72,7 +72,7 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         [HttpPost]
@@ -89,7 +89,7 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
     }
 }

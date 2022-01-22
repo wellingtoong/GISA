@@ -27,6 +27,7 @@
                     <a asp-action="Index" asp-controller="Agenda" class="nav_link"> <i class='bx bx-notepad nav_icon'></i> <span class="nav_name">Agendamentos</span> </a>
                     <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i> <span class="nav_name">Clientes</span></a>
                     <a asp-action="Index" asp-controller="Convenio" class="nav_link"> <i class='bx bx-briefcase nav_icon'></i> <span class="nav_name">Convênios</span> </a>
+                    <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i> <span class="nav_name">Planos</span></a>
                 </div>
             </div>
             <a asp-action="Index" asp-controller="Administrador" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Configurações</span> </a>
@@ -48,6 +49,10 @@
 
     <script type='text/javascript'>
         // Routers
+        function EditarPlano(id) {
+            window.location.href = `@Url.Action("Editar", "Plano")/${id}`;
+        }
+
         function EditarConvenio(id) {
             window.location.href = `@Url.Action("Editar", "Convenio")/${id}`;
         }

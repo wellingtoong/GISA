@@ -1,0 +1,51 @@
+﻿@model GISA.WebApp.MVC.Models.PlanoViewModel
+
+@{
+    ViewData["Title"] = "Clientes";
+    Layout = "_LayoutPrivate";
+}
+
+<!-- Título Page -->
+<div class="header title-page" id="header-management">
+    <h3 class="text-title-page">Registro de Planos</h3>
+</div>
+
+<!-- Informações sobre ações da página -->
+<div class="row pt-75">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-breadcrumb">
+                <li class="breadcrumb-item"><a chref="#">Início / Planos /</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form asp-action="Registrar" method="post">
+                <vc:Summary></vc:Summary>
+
+                <partial name="_Plano" />
+
+                <br />
+                <div class="row">
+                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                        <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
+                        <button type="submit" class="btn btn-primary float-end">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Valor').mask("#.##0,00", { reverse: true });
+        });
+    </script>
+}

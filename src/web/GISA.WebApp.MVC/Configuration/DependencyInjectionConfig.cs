@@ -21,6 +21,8 @@ namespace GISA.WebApp.MVC.Configuration
             services.AddHttpClient<IConvenioService, ConvenioService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
+            services.AddHttpClient<IPlanoService, PlanoService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
         }

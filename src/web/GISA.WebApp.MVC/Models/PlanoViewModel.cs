@@ -1,9 +1,8 @@
-﻿using GISA.Pessoa.API.Enums;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace GISA.Pessoa.API.Models
+namespace GISA.WebApp.MVC.Models
 {
     public class PlanoViewModel
     {
@@ -16,7 +15,7 @@ namespace GISA.Pessoa.API.Models
 
         [DisplayName("Participação")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        public TipoPlanoEnum TipoPlanoEnum { get; set; }
+        public int TipoPlanoEnum { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [MaxLength(200, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
