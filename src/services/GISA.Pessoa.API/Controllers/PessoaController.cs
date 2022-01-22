@@ -63,19 +63,16 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-pessoa/{id:guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
+        [Route("atualizar-pessoa")]
+        public async Task<IActionResult> Atualizar(PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
-            var pessoa = _mapper.Map<Domain.Pessoa>(pessoaViewModel);
+            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
-            var result = await _pessoaService.Atualizar(id, pessoa);
-            //var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoa));
-
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível atualizar a pessoa. Tente novamente!");
                 return CustomResponse();
@@ -92,7 +89,6 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
-            //var result = await _pessoaRepository.Adicionar(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
             var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
             if (!result.Sucess)

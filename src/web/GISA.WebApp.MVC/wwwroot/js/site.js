@@ -64,6 +64,13 @@
     });
 }
 
+function InicializaTooltip() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+}
+
 $(document).ready(function () {
     $("#msg_box").fadeOut(2500);
 });

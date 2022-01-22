@@ -18,13 +18,24 @@ namespace GISA.Pessoa.API.Domain
 
         protected Pessoa() { }
 
-        public Pessoa(string nomeCompleto, string rg, string cpf, bool ativo, Endereco endereco, TipoPessoaEnum tipoPessoaEnum)
+        public Pessoa(string nomeCompleto, 
+                      string rg, 
+                      string cpf,
+                      string telefone,
+                      bool ativo,
+                      Email email,
+                      DateTime dataNascimento,
+                      Endereco endereco, 
+                      TipoPessoaEnum tipoPessoaEnum)
         {
             NomeCompleto = nomeCompleto;
             Rg = rg;
             Cpf = cpf;
+            Telefone = telefone;
             Ativo = ativo;
             Endereco = endereco;
+            Email = email;
+            DataNascimento = dataNascimento;
             TipoPessoaEnum = tipoPessoaEnum;
         }
 

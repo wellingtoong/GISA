@@ -48,15 +48,7 @@ namespace GISA.Pessoa.API.Service.Consumer
 
                 if (pessoa.Id == null || pessoa.Id == Guid.Empty)
                 {
-                    try
-                    {
-                        sucesso = await _pessoaRepository.Adicionar(pessoa);
-                    }
-                    catch (Exception ex)
-                    {
-                        var test = ex.StackTrace;
-                        var teste1 = ex.Message;
-                    }                    
+                    sucesso = await _pessoaRepository.Adicionar(pessoa);
                 }
                 else
                 {

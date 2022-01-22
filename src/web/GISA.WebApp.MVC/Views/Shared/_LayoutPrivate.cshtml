@@ -47,7 +47,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script type='text/javascript'>
-
         // Routers
         function EditarConvenio(id) {
             window.location.href = `@Url.Action("Editar", "Convenio")/${id}`;
@@ -98,7 +97,9 @@
             linkColor.forEach(l => l.addEventListener('click', colorLink))
 
             // Your code to run since DOM is loaded and ready
-        });</script>
+        });
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
