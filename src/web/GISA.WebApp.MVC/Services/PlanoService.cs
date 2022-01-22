@@ -44,7 +44,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<PlanoViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/plano/obter-pessoas");
+            var response = await _httpClient.GetAsync("/api/plano/obter-planos");
 
             TratarErrosResponse(response);
 

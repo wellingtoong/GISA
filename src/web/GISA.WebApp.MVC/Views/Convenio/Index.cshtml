@@ -57,8 +57,8 @@
 
                         result.forEach(function (item, index, arr) {
                             var status = (item.ativo == true)
-                                ? "<td><span class='badge bg-success'>Ativo</span></td>"
-                                : "<td><span class='badge bg-danger'>Inativo</span></td>"
+                                ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
+                                : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
 
                             var obj = {
                                 id: item.id,
@@ -67,7 +67,7 @@
                                 endereco: item.enderecoViewModel.logradouro,
                                 telefone: item.telefone,
                                 status: status,
-                                acao: '<a class="btn btn-danger btn-sm" onclick="EditarConvenio(\'' + item.id + '\');"></a>'
+                                acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarConvenio(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
                             }
 
                             listaConvenios.push(obj);
