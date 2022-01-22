@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using GISA.Core.Messages.Integration;
+using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
@@ -16,14 +18,17 @@ namespace GISA.Pessoa.API.Controllers
         private readonly IPlanoService _planoService;
         private readonly IPlanoRepository _planoRepository;
         private readonly IMapper _mapper;
+        private readonly IMessageBus _bus;
 
         public PlanoController(IPlanoService planoService,
                                IPlanoRepository planoRepository,
-                               IMapper mapper)
+                               IMapper mapper,
+                               IMessageBus bus)
         {
             _planoService = planoService;
             _planoRepository = planoRepository;
             _mapper = mapper;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -62,11 +67,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var plano = _mapper.Map<Domain.Plano>(planoViewModel);
+            var result = await _bus.RequestAsync<Domain.Plano, ResponseMessageDefault>(_mapper.Map<Domain.Plano>(planoViewModel));
 
-            var result = await _planoService.Atualizar(plano);
-
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível atualizar o plano. Tente novamente!");
                 return CustomResponse();
@@ -81,9 +84,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _planoRepository.Adicionar(_mapper.Map<Domain.Plano>(planoViewModel));
+            var result = await _bus.RequestAsync<Domain.Plano, ResponseMessageDefault>(_mapper.Map<Domain.Plano>(planoViewModel));
 
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível registrar o plano. Tente novamente!");
                 return CustomResponse();
