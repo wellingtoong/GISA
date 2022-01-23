@@ -28,19 +28,41 @@
             <form asp-action="Atualizar" method="post">
                 <vc:Summary></vc:Summary>
 
-                <partial name="_Pessoa" />
+                <div class="bd-callout bd-callout-default">
+                    <h4 class="text-title-info">Dados Pessoais</h4>
+                    <hr />
 
-                <h4 class="text-title-info">Endereço</h4>
-                <hr />
-                <partial name="_Endereco" />
+                    <partial name="_Pessoa" />
+                </div>
+
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <h4 class="text-title-info">Endereço</h4>
+                                <hr />
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <partial name="_Endereco" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <partial name="_VinculoPlano" />
 
                 <br />
                 <div class="row">
                     <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Adicionar Plano</button>
+
                         <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
                         <button type="submit" class="btn btn-primary float-end">Salvar</button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -50,12 +72,52 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            function ObterPlanos() {
+                $.ajax({
+                    url: '/plano/obter-todos',
+                    type: 'GET',
+                    success: function (result) {
+                        var listaPlanoAtivo = result.filter(p => p.ativo == true);
+
+                        $.each(listaPlanoAtivo, function (i, d) {
+                            $('<option>').val(d.id).text(d.nome).appendTo($('#ddlPlano'));
+                        });
+
+                        SetLocalStorage(listaPlanoAtivo);
+                    },
+                    error: function (err) {
+                        console.log('error', err)
+                    }
+                });
+            }
+
+            function SetLocalStorage(plano) {
+                window.localStorage.removeItem('plano');
+                window.localStorage.setItem('plano', JSON.stringify(plano));
+            }
+
+            function GetLocalStorage(){
+                return JSON.parse(window.localStorage.getItem('plano'));
+            }
+
+            function SetValorPlano() {
+                $("#ddlPlano").change(function () {
+                    var listaPlano = GetLocalStorage();
+                    var item = listaPlano.filter(p => p.id == $(this).val());
+
+                    $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
+                });
+            }
+
             $('#Telefone').mask('(00) 0000-0000');
             $('#DataNascimento').mask('00/00/0000');
             $('#Cpf').mask('000.000.000-00', { reverse: true });
             $('#Rg').mask('00.000.000-0', { reverse: true });
             $('#EnderecoViewModel_Cep').mask('00000-000');
+
+            SetValorPlano();
+            ObterPlanos();
+            BuscaCep();
         });
-        BuscaCep();
     </script>
 }

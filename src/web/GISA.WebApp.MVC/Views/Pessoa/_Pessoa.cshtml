@@ -4,30 +4,18 @@
 <input type="hidden" asp-for="EnderecoViewModel.Id" />
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
+    <div class="mb-3 col-sm-12 col-md-10 col-lg-10">
         <label asp-for="NomeCompleto" class="form-label"></label>
         <input asp-for="NomeCompleto" type="text" class="form-control">
     </div>
-    <div class="mb-3 col-sm-12 col-md-4 col-lg-4">
+    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
         <label asp-for="DataNascimento" class="form-label"></label>
         <input asp-for="DataNascimento" type="text" class="form-control">
     </div>
 </div>
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-        <label asp-for="Rg" class="form-label"></label>
-        <input asp-for="Rg" type="text" class="form-control">
-    </div>
-
-    <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-        <label asp-for="Cpf" class="form-label"></label>
-        <input asp-for="Cpf" type="text" class="form-control">
-    </div>
-</div>
-
-<div class="row">
-    <div class="mb-3 col-sm-12 col-md-3 col-lg-3">
+    <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
         <label asp-for="TipoPessoaEnum" class="form-label"></label>
         <select asp-for="TipoPessoaEnum" class="form-select">
             <option selected disabled>-selecine um tipo pessoa-</option>
@@ -35,11 +23,23 @@
             <option value="1">Colaborador</option>
         </select>
     </div>
-    <div class="mb-3 col-sm-12 col-md-3 col-lg-3">
+    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
+        <label asp-for="Rg" class="form-label"></label>
+        <input asp-for="Rg" type="text" class="form-control">
+    </div>
+
+    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
+        <label asp-for="Cpf" class="form-label"></label>
+        <input asp-for="Cpf" type="text" class="form-control">
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
         <label asp-for="Telefone" class="form-label"></label>
         <input asp-for="Telefone" type="text" class="form-control">
     </div>
-    <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+    <div class="mb-3 col-sm-12 col-md-10 col-lg-10">
         <label asp-for="Email" class="form-label"></label>
         <input asp-for="Email" type="text" class="form-control">
     </div>
