@@ -44,8 +44,18 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            $('#Valor').mask("#.##0,00", { reverse: true });
-        });
+        var plano = {}
+
+        plano.eventos = {
+
+            init: () => {
+
+                $('#Valor').mask("#.##0,00", { reverse: true });
+
+            }
+
+        }
+
+        plano.eventos.init();
     </script>
 }
