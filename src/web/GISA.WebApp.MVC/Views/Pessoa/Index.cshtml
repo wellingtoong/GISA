@@ -45,50 +45,82 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            // Obter todas pessoas
-            function ObterTodasPessoas() {
-                $.ajax({
-                    url: '/pessoa/obter-todos',
-                    type: 'GET',
-                    success: function (result) {
-                        var listaPessoas = [];
+        var pessoa = {}
 
-                        result.forEach(function (item, index, arr) {
+        pessoa.eventos = {
+
+            init: () => {
+
+                pessoa.template = {
+                    tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Cidade</th>
+                                            <th>Endereço</th>
+                                            <th>Telefone</th>
+                                            <th>Tipo</th>
+                                            <th>Status</th>
+                                            <th>Acao</th>
+                                        </tr>
+                                    </thead>
+                                </table>`
+                }
+
+                $('#listaPessoa').html('');
+                $('#listaPessoa').append(pessoa.template.tabela);
+
+                pessoa.metodos.obterPessoas();
+            }
+
+        }
+
+        pessoa.metodos = {
+
+            obterPessoas: () => {
+
+                app.metodos.get('/pessoa/obter-todos',
+                    (response) => {
+                        var pessoas = [];
+
+                        response.forEach(function (item, index, arr) {
                             var status = (item.ativo == true)
                                 ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
                                 : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
 
-                            var tipoPessoa = item.tipoPessoaEnum == 0 ? "Associado" : "Colaborador";
+                            var pessoa = item.tipoPessoaEnum == 0 ? "Associado" : "Colaborador";
 
-                            var obj = {
+                            var dado = {
                                 id: item.id,
                                 nome: item.nomeCompleto,
                                 cidade: item.enderecoViewModel.municipio,
                                 endereco: item.enderecoViewModel.logradouro,
                                 telefone: item.telefone,
-                                tipoPessoa: tipoPessoa,
+                                tipoPessoa: pessoa,
                                 status: status,
                                 acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
                             }
 
-                            listaPessoas.push(obj);
+                            pessoas.push(dado);
                         });
 
-                        CarregarTabelaPessoa(listaPessoas);
-                    },
-                    error: function (err) {
-                        console.log('error', err)
-                    }
-                });
-            }
+                        pessoa.metodos.carregarTabela(pessoas);
 
-            function CarregarTabelaPessoa(data) {
-                console.log('>> Listando data', data)
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+            carregarTabela: (pessoas) => {
 
                 $('#example').DataTable({
                     processing: true,
-                    data: data,
+                    data: pessoas,
                     columns: [
                         { data: "nome" },
                         { data: "cidade" },
@@ -103,30 +135,11 @@
                         processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
                     }
                 });
+
             }
 
-            // Inicializando criação data table pessoa
-            var pessoa = {}
-            pessoa.template = {
-                tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Cidade</th>
-                                            <th>Endereço</th>
-                                            <th>Telefone</th>
-                                            <th>Tipo</th>
-                                            <th>Status</th>
-                                            <th>Acao</th>
-                                        </tr>
-                                    </thead>
-                                </table>`
-            }
+        }
 
-            $('#listaPessoa').html('');
-            $('#listaPessoa').append(pessoa.template.tabela);
-
-            ObterTodasPessoas();
-        });
+        pessoa.eventos.init();
     </script>
 }

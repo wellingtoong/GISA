@@ -48,13 +48,24 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            $('#Telefone').mask('(00) 0000-0000');
-            $('#DataNascimento').mask('00/00/0000');
-            $('#Cpf').mask('000.000.000-00', { reverse: true });
-            $('#Rg').mask('00.000.000-0', { reverse: true });
-            $('#EnderecoViewModel_Cep').mask('00000-000');
-        });
-        BuscaCep();
+        var pessoa = {}
+
+        pessoa.eventos = {
+
+            init: () => {
+
+                $('#Telefone').mask('(00) 0000-0000');
+                $('#DataNascimento').mask('00/00/0000');
+                $('#Cpf').mask('000.000.000-00', { reverse: true });
+                $('#Rg').mask('00.000.000-0', { reverse: true });
+                $('#EnderecoViewModel_Cep').mask('00000-000');
+
+                app.metodos.buscarCep();
+
+            }
+
+        }
+
+        pessoa.eventos.init();
     </script>
 }
