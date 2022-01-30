@@ -1,32 +1,25 @@
-﻿@model GISA.WebApp.MVC.Models.PessoaViewModel
-
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+﻿<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h4 class="text-title-info">Gestão de Plano Pessoa</h4>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
 
+        <div id="msg_box_offcanvas"></div>
+
+        <input id="txtIdPlanoCliente" type="hidden">
+
         <div class="row">
             <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label asp-for="TipoPessoaEnum" class="form-label"></label>
-                @{
-                    if (Model.TipoPessoaEnum == 0)
-                    {
-                        <input type="text" disabled readonly class="form-control" value="Associado">
-                    }
-                    else if (Model.TipoPessoaEnum == 1)
-                    {
-                        <input type="text" disabled readonly class="form-control" value="Colaborador">
-                    }
-                }
+                <label class="form-label">TIPO PESSOA</label>
+                <input id="txtTipoPessoa" type="text" disabled readonly class="form-control">
             </div>
         </div>
 
         <div class="row">
             <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label asp-for="NomeCompleto" class="form-label"></label>
-                <input asp-for="NomeCompleto" type="text" class="form-control" disabled readonly>
+                <label class="form-label">NOME COMPLETO</label>
+                <input id="txtNomeCompleto" type="text" class="form-control" disabled readonly>
             </div>
         </div>
 
@@ -51,7 +44,7 @@
             <label class="form-label">Desconto</label>
             <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <span class="input-group-text">(%)</span>
-                <input id="txtDesconto" type="text" class="form-control" placeholder="10.00%">
+                <input id="txtDesconto" type="text" class="form-control" placeholder="10.00%" onkeypress="return app.metodos.onlynumber();">
             </div>
             <label class="form-label">Valor Final</label>
             <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -60,15 +53,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="offcanvas" aria-label="Close">Voltar</button>
-        <button type="submit" class="btn btn-primary float-end">Salvar</button>
+        <button id="btnPlanoPessoaVoltar" type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="offcanvas" aria-label="Close">Voltar</button>
+        <button id="btnPlanoPessoa" type="button" class="btn btn-primary float-end" onclick="EnviarPlanoPessoa()">Salvar</button>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#Valor').mask("#.##0,00", { reverse: true });
-        });
-    </script>
-}

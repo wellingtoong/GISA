@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using GISA.Core.Messages.Integration;
+using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
@@ -17,16 +19,19 @@ namespace GISA.Pessoa.API.Controllers
         private readonly IPlanoClienteRepository _planoClienteRepository;
         private readonly IPlanoRepository _planoRepository;
         private readonly IMapper _mapper;
+        private readonly IMessageBus _bus;
 
         public PlanoClienteController(IPlanoClienteService planoClienteService,
             IPlanoClienteRepository planoClienteRepository,
             IPlanoRepository planoRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IMessageBus bus)
         {
             _planoClienteService = planoClienteService;
             _planoClienteRepository = planoClienteRepository;
             _planoRepository = planoRepository;
             _mapper = mapper;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -45,8 +50,23 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
+        [Route("obter-plano-cliente-pessoa/{id:guid}")]
+        public async Task<IActionResult> ObterPlanoPessoaPorPessoaId(Guid id)
+        {
+            var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPlanoClientePorPessoaId(id));
+
+            if (planoCliente == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter o plano cliente. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(planoCliente);
+        }
+
+        [HttpGet]
         [Route("obter-plano-cliente/{id:guid}")]
-        public async Task<IActionResult> ObterPessoaPorId(Guid id)
+        public async Task<IActionResult> Editar(Guid id)
         {
             var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPorId(id));
 
@@ -60,7 +80,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-plano-cliente/{id:guid}")]
+        [Route("atualizar-plano-cliente")]
         public async Task<IActionResult> Atualizar(Guid id, PlanoClienteViewModel planoClienteViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -70,17 +90,15 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!OperacaoValida()) return CustomResponse();
 
-            var planoCliente = _mapper.Map<Domain.PlanoCliente>(planoClienteViewModel);
+            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseMessageDefault>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
 
-            var result = await _planoClienteService.Atualizar(id, planoCliente);
-
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível atualizar o plano cliente. Tente novamente!");
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         [HttpPost]
@@ -102,20 +120,17 @@ namespace GISA.Pessoa.API.Controllers
                 return CustomResponse();
             }
 
-            CalcularValorAcrescimo(planoClienteViewModel, plano.Valor);
             CalcularValorDesconto(planoClienteViewModel, plano.Valor);
 
-            return CustomResponse();
+            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseMessageDefault>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
 
-            var result = await _planoClienteRepository.Adicionar(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
-
-            if (!result)
+            if (!result.Sucess)
             {
                 AdicionarErroProcessamento("Não foi possível registrar o plano 2wcliente. Tente novamente!");
                 return CustomResponse();
             }
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         private async Task ValidaCliente(PlanoClienteViewModel planoClienteViewModel)
@@ -138,37 +153,14 @@ namespace GISA.Pessoa.API.Controllers
             }
         }
 
-        private void CalcularValorAcrescimo(PlanoClienteViewModel plano, decimal valor)
-        {
-            decimal acrescimo = 0;
-            decimal porcentagem = 0;
-            decimal valorFinal = plano.ValorFinal;
-
-            if (plano.Acrescimo.HasValue)
-            {
-                porcentagem = plano.Acrescimo.Value / 100;
-                acrescimo = valor * porcentagem;
-            }
-
-            decimal total = (valor + acrescimo) + valorFinal;
-            plano.ValorFinal = valorFinal < 0 ? 0 : total;
-        }
-
         private void CalcularValorDesconto(PlanoClienteViewModel plano, decimal valor)
         {
-            decimal desconto = 0;
-            decimal porcentagem = 0;
-            decimal valorFinal = plano.ValorFinal;
-
             if (plano.Desconto.HasValue)
             {
-                porcentagem = (valor * plano.Desconto.Value) / 100;
-                desconto = valor -= porcentagem;
+                decimal desconto = (valor * plano.Desconto.Value) / 100;
+                var valorFinal = valor - desconto;
+                plano.ValorFinal = valorFinal > 0 ? valorFinal : 0;
             }
-
-            decimal total = (valor - desconto) + valorFinal;
-            decimal dif = valorFinal - total;
-            plano.ValorFinal = valorFinal < 0 ? 0 : (total + dif);
         }
     }
 }

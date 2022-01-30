@@ -8,5 +8,6 @@ namespace GISA.Pessoa.API.Data.Repository
     {
         Task<bool> PessoaAtivo(Guid id);
         Task<bool> PlanoAtivo(Guid id);
+        Task<Domain.PlanoCliente> ObterPlanoClientePorPessoaId(Guid id);
     }
 }

@@ -50,74 +50,168 @@
                         </div>
                     </div>
                 </div>
-
-                <partial name="_VinculoPlano" />
-
-                <br />
-                <div class="row">
-                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Adicionar Plano</button>
-
-                        <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
-                        <button type="submit" class="btn btn-primary float-end">Salvar</button>
-                    </div>
-                </div>
-
             </form>
+
+            @{
+                if (Model.Ativo)
+                {
+                    <vc:Summary></vc:Summary>
+                    <partial name="_VinculoPlano" />
+                }
+            }
+
+            <br />
+            <div class="row">
+                <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                    @{
+                        if (Model.Ativo)
+                        {
+                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Adicionar Plano</button>
+                        }
+                    }
+                    <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
+                    <button type="submit" class="btn btn-primary float-end">Salvar</button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
 
-
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            function ObterPlanos() {
-                $.ajax({
-                    url: '/plano/obter-todos',
-                    type: 'GET',
-                    success: function (result) {
-                        var listaPlanoAtivo = result.filter(p => p.ativo == true);
+        var plano = {}
 
-                        $.each(listaPlanoAtivo, function (i, d) {
+        plano.eventos = {
+
+            init: () => {
+
+                $('#Telefone').mask('(00) 0000-0000');
+                $('#DataNascimento').mask('00/00/0000');
+                $('#Cpf').mask('000.000.000-00', { reverse: true });
+                $('#Rg').mask('00.000.000-0', { reverse: true });
+                $('#EnderecoViewModel_Cep').mask('00000-000');
+
+                if ($("#Ativo").is(":checked") == true) {
+
+                    $('#txtDesconto').mask('##0%', { reverse: true });
+                    $('#txtNomeCompleto').val($('#NomeCompleto').val());
+                    $('#txtTipoPessoa').val($('#TipoPessoaEnum option:selected').text());
+
+                    $("#ddlPlano").change(function () {
+                        var planos = app.metodos.getLocalStorage('plano');
+                        var item = planos.filter(p => p.id == $(this).val());
+
+                        $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
+                    });
+
+                    if ($('#Id').val() != '' && $('#Id').val() != null && $('#Id').val() != undefined)
+                        plano.metodos.obterPlanoPessoaPorIdPessoa($('#Id').val());
+                }
+
+                plano.metodos.obterPlanos();
+                app.metodos.buscarCep();
+            }
+
+        }
+
+        plano.metodos = {
+
+            obterPlanos: () => {
+
+                app.metodos.get('/plano/obter-todos',
+                    (response) => {
+                        var planos = response.filter(p => p.ativo == true);
+
+                        $.each(planos, function (i, d) {
                             $('<option>').val(d.id).text(d.nome).appendTo($('#ddlPlano'));
                         });
 
-                        SetLocalStorage(listaPlanoAtivo);
+                        app.metodos.setLocalStorage('plano', planos);
                     },
-                    error: function (err) {
-                        console.log('error', err)
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
                     }
-                });
-            }
+                )
 
-            function SetLocalStorage(plano) {
-                window.localStorage.removeItem('plano');
-                window.localStorage.setItem('plano', JSON.stringify(plano));
-            }
+            },
 
-            function GetLocalStorage(){
-                return JSON.parse(window.localStorage.getItem('plano'));
-            }
+            enviarPlanoPessoa: () => {
 
-            function SetValorPlano() {
-                $("#ddlPlano").change(function () {
-                    var listaPlano = GetLocalStorage();
-                    var item = listaPlano.filter(p => p.id == $(this).val());
+                var pessoaId = $('#Id').val();
+                var planoId = $('#ddlPlano').val();
+                var desconto = $('#txtDesconto').val().replace('%', '');
 
-                    $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
-                });
-            }
+                var dado = {
+                    id: app.metodos.newGuid(),
+                    pessoaId: pessoaId,
+                    planoId: planoId,
+                    desconto: desconto,
+                    valorFinal: 0
+                }
 
-            $('#Telefone').mask('(00) 0000-0000');
-            $('#DataNascimento').mask('00/00/0000');
-            $('#Cpf').mask('000.000.000-00', { reverse: true });
-            $('#Rg').mask('00.000.000-0', { reverse: true });
-            $('#EnderecoViewModel_Cep').mask('00000-000');
+                app.metodos.post('/plano-cliente/novo-plano', dado,
+                    (response) => {
 
-            SetValorPlano();
-            ObterPlanos();
-            BuscaCep();
-        });
+                        var sucesso = `<div style="padding-top: 15px"></div>
+                            <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+                                <div>
+                                    Plano vinculado com sucesso!
+                                </div>
+                            </div>`;
+
+                        $('#msg_box_offcanvas').append(sucesso);
+                        $("#msg_box_offcanvas").fadeOut(2000);
+
+                        setTimeout(() => { $('#btnPlanoPessoaVoltar').click() }, 2000)
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+
+                        var error = `<div style="padding-top: 15px;"></div>
+                            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                                <div>Algo deu errado! Verifique e tente novamente.</div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            </div>`;
+
+                        $('#msg_box_offcanvas').append(error);
+                        $("#msg_box_offcanvas").fadeOut(3500);
+                    }
+
+                )
+
+            },
+
+            obterPlanoPessoaPorIdPessoa: (idPessoa) => {
+
+                app.metodos.get(`/plano-cliente/obter-plano/${idPessoa}`,
+                    (response) => {
+                        var total = response.valorFinal + response.desconto;
+
+                        $('#ddlPlano').val(response.planoId);
+                        $('#txtValorPlano').val(total.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
+                        $('#txtDesconto').val(response.desconto);
+                        $('#txtValorFinal').val(response.valorFinal.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+        }
+
+        plano.eventos.init();
     </script>
 }

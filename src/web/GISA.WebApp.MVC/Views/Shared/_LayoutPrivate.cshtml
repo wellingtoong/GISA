@@ -48,6 +48,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script type='text/javascript'>
+        app.eventos.init();
+
         // Routers
         function EditarPlano(id) {
             window.location.href = `@Url.Action("Editar", "Plano")/${id}`;

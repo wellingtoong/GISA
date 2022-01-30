@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GISA.Pessoa.API.Models
+namespace GISA.WebApp.MVC.Models
 {
     public class PlanoClienteViewModel
     {
@@ -17,7 +17,7 @@ namespace GISA.Pessoa.API.Models
 
         public decimal? Desconto { get; set; }
 
-        public decimal ValorFinal { get; set; }
+        public decimal? ValorFinal { get; set; }
 
         public DateTime DataCadastro { get; set; }
     }

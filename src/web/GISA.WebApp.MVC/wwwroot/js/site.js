@@ -1,16 +1,60 @@
-﻿function BuscaCep() {
-    $(document).ready(function () {
+﻿var app = {}
 
-        function limpa_formulario_cep() {
-            // Limpa valores do formulário de cep.
-            $("#EnderecoViewModel_Cep").val("");
-            $("#EnderecoViewModel_Logradouro").val("");
-            $("#EnderecoViewModel_Numero").val("");
-            $("#EnderecoViewModel_Bairro").val("");
-            $("#EnderecoViewModel_Municipio").val("");
-            $("#EnderecoViewModel_Estado").val("");
+app.eventos = {
+
+    init: () => {
+
+        console.log('App init')
+
+        // $("#msg_box").fadeOut(2500);
+
+        setTimeout(() => {
+            app.metodos.initializeTooltip();
+        }, 3000)
+
+    }
+
+}
+
+app.metodos = {
+
+    // cria um novo guid
+    newGuid: () => { return '{00000000-0000-0000-0000-000000000000}' },
+
+    // seta um localstorage
+    setLocalStorage: (local, data) => {
+        window.localStorage.removeItem(local);
+        window.localStorage.setItem(local, JSON.stringify(data));
+    },
+
+    // pega um localstorage
+    getLocalStorage: (local) => {
+        return JSON.parse(window.localStorage.getItem(local));
+    },
+
+    // permite apenas números
+    onlynumber: (evt) => {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+
+        var regex = /^[0-9.]+$/;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
         }
+    },
 
+    // inicializa tooltips
+    initializeTooltip: () => {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    },
+
+    // busca ceps
+    buscarCep: () => {
         //Quando o campo cep perde o foco.
         $("#EnderecoViewModel_Cep").blur(function () {
 
@@ -45,32 +89,108 @@
                             } //end if.
                             else {
                                 //CEP pesquisado não foi encontrado.
-                                limpa_formulario_cep();
+                                app.metodos.limpaFormularioCep();
                                 //alert("CEP não encontrado.");
                             }
                         });
                 } //end if.
                 else {
                     //cep é inválido.
-                    limpa_formulario_cep();
+                    app.metodos.limpaFormularioCep();
                     //alert("Formato de CEP inválido.");
                 }
             } //end if.
             else {
                 //cep sem valor, limpa formulário.
-                limpa_formulario_cep();
+                app.metodos.limpaFormularioCep();
             }
         });
-    });
-}
+    },
 
-function InicializaTooltip() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-}
+    // limpa formulário de endereços
+    limpaFormularioCep: () => {
+        // Limpa valores do formulário de cep.
+        $("#EnderecoViewModel_Cep").val("");
+        $("#EnderecoViewModel_Logradouro").val("");
+        $("#EnderecoViewModel_Numero").val("");
+        $("#EnderecoViewModel_Bairro").val("");
+        $("#EnderecoViewModel_Municipio").val("");
+        $("#EnderecoViewModel_Estado").val("");
+    },
 
-$(document).ready(function () {
-    $("#msg_box").fadeOut(2500);
-});
+    // centraliza as chamadas de get
+    get: (url, callbackSuccess, callbackError) => {
+
+        try {
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: (response) => callbackSuccess(response),
+                error: (xhr, ajaxOptions, error) => {
+
+                    callbackError(xhr, ajaxOptions, error)
+                }
+            });
+
+        }
+        catch (ex) {
+            return callbackError(null, null, ex);
+        }
+
+    },
+
+    // centraliza as chamadas de post
+    post: (url, dados, callbackSuccess, callbackError) => {
+
+        try {
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                data: dados,
+                success: (response) => callbackSuccess(response),
+                error: (xhr, ajaxOptions, error) => {
+
+                    callbackError(xhr, ajaxOptions, error)
+                }
+            });
+
+        }
+        catch (ex) {
+            return callbackError(null, null, ex);
+        }
+
+    },
+
+    // centraliza as chamadas de put
+    put: (url, dados, callbackSuccess, callbackError) => {
+
+        try {
+            if (app.metodos.validaToken()) {
+
+                $.ajax({
+                    url: url,
+                    method: 'PUT',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    data: dados,
+                    success: (response) => callbackSuccess(response),
+                    error: (xhr, ajaxOptions, error) => {
+
+                        callbackError(xhr, ajaxOptions, error)
+                    }
+                });
+
+            }
+        }
+        catch (ex) {
+            return callbackError(null, null, ex);
+        }
+
+    },
+}

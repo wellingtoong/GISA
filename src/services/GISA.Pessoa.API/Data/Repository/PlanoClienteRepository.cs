@@ -25,5 +25,10 @@ namespace GISA.Pessoa.API.Data.Repository
 
             return true;
         }
+
+        public async Task<Domain.PlanoCliente> ObterPlanoClientePorPessoaId(Guid id)
+        {
+            return await Db.PlanoClientes.AsNoTracking().FirstOrDefaultAsync(c => c.PessoaId == id);
+        }
     }
 }

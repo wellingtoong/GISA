@@ -6,5 +6,6 @@
         public string ConvenioUrl { get; set; }
         public string PessoaUrl { get; set; }
         public string PlanoUrl { get; set; }
+        public string PlanoClienteUrl { get; set; }
     }
 }
