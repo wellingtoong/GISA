@@ -46,21 +46,49 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            // Obter todos convenios
-            function ObterTodosConvenios() {
-                $.ajax({
-                    url: '/convenio/obter-todos',
-                    type: 'GET',
-                    success: function (result) {
-                        var listaConvenios = [];
+        var convenio = {}
 
-                        result.forEach(function (item, index, arr) {
+        convenio.eventos = {
+
+            init: () => {
+
+                convenio.template = {
+                    tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Cidade</th>
+                                    <th>Endereço</th>
+                                    <th>Telefone.</th>
+                                    <th>Status</th>
+                                    <th>Acao</th>
+                                </tr>
+                            </thead>
+                        </table>`
+                }
+
+                $('#listaConvenio').html('');
+                $('#listaConvenio').append(convenio.template.tabela);
+
+                convenio.metodos.obterConvenios();
+            }
+
+        }
+
+        convenio.metodos = {
+
+            obterConvenios: () => {
+
+                app.metodos.get('/convenio/obter-todos',
+                    (response) => {
+                        var convenios = [];
+
+                        response.forEach(function (item, index, arr) {
                             var status = (item.ativo == true)
                                 ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
                                 : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
 
-                            var obj = {
+                            var dado = {
                                 id: item.id,
                                 nome: item.nomeFantasia,
                                 cidade: item.enderecoViewModel.municipio,
@@ -70,23 +98,26 @@
                                 acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarConvenio(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
                             }
 
-                            listaConvenios.push(obj);
+                            convenios.push(dado);
                         });
 
-                        CarregarTabelaConvenio(listaConvenios);
-                    },
-                    error: function (err) {
-                        console.log('error', err)
-                    }
-                });
-            }
+                        convenio.metodos.carregarTabela(convenios);
 
-            function CarregarTabelaConvenio(data) {
-                console.log('>> Listando data', data)
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+            carregarTabela: (convenios) => {
 
                 $('#example').DataTable({
                     processing: true,
-                    data: data,
+                    data: convenios,
                     columns: [
                         { data: "nome" },
                         { data: "cidade" },
@@ -100,29 +131,11 @@
                         processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
                     }
                 });
+
             }
 
-            // Inicializando criação data table convenio
-            var convenio = {}
-            convenio.template = {
-                tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Cidade</th>
-                                    <th>Endereço</th>
-                                    <th>Telefone.</th>
-                                    <th>Status</th>
-                                    <th>Acao</th>
-                                </tr>
-                            </thead>
-                        </table>`
-            }
+        }
 
-            $('#listaConvenio').html('');
-            $('#listaConvenio').append(convenio.template.tabela);
-
-            ObterTodosConvenios();
-        });
+        convenio.eventos.init();
     </script>
 }
