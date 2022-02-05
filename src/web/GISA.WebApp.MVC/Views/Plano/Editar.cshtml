@@ -26,17 +26,19 @@
 <div class="container">
     <div class="row">
         <div class="pt-40 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <form class="row g-3 needs-validation" novalidate  asp-action="Atualizar" method="post">
+            <form class="row g-3 needs-validation" novalidate asp-action="Atualizar" method="post">
                 <vc:Summary></vc:Summary>
 
-                <partial name="_Plano" />
+                <div class="bd-callout bd-callout-default">
+                    <h4 class="text-title-info">Dados do Plano</h4>
+                    <hr />
+                    <partial name="_Plano" />
+                </div>
 
-                <br />
-                <div class="row">
-                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-                        <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
-                        <button type="submit" class="btn btn-primary float-end">Salvar</button>
-                    </div>
+                <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                    <br />
+                    <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
+                    <button type="submit" class="btn btn-primary float-end">Salvar</button>
                 </div>
             </form>
         </div>
