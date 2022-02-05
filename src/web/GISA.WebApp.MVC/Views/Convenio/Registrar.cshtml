@@ -70,9 +70,9 @@
 
             init: () => {
 
-                $('#Telefone').mask('(00) 0000-0000');
-                $('#Cnpj').mask('00.000.000/0000-00', { reverse: true });
-                $('#EnderecoViewModel_Cep').mask('00000-000');
+                $('#Telefone').mask('(00) 0000-0000', { placeholder: "(  )    -    " });
+                $('#Cnpj').mask('00.000.000/0000-00', { placeholder: "  .   .   /    -  " });
+                $('#EnderecoViewModel_Cep').mask('00000-000', { placeholder: "     -   " });
 
                 var validade = "@ViewBag.ValidateForm";
                 app.metodos.initValidateForm(validade);
