@@ -51,7 +51,11 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("plano/novo-plano")]
         public async Task<IActionResult> Registrar(PlanoViewModel planoViewModel)
         {
-            if (!ModelState.IsValid) return View(planoViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View(planoViewModel);
+            }
 
             var result = await _planoService.Registrar(planoViewModel);
 
@@ -65,7 +69,11 @@ namespace GISA.WebApp.MVC.Controllers
 
         public async Task<IActionResult> Atualizar(Guid id, PlanoViewModel planoViewModel)
         {
-            if (!ModelState.IsValid) return View(planoViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View("Editar", planoViewModel);
+            }
 
             var result = await _planoService.Atualizar(planoViewModel);
 

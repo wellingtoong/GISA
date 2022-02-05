@@ -15,8 +15,9 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-breadcrumb">
-                <li class="breadcrumb-item"><a chref="#">Início / Planos /</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edição</li>
+                <li class="breadcrumb-item"><a asp-action="Index">Início</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index">Plano</a></li>
+                <li class="breadcrumb-item active" aria-current="page">/ Edição</li>
             </ol>
         </nav>
     </div>
@@ -24,8 +25,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <form asp-action="Atualizar" method="post">
+        <div class="pt-40 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form class="row g-3 needs-validation" novalidate  asp-action="Atualizar" method="post">
                 <vc:Summary></vc:Summary>
 
                 <partial name="_Plano" />
@@ -52,6 +53,9 @@
 
                 $('#Valor').mask("#.##0,00", { reverse: true });
 
+                var validade = "@ViewBag.ValidateForm";
+                console.log(validade);
+                app.metodos.initValidateForm(validade);
             }
 
         }

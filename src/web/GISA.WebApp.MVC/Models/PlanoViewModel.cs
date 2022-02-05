@@ -15,7 +15,7 @@ namespace GISA.WebApp.MVC.Models
 
         [DisplayName("Participação")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        public int TipoPlanoEnum { get; set; }
+        public int? TipoPlanoEnum { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [MaxLength(200, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
