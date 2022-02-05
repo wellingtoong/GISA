@@ -52,7 +52,11 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("convenio/novo-convenio")]
         public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
         {
-            if (!ModelState.IsValid) return View(convenioViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View(convenioViewModel);
+            }
 
             var result = await _convenioService.Registrar(convenioViewModel);
 
@@ -66,7 +70,11 @@ namespace GISA.WebApp.MVC.Controllers
 
         public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
         {
-            if (!ModelState.IsValid) return View(convenioViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View("Editar", convenioViewModel);
+            }
 
             var result = await _convenioService.Atualizar(convenioViewModel);
 
