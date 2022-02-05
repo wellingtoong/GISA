@@ -4,52 +4,76 @@
 <input type="hidden" asp-for="EnderecoViewModel.Id" />
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-10 col-lg-10">
-        <label asp-for="NomeCompleto" class="form-label"></label>
-        <input asp-for="NomeCompleto" type="text" class="form-control">
+    <div class="mb-3 position-relative col-sm-12 col-md-10 col-lg-10">
+        <label asp-for="NomeCompleto" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="NomeCompleto" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+        </div>
     </div>
-    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
         <label asp-for="DataNascimento" class="form-label"></label>
         <input asp-for="DataNascimento" type="text" class="form-control">
+        <div class="invalid-tooltip">
+            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-8 col-lg-8">
-        <label asp-for="TipoPessoaEnum" class="form-label"></label>
-        <select asp-for="TipoPessoaEnum" class="form-select">
-            <option selected disabled>-selecine um tipo pessoa-</option>
+    <div class="mb-3 position-relative col-sm-12 col-md-8 col-lg-8">
+        <label asp-for="TipoPessoaEnum" class="form-label"></label><span class="info-required"> *</span>
+        <select asp-for="TipoPessoaEnum" class="form-select" required>
+            <option selected disabled value="">-selecine um tipo pessoa-</option>
             <option value="0">Associado</option>
             <option value="1">Colaborador</option>
         </select>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="TipoPessoaEnum" class="text-danger"></span>
+        </div>
     </div>
-    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
         <label asp-for="Rg" class="form-label"></label>
         <input asp-for="Rg" type="text" class="form-control">
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Rg" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
-        <label asp-for="Cpf" class="form-label"></label>
-        <input asp-for="Cpf" type="text" class="form-control">
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
+        <label asp-for="Cpf" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="Cpf" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-2 col-lg-2">
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
         <label asp-for="Telefone" class="form-label"></label>
         <input asp-for="Telefone" type="text" class="form-control">
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Telefone" class="text-danger"></span>
+        </div>
     </div>
-    <div class="mb-3 col-sm-12 col-md-10 col-lg-10">
+    <div class="mb-3 position-relative col-sm-12 col-md-10 col-lg-10">
         <label asp-for="Email" class="form-label"></label>
         <input asp-for="Email" type="text" class="form-control">
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-        <label asp-for="Ativo" class="form-check-label"></label>
+    <div class="mb-3 position-relative col-sm-12 col-md-12 col-lg-12">
+        <label asp-for="Ativo" class="form-check-label"></label><span class="info-required"> *</span>
         <div class="form-check form-switch">
-            <input asp-for="Ativo" class="form-check-input" type="checkbox">
+            <input asp-for="Ativo" class="form-check-input" type="checkbox" required>
+        </div>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Ativo" class="text-danger"></span>
         </div>
     </div>
 </div>

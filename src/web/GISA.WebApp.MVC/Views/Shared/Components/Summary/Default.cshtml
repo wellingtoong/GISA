@@ -12,34 +12,35 @@
 
 @if (ViewData.ModelState.ErrorCount > 0)
 {
-    <div style="padding-top: 15px;"></div>
+    <div class="row">
+        <div id="msg_box" class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+            <div>Algo deu errado! Verifique e tente novamente.</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-        <div>Algo deu errado! Verifique e tente novamente.</div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
     </div>
 }
 
 @if (!string.IsNullOrEmpty(ViewBag.Sucesso))
 {
-    <div style="padding-top: 15px"></div>
-
-    <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-        <div id="msgRetorno">@ViewBag.Sucesso</div>
+    <div class="row">
+        <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+            <div id="msgRetorno">@ViewBag.Sucesso</div>
+        </div>
     </div>
 }
 
 @if (TempData["Sucesso"] != null)
 {
-    <div style="padding-top: 15px"></div>
-
-    <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-        <div>
-            @Html.Raw(TempData["Sucesso"].ToString())
+    <div class="row">
+        <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+            <div>
+                @Html.Raw(TempData["Sucesso"].ToString())
+            </div>
         </div>
     </div>
 }

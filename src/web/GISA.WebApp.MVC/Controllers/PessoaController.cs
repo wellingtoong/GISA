@@ -51,7 +51,11 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("pessoa/novo-pessoa")]
         public async Task<IActionResult> Registrar(PessoaViewModel pessoaViewModel)
         {
-            if (!ModelState.IsValid) return View(pessoaViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View(pessoaViewModel);
+            }
 
             var result = await _pessoaService.Registrar(pessoaViewModel);
 
@@ -65,7 +69,11 @@ namespace GISA.WebApp.MVC.Controllers
 
         public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
         {
-            if (!ModelState.IsValid) return View(pessoaViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                return View("Editar", pessoaViewModel);
+            }
 
             var result = await _pessoaService.Atualizar(pessoaViewModel);
 

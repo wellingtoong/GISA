@@ -32,7 +32,7 @@ namespace GISA.WebApp.MVC.Models
 
         [DisplayName("Tipo Pessoa")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        public int TipoPessoaEnum { get; set; }
+        public int? TipoPessoaEnum { get; set; }
 
         [DisplayName("Data de Nascimento")]
         public DateTime DataNascimento { get; set; }

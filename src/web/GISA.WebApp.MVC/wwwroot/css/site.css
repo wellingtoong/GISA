@@ -111,6 +111,10 @@ body {
     margin-left: 155px;
 }
 
+.pd-0 {
+    padding: 0px !important;
+}
+
 .pt-10 {
     padding-top: 10px;
 }
@@ -287,6 +291,15 @@ a.navbar-brand {
 
 
 /* personalização card callout */
+
+.info-required {
+    color: red;
+    font-weight: 600;
+}
+
+.invalid-tooltip span {
+    color: #fff !important;
+}
 
 .card {
     border: 1px solid #fff !important;

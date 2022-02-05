@@ -6,7 +6,7 @@ app.eventos = {
 
         console.log('App init')
 
-        // $("#msg_box").fadeOut(2500);
+        /*$("#msg_box").fadeOut(2500);*/
 
         setTimeout(() => {
             app.metodos.initializeTooltip();
@@ -51,6 +51,30 @@ app.metodos = {
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+    },
+
+    // inicializa a validação do formulário
+    initValidateForm: (validate = "False") => {
+
+        if (validate == "" || validate == null || validate == undefined) return;
+
+        if (validate == "True") {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        }
     },
 
     // busca ceps
