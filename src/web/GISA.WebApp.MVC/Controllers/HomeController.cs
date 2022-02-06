@@ -10,7 +10,7 @@ namespace GISA.WebApp.MVC.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Apresentacao()
         {
             return View();
         }

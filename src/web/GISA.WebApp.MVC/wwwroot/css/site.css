@@ -16,6 +16,21 @@ a {
     text-decoration: none
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #181c32;
+    font-weight: bold;
+}
+    h1 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
 
 /*html {
     font-size: 14px;
@@ -101,6 +116,10 @@ body {
 
 .m-0 {
     margin: 0 auto !important;
+}
+
+.mt-10 {
+    margin-top: 10px;
 }
 
 .ml-10 {
@@ -303,6 +322,15 @@ a.navbar-brand {
 
 .card {
     border: 1px solid #fff !important;
+}
+
+    .card-text {
+        font-size: 14px;
+    }
+
+.card .card-body p {
+    margin: 0px;
+    font-size: 15px;
 }
 
 .card-config {

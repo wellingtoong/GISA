@@ -13,7 +13,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-breadcrumb">
-                <li class="breadcrumb-item"><a chref="#">Início</a></li>
+                <li class="breadcrumb-item"><a asp-action="Apresentacao" asp-controller="Home">Início</a></li>
                 <li class="breadcrumb-item active" aria-current="page"> / Plano</li>
             </ol>
         </nav>
@@ -60,7 +60,7 @@
                                                             <th>Descrição</th>
                                                             <th>Valor</th>
                                                             <th>Status</th>
-                                                            <th>Acao</th>
+                                                            <th>Opções</th>
                                                         </tr>
                                                     </thead>
                                                 </table>`
@@ -100,7 +100,15 @@
                                 tipoPlano: plano,
                                 valor: item.valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),
                                 status: status,
-                                acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
+                                //acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
+                                acao: `<div class="btn-group">
+                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Ação
+                                          </button>
+                                          <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano('${item.id}');">Editar</a>
+                                          </ul>
+                                    </div>`
                             }
 
                             planos.push(dado);
