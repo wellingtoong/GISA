@@ -1,5 +1,5 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+    for details on configuring this project to bundle and minify static web assets. */
 
 @font-face {
     font-family: 'Poppins-Regular';
@@ -24,20 +24,21 @@ h5 {
     color: #181c32;
     font-weight: bold;
 }
-    h1 {
-        font-size: 24px;
-    }
 
-    h3 {
-        font-size: 16px;
-    }
+h1 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
 
 /*html {
-    font-size: 14px;
-    position: relative;
-    min-height: 100%;
-}
-*/
+        font-size: 14px;
+        position: relative;
+        min-height: 100%;
+    }
+    */
 
 body {
     background-color: #f3f6f8 !important;
@@ -114,12 +115,24 @@ body {
 
 /* margins e paddins */
 
+.top-20 {
+    top: 20px;
+}
+
+.top-30 {
+    top: 30px;
+}
+
 .m-0 {
     margin: 0 auto !important;
 }
 
 .mt-10 {
     margin-top: 10px;
+}
+
+.mt-25 {
+    margin-top: 25px;
 }
 
 .ml-10 {
@@ -324,9 +337,9 @@ a.navbar-brand {
     border: 1px solid #fff !important;
 }
 
-    .card-text {
-        font-size: 14px;
-    }
+.card-text {
+    font-size: 14px;
+}
 
 .card .card-body p {
     margin: 0px;
@@ -347,6 +360,60 @@ a.navbar-brand {
         .card-config .card-body span i {
             padding-right: 10px;
         }
+
+.color-success {
+    color: var(--bs-success);
+}
+
+.color-danger {
+    color: var(--bs-danger);
+}
+
+
+.rounded {
+    width: 40px;
+    height: 40px;
+    border-radius: 100% !important;
+}
+
+    .rounded i {
+        padding-left: 7px;
+        padding-top: 5px;
+    }
+
+.rounded-pro {
+    width: 70px;
+    height: 70px;
+    background: #6362e7;
+    border-radius: 100% !important;
+}
+
+    .rounded-pro i {
+        color: #fff;
+        padding-left: 10px;
+    }
+
+.rounded-position {
+    position: absolute;
+    right: 25px;
+}
+
+.rounded-position-pro {
+    position: absolute;
+    top: 35px;
+    right: 25px;
+}
+
+.card-board-pro {
+    font-size: 50px;
+}
+
+.card-board .rounded-position i {
+    font-size: 30px;
+}
+
+
+
 
 .bd-callout-default {
     border-left-color: #565d67 !important;
@@ -373,6 +440,86 @@ a.navbar-brand {
     border-radius: 0.25rem;
     background: #fff;
 }
+
+/* personalização dashboard */
+.profile-greeting {
+    position: relative;
+    background-color: #6362e7;
+    color: #fff;
+    height: 245px;
+    padding: 40px;
+}
+
+.greeting-user, h5 {
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+    .greeting-user p {
+        font-weight: 400;
+        color: #fff;
+        margin-bottom: 0;
+        max-width: 56%;
+        width: fit-content;
+        font-size: 18px;
+    }
+
+    .greeting-user .btn {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        margin-top: 35px;
+        line-height: 1;
+        padding: 13px 17px;
+        font-size: 13px;
+        font-weight: 600;
+        font-weight: 700;
+    }
+
+        .greeting-user .btn:hover {
+            background-color: #fff !important;
+            color: #181c32;
+        }
+
+.btn-outline-white_color {
+    border-color: #fff;
+    color: #fff;
+    background-color: transparent;
+}
+
+
+
+.cartoon-img {
+    /* position: absolute;
+        bottom: 0;
+        right: 10px;*/
+    position: absolute;
+    bottom: 0;
+    /* right: -95px;*/
+    animation: mymove 6s infinite;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: 160px;
+    /* max-width: 100%;*/
+    /*height: auto;*/
+}
+
+@keyframes mymove {
+    0% {
+        right: 10px;
+    }
+
+    50% {
+        right: 15px;
+    }
+
+    100% {
+        right: 10px;
+    }
+}
+/* fim - personalização dashboard */
 
 
 /* login */
@@ -717,4 +864,12 @@ table.dataTable.no-footer {
             width: 500px;
             word-break: break-word;
         }
+
+/*    .profile-greeting {
+        height: 205px;
+    }
+*/
+   /*     .profile-greeting .cartoon-img img {
+            margin-right: -165px;
+        }*/
 }
