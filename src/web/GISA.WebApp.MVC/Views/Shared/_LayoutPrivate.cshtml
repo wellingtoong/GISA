@@ -54,6 +54,10 @@
         app.eventos.init();
 
         // Routers
+        function EditarAgenda(id) {
+            window.location.href = `@Url.Action("Editar", "Agenda")/${id}`;
+        }
+
         function EditarPlano(id) {
             window.location.href = `@Url.Action("Editar", "Plano")/${id}`;
         }

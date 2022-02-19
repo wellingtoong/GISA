@@ -26,11 +26,24 @@ namespace GISA.WebApp.MVC.Controllers
             return Json(await _pessoaService.ObterTodos());
         }
 
+        [Route("pessoa/obter-pessoa/{id:guid}")]
+        public async Task<IActionResult> ObterPessoaPorId(Guid id)
+        {
+            return Json(await _pessoaService.ObterPorId(id));
+        }
+
         [Route("pessoa/editar-pessoa/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var pessoa = await _pessoaService.ObterPorId(id);
             return View(pessoa);
+        }
+
+        [Route("pessoa/obter-pessoa/{email}")]
+        public async Task<IActionResult> ObterPorEmail(string email)
+        {
+            var pessoa = await _pessoaService.ObterPorEmail(email);
+            return Json(pessoa);
         }
 
         [HttpPost]

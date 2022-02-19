@@ -1,4 +1,4 @@
-﻿@model GISA.WebApp.MVC.Models.PessoaViewModel
+﻿@model GISA.WebApp.MVC.Models.AgendaViewModel
 
 @{
     ViewData["Title"] = "Clientes";
@@ -33,9 +33,9 @@
 
                     <div class="mb-3 position-relative col-sm-12 col-md-12 col-lg-12">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="gustavo.santos@email.com">
+                            <input id="txtBuscaUsuario" type="text" class="form-control" placeholder="gustavo.santos@email.com">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button"><i class='bx bx-search-alt-2'></i> Buscar usuário</button>
+                                <button id="btnBuscaUsuario" class="btn btn-outline-secondary" type="button"><i class='bx bx-search-alt-2'></i> Buscar usuário</button>
                             </div>
                         </div>
                     </div>
@@ -84,12 +84,48 @@
                 $('#txtData').mask('00/00/0000', { placeholder: "__/__/____" });
 
                 $('#txtData').datepicker({
+                    startDate: '+1d',
                     format: "dd/mm/yyyy",
                     todayBtn: "linked",
                     language: "pt-BR",
                     daysOfWeekDisabled: "0,6",
                     autoclose: true
                 });
+
+                $('#btnBuscaUsuario').on('click', function () {
+                    var email = $('#txtBuscaUsuario').val();
+                    if (email == '' && email == null && email == undefined) return;
+
+                    agenda.metodos.obterUsuario(email);
+                })
+            }
+
+        }
+
+        agenda.metodos = {
+
+            obterUsuario: (email) => {
+
+                app.metodos.get(`/pessoa/obter-pessoa/${email}`,
+                    (response) => {
+                        var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
+                        var tipoPessoa = (response.tipoPessoaEnum == 1) ? "Associado" : (response.tipoPessoaEnum == 2) ? "Colaborador" : "N/A";
+
+                        $('#IdPessoa').val(response.id)
+                        $('#txtNomeCompleto').val(response.nomeCompleto);
+                        $('#txtTipoPessoa').val(tipoPessoa);
+                        $('#txtTelefone').val(response.telefone);
+                        $('#txtEmail').val(response.email);
+                        $('#txtDataNascimento').val(dataNascimento);
+                        $('#txtRg').val(response.rg);
+                        $('#txtCpf').val(response.cpf);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
 
             }
 

@@ -27,6 +27,9 @@ namespace GISA.WebApp.MVC.Configuration
             services.AddHttpClient<IPlanoClienteService, PlanoClienteService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
+            services.AddHttpClient<IAgendaService, AgendaService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
         }

@@ -53,6 +53,14 @@ app.metodos = {
         })
     },
 
+    // formata data padrão Pt-BR dd/MM/yyyy
+    formataDataBR: (data) => {
+
+        var data = new Date(data);
+        return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+
+    },
+
     // inicializa a validação do formulário
     initValidateForm: (validate = "False") => {
 

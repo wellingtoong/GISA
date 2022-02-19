@@ -34,6 +34,15 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
         }
 
+        public async Task<PessoaViewModel> ObterPorEmail(string email)
+        {
+            var response = await _httpClient.GetAsync($"/api/pessoa/obter-pessoa/{email}");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<PessoaViewModel>(response);
+        }
+
         public async Task<PessoaViewModel> ObterPorId(Guid id)
         {
             var response = await _httpClient.GetAsync($"/api/pessoa/obter-pessoa/{id}");

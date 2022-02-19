@@ -15,11 +15,13 @@ namespace GISA.Pessoa.API.Configuration
             services.AddScoped<IPessoaRepository, PessoaRepository>();
             services.AddScoped<IPlanoRepository, PlanoRepository>();
             services.AddScoped<IPlanoClienteRepository, PlanoClienteRepository>();
+            services.AddScoped<IAgendaRepository, AgendaRepository>();
 
             // services
             services.AddScoped<IPessoaService, PessoaService>();
             services.AddScoped<IPlanoService, PlanoService>();
             services.AddScoped<IPlanoClienteService, PlanoClienteService>();
+            services.AddScoped<IAgendaService, AgendaService>();
             //services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;

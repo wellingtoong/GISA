@@ -27,7 +27,7 @@
                 <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos agendamentos ou voltar a página inicial</span>
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-primary" asp-action="Registrar">Novo Agendamento</a>
-                    <button type="button" class="btn btn-light ml-10">Voltar</button>
+                    <a class="btn btn-light ml-10" asp-action="Apresentacao" asp-controller="Home">Voltar</a>
                 </div>
             </div>
         </div>
@@ -50,6 +50,107 @@
         agenda.eventos = {
 
             init: () => {
+
+                agenda.template = {
+                    tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nome</th>
+                                                                <th>Usuário</th>
+                                                                <th>Data</th>
+                                                                <th>Hora</th>
+                                                                <th>Observação</th>
+                                                                <th>Opções</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>`
+                }
+
+                $('#listaAgendamento').html('');
+                $('#listaAgendamento').append(agenda.template.tabela);
+
+                agenda.metodos.obterAgendamentos();
+            }
+
+        }
+
+        agenda.metodos = {
+
+            obterPessoa: (id) => {
+
+                app.metodos.get(`pessoa/obter-pessoa/${id}`,
+                    (response) => {
+                        app.metodos.setLocalStorage("agenda",
+                            { id: response.id, nomeCompleto: response.nomeCompleto, email: response.email })
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+            obterAgendamentos: () => {
+
+                app.metodos.get('/agendamento/obter-todos',
+                    (response) => {
+                        var agendas = [];
+
+                        response.forEach(function (item, index, arr) {
+
+                            agenda.metodos.obterPessoa(item.idPessoa);
+                            var pessoa = app.metodos.getLocalStorage("agenda");
+                            var data = app.metodos.formataDataBR(item.data);
+
+                            var dado = {
+                                id: item.id,
+                                nome: pessoa.nomeCompleto,
+                                usuario: pessoa.email,
+                                data: data,
+                                hora: item.hora,
+                                observacao: item.observacao,
+                                acao: `<div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarAgenda('${item.id}');">Editar</a>
+                                            </ul>
+                                       </div>`
+                            }
+
+                            agendas.push(dado);
+                        });
+
+                        agenda.metodos.carregarTabela(agendas);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+            carregarTabela: (agendas) => {
+
+                $('#example').DataTable({
+                    processing: true,
+                    data: agendas,
+                    columns: [
+                        { data: "nome" },
+                        { data: "usuario" },
+                        { data: "data" },
+                        { data: "hora" },
+                        { data: "observacao" },
+                        { data: "acao" }
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json',
+                        processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
+                    }
+                });
 
             }
 

@@ -14,6 +14,7 @@ namespace GISA.Pessoa.API.Configuration
             services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
                 .AddHostedService<RegistrarAtualizarPessoaIntegration>()
                 .AddHostedService<RegistrarAtualizarPlanoIntegration>()
+                .AddHostedService<RegistrarAtualizarAgendaIntegration>()
                 .AddHostedService<RegistrarAtualizarPlanoClienteIntegration>();
         }
     }

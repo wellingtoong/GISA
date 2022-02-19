@@ -62,6 +62,23 @@ namespace GISA.Pessoa.API.Controllers
             return CustomResponse(pessoa);
         }
 
+        [HttpGet]
+        [Route("obter-pessoa/{email}")]
+        public async Task<IActionResult> ObterPessoaPorEmail(string email)
+        {
+            if (!EmailValido(email)) return CustomResponse();
+
+            var pessoa = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPessoaPorEmail(email));
+
+            if (pessoa == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter a pessoa. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(pessoa);
+        }
+
         [HttpPut]
         [Route("atualizar-pessoa")]
         public async Task<IActionResult> Atualizar(PessoaViewModel pessoaViewModel)

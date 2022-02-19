@@ -1,4 +1,4 @@
-﻿@model GISA.WebApp.MVC.Models.PessoaViewModel
+﻿@model GISA.WebApp.MVC.Models.AgendaViewModel
 
 @{
     ViewData["Title"] = "Edição";
@@ -68,6 +68,48 @@
         agenda.eventos = {
 
             init: () => {
+                $('#txtHora').mask('00:00', { placeholder: "  :  " });
+                $('#txtData').mask('00/00/0000', { placeholder: "__/__/____" });
+
+                $('#txtData').datepicker({
+                    startDate: '+1d',
+                    format: "dd/mm/yyyy",
+                    todayBtn: "linked",
+                    language: "pt-BR",
+                    daysOfWeekDisabled: "0,6",
+                    autoclose: true
+                });
+
+                var pessoa = app.metodos.getLocalStorage("agenda");
+                agenda.metodos.obterUsuario(pessoa.id);
+            }
+
+        }
+
+        agenda.metodos = {
+
+            obterUsuario: (email) => {
+
+                app.metodos.get(`/pessoa/obter-pessoa/${email}`,
+                    (response) => {
+                        var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
+                        var tipoPessoa = (response.tipoPessoaEnum == 1) ? "Associado" : (response.tipoPessoaEnum == 2) ? "Colaborador" : "N/A";
+
+                        $('#IdPessoa').val(response.id)
+                        $('#txtNomeCompleto').val(response.nomeCompleto);
+                        $('#txtTipoPessoa').val(tipoPessoa);
+                        $('#txtTelefone').val(response.telefone);
+                        $('#txtEmail').val(response.email);
+                        $('#txtDataNascimento').val(dataNascimento);
+                        $('#txtRg').val(response.rg);
+                        $('#txtCpf').val(response.cpf);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
 
             }
 

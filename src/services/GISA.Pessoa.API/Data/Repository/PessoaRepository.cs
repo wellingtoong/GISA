@@ -17,5 +17,10 @@ namespace GISA.Pessoa.API.Data.Repository
 
         public async Task<IEnumerable<Domain.Pessoa>> ObterTodasPessoasEndereco() 
             => await Db.Pessoas.AsNoTracking().Include(e => e.Endereco).ToListAsync();
+
+        public async Task<Domain.Pessoa> ObterPessoaPorEmail(string email)
+        {
+            return await Db.Pessoas.AsNoTracking().FirstOrDefaultAsync(e => e.Email.Endereco == email);
+        }
     }
 }

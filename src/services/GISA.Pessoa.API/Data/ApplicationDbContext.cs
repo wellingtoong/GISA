@@ -11,8 +11,8 @@ namespace GISA.Pessoa.API.Data
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
         public DbSet<Domain.Endereco> Enderecos { get; set; }
         public DbSet<Domain.Plano> Planos { get; set; }
-
         public DbSet<Domain.PlanoCliente> PlanoClientes { get; private set; }
+        public DbSet<Domain.Agenda> Agendas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
