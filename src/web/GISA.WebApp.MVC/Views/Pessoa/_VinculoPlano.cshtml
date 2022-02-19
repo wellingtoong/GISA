@@ -5,58 +5,60 @@
     </div>
     <div class="offcanvas-body">
 
-        <div id="msg_box_offcanvas"></div>
+        <form class="row g-3 needs-validation" novalidate asp-action="Registrar" asp-controller="PlanoCliente" method="post">
+            <div id="msg_box_offcanvas"></div>
 
-        <input id="txtIdPlanoCliente" type="hidden">
+            <input id="txtIdPlanoCliente" type="hidden">
 
-        <div class="row">
-            <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label class="form-label">TIPO PESSOA</label>
-                <input id="txtTipoPessoa" type="text" disabled readonly class="form-control">
+            <div class="row">
+                <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label class="form-label">TIPO PESSOA</label>
+                    <input id="txtTipoPessoa" type="text" disabled readonly class="form-control">
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label class="form-label">NOME COMPLETO</label>
-                <input id="txtNomeCompleto" type="text" class="form-control" disabled readonly>
+            <div class="row">
+                <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label class="form-label">NOME COMPLETO</label>
+                    <input id="txtNomeCompleto" type="text" class="form-control" disabled readonly>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label>Tipo do Plano</label>
-                <select id="ddlPlano" class="form-select">
-                    <option selected disabled>-Selecine um plano-</option>
-                </select>
+            <div class="row">
+                <div class="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Tipo do Plano</label>
+                    <select id="ddlPlano" class="form-select">
+                        <option selected disabled>-Selecine um plano-</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <label class="form-label">Valor</label>
-            <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <span class="input-group-text">R$</span>
-                <input id="txtValorPlano" type="text" class="form-control" readonly disabled>
+            <div class="row">
+                <label class="form-label">Valor</label>
+                <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <span class="input-group-text">R$</span>
+                    <input id="txtValorPlano" type="text" class="form-control" readonly disabled>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <label class="form-label">Desconto</label>
-            <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <span class="input-group-text">(%)</span>
-                <input id="txtDesconto" type="text" class="form-control" placeholder="10.00%" onkeypress="return app.metodos.onlynumber();">
+            <div class="row">
+                <label class="form-label">Desconto</label>
+                <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <span class="input-group-text">(%)</span>
+                    <input id="txtDesconto" type="text" class="form-control" placeholder="10.00%" onkeypress="return app.metodos.onlynumber();">
+                </div>
+                <label class="form-label">Valor Final</label>
+                <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <span class="input-group-text">R$</span>
+                    <input id="txtValorFinal" type="text" class="form-control" readonly disabled>
+                </div>
             </div>
-            <label class="form-label">Valor Final</label>
-            <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <span class="input-group-text">R$</span>
-                <input id="txtValorFinal" type="text" class="form-control" readonly disabled>
-            </div>
-        </div>
 
-        <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
-            <br />
-            <button id="btnPlanoPessoaVoltar" type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="offcanvas" aria-label="Close">Voltar</button>
-            <button id="btnPlanoPessoa" type="button" class="btn btn-primary float-end" onclick="EnviarPlanoPessoa()">Salvar</button>
-        </div>
+            <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                <br />
+                <button id="btnPlanoPessoaVoltar" type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="offcanvas" aria-label="Close">Voltar</button>
+                <button id="btnPlanoPessoa" type="submit" class="btn btn-primary float-end" onclick="plano.metodos.enviarPlanoPessoa()">Salvar</button>
+            </div>
+        </form>
     </div>
 </div>

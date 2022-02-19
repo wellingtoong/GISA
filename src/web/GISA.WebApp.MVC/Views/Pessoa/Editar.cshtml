@@ -61,7 +61,7 @@
                     }
                 }
 
-  
+
                 <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
                     <br />
 
@@ -107,8 +107,21 @@
                         $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
                     });
 
-                    if ($('#Id').val() != '' && $('#Id').val() != null && $('#Id').val() != undefined)
-                        plano.metodos.obterPlanoPessoaPorIdPessoa($('#Id').val());
+                    // calculo porcentagem
+                    $("#txtDesconto").blur(function () {
+                        var valor = $('#txtValorPlano').val().replace(",", ".");
+                        var porcentagem = $(this).val().replace("%", "");
+
+                        var vd = valor * (porcentagem / 100);
+                        var vf = valor - vd;
+
+                        var apresentacao = (vf < 0) ? "00,00" : vf.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+                        $("#txtValorFinal").val(apresentacao);
+                    });
+
+                    if ($('#Id').val() == '' && $('#Id').val() == null && $('#Id').val() == undefined) return;
+
+                    plano.metodos.obterPlanoPessoaPorIdPessoa($('#Id').val());
                 }
 
                 plano.metodos.obterPlanos();
@@ -126,6 +139,8 @@
 
                 app.metodos.get('/plano/obter-todos',
                     (response) => {
+                        console.log('obterPlanos', response)
+
                         var planos = response.filter(p => p.ativo == true);
 
                         $.each(planos, function (i, d) {
@@ -148,46 +163,28 @@
                 var pessoaId = $('#Id').val();
                 var planoId = $('#ddlPlano').val();
                 var desconto = $('#txtDesconto').val().replace('%', '');
+                var valorFinal = $('#txtValorFinal').val().replace(',', '.');
 
                 var dado = {
                     id: app.metodos.newGuid(),
                     pessoaId: pessoaId,
                     planoId: planoId,
                     desconto: desconto,
-                    valorFinal: 0
+                    valorFinal: valorFinal
                 }
+
+                console.log("dado", dado);
 
                 app.metodos.post('/plano-cliente/novo-plano', dado,
                     (response) => {
 
-                        var sucesso = `<div style="padding-top: 15px"></div>
-                            <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-                                <div>
-                                    Plano vinculado com sucesso!
-                                </div>
-                            </div>`;
+                        console.log('enviarPlanoPessoa', response)
 
-                        $('#msg_box_offcanvas').append(sucesso);
-                        $("#msg_box_offcanvas").fadeOut(2000);
-
-                        setTimeout(() => { $('#btnPlanoPessoaVoltar').click() }, 2000)
                     },
                     (xhr, ajaxOptions, error) => {
                         console.log('xhr', xhr);
                         console.log('ajaxOptions', ajaxOptions);
                         console.log('error', error);
-
-                        var error = `<div style="padding-top: 15px;"></div>
-                            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-                                <div>Algo deu errado! Verifique e tente novamente.</div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            </div>`;
-
-                        $('#msg_box_offcanvas').append(error);
-                        $("#msg_box_offcanvas").fadeOut(3500);
                     }
 
                 )
@@ -198,6 +195,10 @@
 
                 app.metodos.get(`/plano-cliente/obter-plano/${idPessoa}`,
                     (response) => {
+                        console.log('obterPlanoPessoaPorIdPessoa', response)
+
+                        if (response.id == null || response.id == "00000000-0000-0000-0000-000000000000") return;
+
                         var total = response.valorFinal + response.desconto;
 
                         $('#ddlPlano').val(response.planoId);

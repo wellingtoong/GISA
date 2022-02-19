@@ -14,6 +14,12 @@
     <Compile Remove="Data\Migrations\20211113133816_Plano.Designer.cs" />
     <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.cs" />
     <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220115125834_Initial.cs" />
+    <Compile Remove="Data\Migrations\20220115125834_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220213190147_Inital2.cs" />
+    <Compile Remove="Data\Migrations\20220213190147_Inital2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219165822_Initial3.cs" />
+    <Compile Remove="Data\Migrations\20220219165822_Initial3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
