@@ -27,7 +27,7 @@
                 <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos planos ou voltar a página inicial</span>
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-primary" asp-action="Registrar">Novo Plano</a>
-                    <button type="button" class="btn btn-light ml-10">Voltar</button>
+                    <a class="btn btn-light ml-10" asp-action="Apresentacao" asp-controller="Home">Voltar</a>
                 </div>
             </div>
         </div>
@@ -87,28 +87,21 @@
                                 ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
                                 : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
 
-                            var plano = null;
-
-                            if (item.tipoPlanoEnum == 0) plano = "Enfermaria";
-                            else if (item.tipoPlanoEnum == 1) plano = "Apartamento";
-                            else if (item.tipoPlanoEnum == 2) plano = "VIP";
+                            var tipoPlano = (item.tipoPlanoEnum == 0) ? "Enfermaria" : (item.tipoPlanoEnum == 1) ? "Apartamento" : (item.tipoPlanoEnum == 2) ? "VIP" : "N/A";
 
                             var dado = {
                                 id: item.id,
                                 nome: item.nome,
                                 descricao: item.descricao,
-                                tipoPlano: plano,
+                                tipoPlano: tipoPlano,
                                 valor: item.valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),
                                 status: status,
-                                //acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
                                 acao: `<div class="btn-group">
-                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Ação
-                                          </button>
-                                          <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano('${item.id}');">Editar</a>
-                                          </ul>
-                                    </div>`
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPlano('${item.id}');">Editar</a>
+                                            </ul>
+                                        </div>`
                             }
 
                             planos.push(dado);

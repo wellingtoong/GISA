@@ -28,7 +28,7 @@
                 <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos convênios ou voltar a página inicial</span>
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-primary" asp-action="Registrar">Novo Convênio</a>
-                    <button type="button" class="btn btn-light ml-10">Voltar</button>
+                    <a class="btn btn-light ml-10" asp-action="Apresentacao" asp-controller="Home">Voltar</a>
                 </div>
             </div>
         </div>
@@ -95,22 +95,18 @@
                                 endereco: item.enderecoViewModel.logradouro,
                                 telefone: item.telefone,
                                 status: status,
-                                //acao: '<td><div style="text-align: center;cursor: pointer;"><a data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarConvenio(\'' + item.id + '\');"><i class="bx bxs-edit"></i></a></div></td>'
                                 acao: `<div class="btn-group">
-                                          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Ação
-                                          </button>
-                                          <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarConvenio('${item.id}');">Editar</a>
-                                          </ul>
-                                    </div>`
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarConvenio('${item.id}');">Editar</a>
+                                            </ul>
+                                       </div>`
                             }
 
                             convenios.push(dado);
                         });
 
                         convenio.metodos.carregarTabela(convenios);
-
                     },
                     (xhr, ajaxOptions, error) => {
                         console.log('xhr', xhr);
