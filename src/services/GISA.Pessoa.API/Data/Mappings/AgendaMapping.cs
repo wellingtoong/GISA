@@ -12,6 +12,10 @@ namespace GISA.Pessoa.API.Data.Mappings
             builder.Property(a => a.IdPessoa)
                 .IsRequired();
 
+            builder.Property(a => a.Data)
+                .IsRequired()
+                .HasColumnType("date");
+
             builder.Property(a => a.Hora)
                 .IsRequired()
                 .HasColumnType("varchar(5)");
@@ -21,7 +25,7 @@ namespace GISA.Pessoa.API.Data.Mappings
 
             builder.Property(a => a.DataCadastro)
                 .IsRequired()
-                .HasColumnType("DATE");
+                .HasColumnType("date");
 
             builder.ToTable("Agendas");
         }

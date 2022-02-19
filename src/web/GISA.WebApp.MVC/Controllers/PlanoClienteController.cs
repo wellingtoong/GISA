@@ -53,9 +53,6 @@ namespace GISA.WebApp.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(planoClienteViewModel);
 
-            ViewBag.Sucesso = "teste";
-            return Ok();
-
             var result = await _planoClienteService.Registrar(planoClienteViewModel);
 
             if (!result.Sucess)

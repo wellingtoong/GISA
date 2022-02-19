@@ -7,7 +7,7 @@ namespace GISA.WebApp.MVC.Models
     {
         [Key]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public Guid PessoaId { get; set; }
@@ -18,7 +18,5 @@ namespace GISA.WebApp.MVC.Models
         public decimal? Desconto { get; set; }
 
         public decimal? ValorFinal { get; set; }
-
-        public DateTime DataCadastro { get; set; }
     }
 }
