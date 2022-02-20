@@ -17,5 +17,7 @@ namespace GISA.Convenio.API.Data.Repository
 
         public async Task<IEnumerable<Domain.Convenio>> ObterTodosConvenioEndereco() 
             => await Db.Convenios.AsNoTracking().Include(e => e.Endereco).ToListAsync();
+
+        public async Task<int> ObterTotalConvenio() => await Db.Convenios.AsNoTracking().CountAsync();
     }
 }

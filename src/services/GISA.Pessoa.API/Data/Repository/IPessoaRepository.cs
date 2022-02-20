@@ -11,5 +11,8 @@ namespace GISA.Pessoa.API.Data.Repository
         Task<IEnumerable<Domain.Pessoa>> ObterTodasPessoasEndereco();
         Task<Domain.Endereco> ObterEnderecoPorId(Guid id);
         Task<Domain.Pessoa> ObterPessoaPorEmail(string email);
+        Task<int> ObterTotalUsuario();
+        Task<int> ObterTotalUsuarioAtivo();
+        Task<int> ObterTotalUsuarioInativo();
     }
 }
