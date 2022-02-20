@@ -51,6 +51,33 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<IEnumerable<PlanoViewModel>>(response);
         }
 
+        public async Task<int> ObterTotalPlano()
+        {
+            var response = await _httpClient.GetAsync("/api/plano/total-plano");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
+        public async Task<int> ObterTotalPlanoAtivo()
+        {
+            var response = await _httpClient.GetAsync("/api/plano/total-plano-ativo");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
+        public async Task<int> ObterTotalPlanoInativo()
+        {
+            var response = await _httpClient.GetAsync("/api/plano/total-plano-inativo");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
         public async Task<ResponseMessageDefault> Registrar(PlanoViewModel planoViewModel)
         {
             var planoContent = ObterConteudo(planoViewModel);

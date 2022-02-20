@@ -16,7 +16,6 @@ namespace GISA.Pessoa.API.Controllers
     [Route("api/pessoa")]
     public class PessoaController : MainController
     {
-        private readonly IPessoaService _pessoaService;
         private readonly IPessoaRepository _pessoaRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
@@ -26,10 +25,54 @@ namespace GISA.Pessoa.API.Controllers
                                 IMapper mapper,
                                 IMessageBus bus)
         {
-            _pessoaService = pessoaService;
             _pessoaRepository = pessoaRepository;
             _mapper = mapper;
             _bus = bus;
+        }
+
+        [HttpGet]
+        [Route("total-pessoa")]
+        public async Task<IActionResult> ObterTotalUsuario()
+        {
+            var pessoa = await _pessoaRepository.ObterTotalUsuario();
+
+            if (pessoa == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obnter o total pessoas. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(pessoa);
+        }
+
+        [HttpGet]
+        [Route("total-pessoa-ativo")]
+        public async Task<IActionResult> ObterTotalUsuarioAtivo()
+        {
+            var pessoa = await _pessoaRepository.ObterTotalUsuarioAtivo();
+
+            if (pessoa == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obnter o total pessoas. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(pessoa);
+        }
+
+        [HttpGet]
+        [Route("total-pessoa-inativo")]
+        public async Task<IActionResult> ObterTotalUsuarioInativo()
+        {
+            var pessoa = await _pessoaRepository.ObterTotalUsuarioInativo();
+
+            if (pessoa == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obnter o total pessoas. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(pessoa);
         }
 
         [HttpGet]
@@ -37,7 +80,6 @@ namespace GISA.Pessoa.API.Controllers
         public async Task<IActionResult> ObterTodos()
         {
             var pessoa = _mapper.Map<IEnumerable<PessoaViewModel>>(await _pessoaRepository.ObterTodasPessoasEndereco());
-
             if (pessoa == null)
             {
                 AdicionarErroProcessamento("Não foi possível listar as pessoas. Tente novamente!");

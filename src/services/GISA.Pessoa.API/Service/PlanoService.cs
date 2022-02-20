@@ -8,6 +8,7 @@ namespace GISA.Pessoa.API.Service
     public class PlanoService : IPlanoService
     {
         private readonly IPlanoRepository _planoRepository;
+
         public PlanoService(IPlanoRepository planoRepository)
         {
             _planoRepository = planoRepository;
@@ -18,6 +19,12 @@ namespace GISA.Pessoa.API.Service
         public async Task<bool> Atualizar(Plano plano) => await _planoRepository.Atualizar(plano);
 
         public async Task<IEnumerable<Plano>> ObterTodos() => await _planoRepository.ObterTodos();
+
+        public async Task<int> ObterTotalPlano() => await _planoRepository.ObterTotalPlano();
+
+        public async Task<int> ObterTotalPlanoAtivo() => await _planoRepository.ObterTotalPlanoAtivo();
+
+        public async Task<int> ObterTotalPlanoInativo() => await _planoRepository.ObterTotalPlanoInativo();
 
         public void Dispose() => _planoRepository?.Dispose();
     }

@@ -11,5 +11,6 @@ namespace GISA.WebApp.MVC.Services
         Task<IEnumerable<ConvenioViewModel>> ObterTodos();
         Task<ResponseMessageDefault> Atualizar(ConvenioViewModel convenioViewModel);
         Task<ResponseMessageDefault> Registrar(ConvenioViewModel convenioViewModel);
+        Task<int> ObterTotalConvenio();
     }
 }

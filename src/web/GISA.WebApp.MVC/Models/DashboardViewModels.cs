@@ -1,8 +1,6 @@
-﻿using GISA.Core.DomainObjects;
-
-namespace GISA.Pessoa.API.Domain
+﻿namespace GISA.WebApp.MVC.Models
 {
-    public class Dashboard : Entity, IAggregateRoot
+    public class DashboardViewModels
     {
         public int TotalUsuario { get; set; }
         public int TotalAtivo { get; set; }

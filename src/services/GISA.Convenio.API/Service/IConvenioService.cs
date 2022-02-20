@@ -12,5 +12,6 @@ namespace GISA.Convenio.API.Service
         Task<bool> Adicionar(Domain.Convenio convenio);
         Task<bool> Atualizar(Guid id, Domain.Convenio convenio);
         Task<bool> AtualizarEndereco(Guid id, Domain.Convenio convenio);
+        Task<int> ObterTotalConvenio();
     }
 }

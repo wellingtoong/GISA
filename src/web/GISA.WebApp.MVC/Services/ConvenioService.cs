@@ -64,5 +64,14 @@ namespace GISA.WebApp.MVC.Services
 
             return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
         }
+
+        public async Task<int> ObterTotalConvenio()
+        {
+            var response = await _httpClient.GetAsync("/api/convenio/total-convenio");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
     }
 }

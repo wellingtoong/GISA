@@ -12,5 +12,8 @@ namespace GISA.Pessoa.API.Service
         Task<Endereco> ObterEnderecoPorId(Guid id);
         Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa convenio);
         Task<IEnumerable<Domain.Pessoa>> ObterTodos();
+        Task<int> ObterTotalUsuario();
+        Task<int> ObterTotalUsuarioAtivo();
+        Task<int> ObterTotalUsuarioInativo();
     }
 }

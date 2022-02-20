@@ -14,8 +14,7 @@ namespace GISA.Convenio.API.Service
             _convenioRepository = convenioRepository;
         }
 
-        public async Task<bool> Adicionar(Domain.Convenio convenio)
-            => await _convenioRepository.Adicionar(convenio);
+        public async Task<bool> Adicionar(Domain.Convenio convenio) => await _convenioRepository.Adicionar(convenio);
 
         public async Task<bool> Atualizar(Guid id, Domain.Convenio convenio)
         {
@@ -33,11 +32,11 @@ namespace GISA.Convenio.API.Service
             return await _convenioRepository.Atualizar(convenioAtual);
         }
 
-        public async Task<Domain.Endereco> ObterEnderecoPorId(Guid id)
-            => await _convenioRepository.ObterEnderecoPorId(id);
+        public async Task<Domain.Endereco> ObterEnderecoPorId(Guid id) => await _convenioRepository.ObterEnderecoPorId(id);
 
-        public async Task<IEnumerable<Domain.Convenio>> ObterTodos() 
-            => await _convenioRepository.ObterTodos();
+        public async Task<IEnumerable<Domain.Convenio>> ObterTodos() => await _convenioRepository.ObterTodos();
+
+        public async Task<int> ObterTotalConvenio() => await _convenioRepository.ObterTotalConvenio();
 
         public void Dispose() => _convenioRepository?.Dispose();
     }

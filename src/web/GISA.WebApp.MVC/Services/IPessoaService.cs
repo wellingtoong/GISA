@@ -12,5 +12,8 @@ namespace GISA.WebApp.MVC.Services
         Task<IEnumerable<PessoaViewModel>> ObterTodos();
         Task<ResponseMessageDefault> Atualizar(PessoaViewModel pessoaViewModel);
         Task<ResponseMessageDefault> Registrar(PessoaViewModel pessoaViewModel);
+        Task<int> ObterTotalUsuario();
+        Task<int> ObterTotalUsuarioAtivo();
+        Task<int> ObterTotalUsuarioInativo();
     }
 }

@@ -15,7 +15,6 @@ namespace GISA.Pessoa.API.Controllers
     [Route("api/plano")]
     public class PlanoController : MainController
     {
-        private readonly IPlanoService _planoService;
         private readonly IPlanoRepository _planoRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
@@ -25,10 +24,54 @@ namespace GISA.Pessoa.API.Controllers
                                IMapper mapper,
                                IMessageBus bus)
         {
-            _planoService = planoService;
             _planoRepository = planoRepository;
             _mapper = mapper;
             _bus = bus;
+        }
+
+        [HttpGet]
+        [Route("total-plano")]
+        public async Task<IActionResult> ObterTotalPlano()
+        {
+            var total = await _planoRepository.ObterTotalPlano();
+
+            if (total == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter o total plano. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(total);
+        }
+
+        [HttpGet]
+        [Route("total-plano-ativo")]
+        public async Task<IActionResult> ObterTotalPlanoAtivo()
+        {
+            var total = await _planoRepository.ObterTotalPlanoAtivo();
+
+            if (total == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter o total plano ativo. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(total);
+        }
+
+        [HttpGet]
+        [Route("total-plano-inativo")]
+        public async Task<IActionResult> ObterTotalPlanoInativo()
+        {
+            var total = await _planoRepository.ObterTotalPlanoInativo();
+
+            if (total == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter o total plano inativo. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(total);
         }
 
         [HttpGet]

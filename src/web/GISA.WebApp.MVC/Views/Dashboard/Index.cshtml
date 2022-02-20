@@ -1,5 +1,6 @@
 ﻿@using GISA.WebApp.MVC.Extensions
 @inject IUser AppUser
+@model GISA.WebApp.MVC.Models.DashboardViewModels
 
 
 @{
@@ -50,7 +51,7 @@
                     <div class="card-body">
                         <h6><strong>Total de usuários</strong></h6>
                         <div class="card-board-pro">
-                            <span><strong>230</strong></span>
+                            <input type="text" asp-for="TotalUsuario" class="form-control-plaintext" readonly>
                             <div class="top-30 rounded-pro rounded-position-pro">
                                 <i class='bx bx-user'></i>
                             </div>
@@ -66,7 +67,7 @@
                     <div class="card-body">
                         <div class="card-board">
                             <h6><strong>Ativos</strong></h6>
-                            <span>200</span>
+                            <input type="text" asp-for="TotalAtivo" class="form-control-plaintext" readonly>
                             <div class="top-20 rounded rounded-position color-success">
                                 <i class='bx bx-user-plus'></i>
                             </div>
@@ -79,8 +80,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-board">
-                            <h6><strong>Ativos</strong></h6>
-                            <span>200</span>
+                            <h6><strong>Inativos</strong></h6>
+                            <input type="text" asp-for="TotalInativo" class="form-control-plaintext" readonly>
                             <div class="top-20 rounded color-danger rounded-position">
                                 <i class='bx bx-user-minus'></i>
                             </div>
@@ -98,7 +99,7 @@
             <div class="card-body">
                 <div class="card-board">
                     <h6><strong>Total Convenios</strong></h6>
-                    <span>230</span>
+                    <input type="text" asp-for="TotalConvenio" class="form-control-plaintext" readonly>
                     <div class="top-20 rounded rounded-position">
                         <i class="bx bx-briefcase"></i>
                     </div>
@@ -112,7 +113,7 @@
             <div class="card-body">
                 <div class="card-board">
                     <h6><strong>Total Planos</strong></h6>
-                    <span>200</span>
+                    <input type="text" asp-for="TotalPlano" class="form-control-plaintext" readonly>
                     <div class="top-20 rounded rounded-position">
                         <i class="bx bx-food-menu"></i>
                     </div>
@@ -126,7 +127,7 @@
             <div class="card-body">
                 <div class="card-board">
                     <h6><strong>Planos vendidos</strong></h6>
-                    <span>30</span>
+                    <input type="text" asp-for="PlanoVendido" class="form-control-plaintext" readonly>
                     <div class="top-20 rounded rounded-position">
                         <i class='bx bx-up-arrow-alt'></i>
                     </div>
@@ -140,7 +141,7 @@
             <div class="card-body">
                 <div class="card-board">
                     <h6><strong>Planos cancelados</strong></h6>
-                    <span>30</span>
+                    <input type="text" asp-for="PlanoCancelado" class="form-control-plaintext" readonly>
                     <div class="top-20 rounded rounded-position">
                         <i class='bx bx-down-arrow-alt'></i>
                     </div>

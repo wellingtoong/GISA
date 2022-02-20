@@ -11,5 +11,8 @@ namespace GISA.WebApp.MVC.Services
         Task<IEnumerable<PlanoViewModel>> ObterTodos();
         Task<ResponseMessageDefault> Atualizar(PlanoViewModel planoViewModel);
         Task<ResponseMessageDefault> Registrar(PlanoViewModel planoViewModel);
+        Task<int> ObterTotalPlano();
+        Task<int> ObterTotalPlanoAtivo();
+        Task<int> ObterTotalPlanoInativo();
     }
 }

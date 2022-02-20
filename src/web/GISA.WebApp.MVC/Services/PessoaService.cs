@@ -61,6 +61,33 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<IEnumerable<PessoaViewModel>>(response);
         }
 
+        public async Task<int> ObterTotalUsuario()
+        {
+            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
+        public async Task<int> ObterTotalUsuarioAtivo()
+        {
+            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa-ativo");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
+        public async Task<int> ObterTotalUsuarioInativo()
+        {
+            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa-inativo");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
         public async Task<ResponseMessageDefault> Registrar(PessoaViewModel pessoaViewModel)
         {
             var registroPessoa = ObterConteudo(pessoaViewModel);

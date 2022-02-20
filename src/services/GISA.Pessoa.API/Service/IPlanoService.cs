@@ -9,5 +9,8 @@ namespace GISA.Pessoa.API.Service
         Task<bool> Adicionar(Domain.Plano plano);
         Task<bool> Atualizar(Domain.Plano plano);
         Task<IEnumerable<Domain.Plano>> ObterTodos();
+        Task<int> ObterTotalPlano();
+        Task<int> ObterTotalPlanoAtivo();
+        Task<int> ObterTotalPlanoInativo();
     }
 }

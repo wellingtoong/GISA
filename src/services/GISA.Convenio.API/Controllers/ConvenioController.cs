@@ -35,6 +35,21 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
+        [Route("total-convenio")]
+        public async Task<IActionResult> ObterTotalConvenio()
+        {
+            var total = await _convenioRepository.ObterTotalConvenio();
+
+            if (total == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter total de convenios. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(total);
+        }
+
+        [HttpGet]
         [Route("obter-convenios")]
         public async Task<IActionResult> ObterTodos()
         {
