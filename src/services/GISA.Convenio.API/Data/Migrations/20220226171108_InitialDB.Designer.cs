@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GISA.Convenio.API.Data.Migrations
 {
     [DbContext(typeof(ConvenioDbContext))]
-    [Migration("20220108114818_Initial")]
-    partial class Initial
+    [Migration("20220226171108_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,9 @@ namespace GISA.Convenio.API.Data.Migrations
 
                     b.Property<Guid>("ConvenioId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Estado")
                         .IsRequired()

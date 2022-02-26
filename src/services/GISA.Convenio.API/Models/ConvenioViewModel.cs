@@ -42,7 +42,6 @@ namespace GISA.Convenio.API.Models
         [DisplayName("Data Cadastro")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
 
-        public DateTime DataCadastro { get; set; }
         public EnderecoViewModel EnderecoViewModel { get; set; }
     }
 }

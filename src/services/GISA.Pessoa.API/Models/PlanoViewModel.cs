@@ -27,7 +27,5 @@ namespace GISA.Pessoa.API.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public bool Ativo { get; set; }
-
-        public DateTime DataCadastro { get; set; }
     }
 }

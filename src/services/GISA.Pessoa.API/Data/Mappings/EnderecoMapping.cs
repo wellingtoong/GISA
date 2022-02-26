@@ -36,6 +36,9 @@ namespace GISA.Pessoa.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
+            builder.Property(e => e.DataCadastro)
+                .IsRequired();
+
             builder.ToTable("Enderecos");
         }
     }

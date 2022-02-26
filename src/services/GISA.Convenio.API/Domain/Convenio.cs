@@ -37,6 +37,7 @@ namespace GISA.Convenio.API.Domain
             Email = email;
             Ativo = ativo;
             Endereco = endereco;
+            DataCadastro = DateTime.Now;
         }
 
         public void Ativar() => Ativo = true;

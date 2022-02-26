@@ -24,8 +24,7 @@ namespace GISA.Pessoa.API.Data.Mappings
                 .HasColumnType("varchar(200)");
 
             builder.Property(a => a.DataCadastro)
-                .IsRequired()
-                .HasColumnType("date");
+                .IsRequired();
 
             builder.ToTable("Agendas");
         }

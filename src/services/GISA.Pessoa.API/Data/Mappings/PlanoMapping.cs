@@ -27,6 +27,9 @@ namespace GISA.Pessoa.API.Data.Mappings
             builder.Property(p => p.Ativo)
                 .IsRequired();
 
+            builder.Property(p => p.DataCadastro)
+               .IsRequired();
+
             builder.ToTable("Planos");
         }
     }

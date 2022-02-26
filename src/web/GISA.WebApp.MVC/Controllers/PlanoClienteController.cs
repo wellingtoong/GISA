@@ -74,7 +74,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "PlanoCliente");
         }
     }
 }

@@ -13,18 +13,21 @@ namespace GISA.Pessoa.API.Domain
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
         public Guid PessoaId { get; private set; }
-        public virtual Pessoa Pessoa { get; private set; }
+        public Pessoa Pessoa { get; private set; }
+        public DateTime DataCadastro { get; private set; }
 
         protected Endereco() { }
 
-        public Endereco(string cep, string logradouro, string numero, string bairro, string estado, string municipio)
+        public Endereco(string cep, string logradouro, string numero, string complemento, string bairro, string estado, string municipio)
         {
             Cep = cep;
             Logradouro = logradouro;
             Numero = numero;
+            Complemento = complemento;
             Bairro = bairro;
             Estado = estado;
             Municipio = municipio;
+            DataCadastro = DateTime.Now;
         }
     }
 }

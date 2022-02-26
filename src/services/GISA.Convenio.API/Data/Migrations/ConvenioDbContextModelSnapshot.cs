@@ -77,6 +77,9 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.Property<Guid>("ConvenioId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("varchar(2)");

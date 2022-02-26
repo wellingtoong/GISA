@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GISA.Convenio.API.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,8 @@ namespace GISA.Convenio.API.Data.Migrations
                     Bairro = table.Column<string>(type: "varchar(100)", nullable: false),
                     Estado = table.Column<string>(type: "varchar(2)", nullable: false),
                     Municipio = table.Column<string>(type: "varchar(200)", nullable: false),
-                    ConvenioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ConvenioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

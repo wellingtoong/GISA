@@ -7,7 +7,6 @@ namespace GISA.Pessoa.API.Domain
     {
         public Guid PessoaId { get; private set; }
         public Guid PlanoId { get; private set; }
-        //public int? Acrescimo { get; private set; }
         public int? Desconto { get; private set; }
         public decimal ValorFinal { get; private set; }
         public DateTime DataCadastro { get; private set; }
@@ -20,6 +19,7 @@ namespace GISA.Pessoa.API.Domain
             PlanoId = planoId;
             Desconto = desconto;
             ValorFinal = valorFinal;
+            DataCadastro = DateTime.Now;
         }
     }
 }

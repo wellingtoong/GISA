@@ -13,7 +13,8 @@ namespace GISA.Convenio.API.Domain
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
         public Guid ConvenioId { get; private set; }
-        public virtual Convenio Convenio { get; protected set; }
+        public Convenio Convenio { get; protected set; }
+        public DateTime DataCadastro { get; private set; }
 
         protected Endereco() { }
 
@@ -25,6 +26,7 @@ namespace GISA.Convenio.API.Domain
             Bairro = bairro;
             Estado = estado;
             Municipio = municipio;
+            DataCadastro = DateTime.Now;
         }
     }
 }

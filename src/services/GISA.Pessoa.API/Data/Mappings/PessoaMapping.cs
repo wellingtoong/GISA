@@ -41,6 +41,9 @@ namespace GISA.Pessoa.API.Data.Mappings
                     .HasColumnType($"varchar({Email.EnderecoMaxLength})");
             });
 
+            builder.Property(p => p.DataCadastro)
+              .IsRequired();
+
             builder.ToTable("Pessoas");
         }
     }

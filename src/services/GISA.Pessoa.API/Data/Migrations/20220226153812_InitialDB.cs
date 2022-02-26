@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GISA.Pessoa.API.Migrations
+namespace GISA.Pessoa.API.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace GISA.Pessoa.API.Migrations
                     Data = table.Column<DateTime>(type: "date", nullable: false),
                     Hora = table.Column<string>(type: "varchar(5)", nullable: false),
                     Observacao = table.Column<string>(type: "varchar(200)", nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "date", nullable: false)
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,7 +35,8 @@ namespace GISA.Pessoa.API.Migrations
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Email = table.Column<string>(type: "varchar(150)", nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "date", nullable: false),
-                    TipoPessoaEnum = table.Column<int>(type: "int", nullable: false)
+                    TipoPessoaEnum = table.Column<int>(type: "int", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,7 +51,7 @@ namespace GISA.Pessoa.API.Migrations
                     PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlanoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Desconto = table.Column<int>(type: "int", nullable: true),
-                    ValorFinal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ValorFinal = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -87,7 +88,8 @@ namespace GISA.Pessoa.API.Migrations
                     Bairro = table.Column<string>(type: "varchar(100)", nullable: false),
                     Estado = table.Column<string>(type: "varchar(2)", nullable: false),
                     Municipio = table.Column<string>(type: "varchar(200)", nullable: false),
-                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

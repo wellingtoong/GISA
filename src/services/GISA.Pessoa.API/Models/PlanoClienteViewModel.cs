@@ -18,7 +18,5 @@ namespace GISA.Pessoa.API.Models
         public decimal? Desconto { get; set; }
 
         public decimal ValorFinal { get; set; }
-
-        public DateTime DataCadastro { get; set; }
     }
 }

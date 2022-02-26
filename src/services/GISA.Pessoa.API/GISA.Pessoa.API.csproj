@@ -20,6 +20,12 @@
     <Compile Remove="Data\Migrations\20220213190147_Inital2.Designer.cs" />
     <Compile Remove="Data\Migrations\20220219165822_Initial3.cs" />
     <Compile Remove="Data\Migrations\20220219165822_Initial3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220226153202_InitialDB.cs" />
+    <Compile Remove="Data\Migrations\20220226153202_InitialDB.Designer.cs" />
+    <Compile Remove="Migrations\20220219170720_Initial.cs" />
+    <Compile Remove="Migrations\20220219170720_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20220226145310_InitialTest.cs" />
+    <Compile Remove="Migrations\20220226145310_InitialTest.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

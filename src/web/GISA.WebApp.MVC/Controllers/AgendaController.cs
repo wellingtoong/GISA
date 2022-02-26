@@ -66,7 +66,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Agenda");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)

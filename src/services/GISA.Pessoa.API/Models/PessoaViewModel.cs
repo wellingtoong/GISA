@@ -33,8 +33,8 @@ namespace GISA.Pessoa.API.Models
         [DisplayName("Tipo Pessoa")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int TipoPessoaEnum { get; set; }
-        
-        public DateTime DataNascimento { get; set; }
+    
         public EnderecoViewModel EnderecoViewModel { get; set; }
+        public DateTime DataCadastro { get; set; }
     }
 }

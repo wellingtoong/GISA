@@ -77,7 +77,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Pessoa");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
@@ -95,7 +95,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Pessoa");
         }
     }
 }

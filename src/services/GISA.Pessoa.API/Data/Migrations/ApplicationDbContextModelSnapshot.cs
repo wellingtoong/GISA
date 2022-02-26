@@ -4,16 +4,14 @@ using GISA.Pessoa.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GISA.Pessoa.API.Migrations
+namespace GISA.Pessoa.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220219170720_Initial")]
-    partial class Initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +29,7 @@ namespace GISA.Pessoa.API.Migrations
                         .HasColumnType("date");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Hora")
                         .IsRequired()
@@ -64,6 +62,9 @@ namespace GISA.Pessoa.API.Migrations
 
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Estado")
                         .IsRequired()
@@ -104,6 +105,9 @@ namespace GISA.Pessoa.API.Migrations
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("varchar(14)");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("date");
@@ -176,7 +180,7 @@ namespace GISA.Pessoa.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ValorFinal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 

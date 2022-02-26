@@ -22,6 +22,7 @@ namespace GISA.Pessoa.API.Domain
             Descricao = descricao;
             Valor = valor;
             Ativo = ativo;
+            DataCadastro = DateTime.Now;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Convenio");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
@@ -83,7 +83,7 @@ namespace GISA.WebApp.MVC.Controllers
                 // TODO: faço algo
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Convenio");
         }
     }
 }
