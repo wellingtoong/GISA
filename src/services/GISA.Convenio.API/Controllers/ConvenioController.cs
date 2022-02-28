@@ -2,8 +2,8 @@
 using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Models;
 using GISA.Convenio.API.Service;
+using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
-using GISA.Core.Messages.Integration;
 using GISA.MessageBus;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -87,13 +87,9 @@ namespace GISA.Convenio.API.Controllers
 
             if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessageDefault>(_mapper.Map<Domain.Convenio>(convenioViewModel));
+            var result = await _bus.RequestAsync<Domain.Convenio, ResponseResult>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível registrar o convenio. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -106,13 +102,9 @@ namespace GISA.Convenio.API.Controllers
 
             if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
 
-            var result = await _bus.RequestAsync<Domain.Convenio, ResponseMessageDefault>(_mapper.Map<Domain.Convenio>(convenioViewModel));
+            var result = await _bus.RequestAsync<Domain.Convenio, ResponseResult>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar o convenio. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -127,13 +119,9 @@ namespace GISA.Convenio.API.Controllers
 
             var result = await _convenioService.AtualizarEndereco(id, conveio);
 
-            if (!result)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar o endereço do convenio. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         private bool EmailValido(string email)

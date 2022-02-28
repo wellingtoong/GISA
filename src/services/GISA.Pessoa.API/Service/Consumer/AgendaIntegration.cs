@@ -1,20 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GISA.Pessoa.API.Data.Repository;
-using GISA.Core.Messages.Integration;
+﻿using GISA.Core.Communication;
 using GISA.MessageBus;
+using GISA.Pessoa.API.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Service.Consumer
 {
-    public class RegistrarAtualizarAgendaIntegration : BackgroundService
+    public class AgendaIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistrarAtualizarAgendaIntegration(
+        public AgendaIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -24,8 +24,8 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void SetResponder()
         {
-            _bus.RespondAsync<Domain.Agenda, ResponseMessageDefault>(async request =>
-                await ConsumerRegistrarAtualizarAgenda(request));
+            _bus.RespondAsync<Domain.Agenda, ResponseResult>(async request =>
+                await ConsumerAgenda(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
@@ -38,25 +38,32 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessageDefault> ConsumerRegistrarAtualizarAgenda(Domain.Agenda agenda)
+        private async Task<ResponseResult> ConsumerAgenda(Domain.Agenda agenda)
         {
-            bool sucesso = false;
+            var response = new ResponseResult();
 
             using (var scope = _serviceProvider.CreateScope())  
             {
+                bool result = false;
                 var _agendaRepository = scope.ServiceProvider.GetRequiredService<IAgendaRepository>();
 
                 if (agenda.Id == null || agenda.Id == Guid.Empty)
                 {
-                    sucesso = await _agendaRepository.Adicionar(agenda);
+                    result = await _agendaRepository.Adicionar(agenda);
                 }
                 else
                 {
-                    sucesso = await _agendaRepository.Atualizar(agenda);
+                    result = await _agendaRepository.Atualizar(agenda);
+                }
+
+                if (!result)
+                {
+                    response.Errors.Mensagens.Add("Ocorreu um erro interno ao inserir ou atualizar dados.");
+                    return response;
                 }
             }
 
-            return new ResponseMessageDefault() { Sucess = sucesso };
+            return new ResponseResult();
         }
     }
 }

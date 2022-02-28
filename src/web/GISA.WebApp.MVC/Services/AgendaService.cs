@@ -20,7 +20,7 @@ namespace GISA.WebApp.MVC.Services
             _httpClient = httpClient;
         }
 
-        public async Task<ResponseMessageDefault> Atualizar(AgendaViewModel agendaViewModel)
+        public async Task<ResponseResult> Atualizar(AgendaViewModel agendaViewModel)
         {
             var agendaContent = ObterConteudo(agendaViewModel);
 
@@ -28,10 +28,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<AgendaViewModel> ObterPorId(Guid id)
@@ -52,7 +52,7 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<IEnumerable<AgendaViewModel>>(response);
         }
 
-        public async Task<ResponseMessageDefault> Registrar(AgendaViewModel agendaViewModel)
+        public async Task<ResponseResult> Registrar(AgendaViewModel agendaViewModel)
         {
             var agendaContent = ObterConteudo(agendaViewModel);
 
@@ -60,10 +60,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
     }
 }

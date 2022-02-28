@@ -46,6 +46,7 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("agendamento/novo-agenda")]
         public IActionResult Registrar()
         {
+            ViewBag.ValidateForm = false;
             return View();
         }
 
@@ -56,15 +57,13 @@ namespace GISA.WebApp.MVC.Controllers
             if (!ModelState.IsValid)
             { 
                 ViewBag.ValidateForm = true;
+                AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View(agendaViewModel);
             }
 
             var result = await _agendaService.Registrar(agendaViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Editar");
 
             return RedirectToAction("Index", "Agenda");
         }
@@ -74,15 +73,13 @@ namespace GISA.WebApp.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ValidateForm = true;
+                AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View("Editar", agendaViewModel);
             }
 
             var result = await _agendaService.Atualizar(agendaViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Editar");
 
             return View("Index");
         }

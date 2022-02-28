@@ -1,20 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GISA.Convenio.API.Data.Repository;
-using GISA.Core.Messages.Integration;
+﻿using GISA.Convenio.API.Data.Repository;
+using GISA.Core.Communication;
 using GISA.MessageBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GISA.Convenio.API.Services.Consumer
 {
-    public class RegistrarAtualizarConvenioIntegration : BackgroundService
+    public class ConvenioIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistrarAtualizarConvenioIntegration(
+        public ConvenioIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -24,8 +24,8 @@ namespace GISA.Convenio.API.Services.Consumer
 
         private void SetResponder()
         {
-            _bus.RespondAsync<Domain.Convenio, ResponseMessageDefault>(async request =>
-                await ConsumerRegistrarAtualizarConvenio(request));
+            _bus.RespondAsync<Domain.Convenio, ResponseResult>(async request =>
+                await ConsumerConvenio(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
@@ -38,25 +38,32 @@ namespace GISA.Convenio.API.Services.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessageDefault> ConsumerRegistrarAtualizarConvenio(Domain.Convenio convenio)
+        private async Task<ResponseResult> ConsumerConvenio(Domain.Convenio convenio)
         {
-            bool sucesso = false;
+            var response = new ResponseResult();
 
             using (var scope = _serviceProvider.CreateScope())
             {
+                var result = false;
                 var _convenioRepository = scope.ServiceProvider.GetRequiredService<IConvenioRepository>();
 
                 if (convenio.Id == null || convenio.Id == Guid.Empty)
                 {
-                    sucesso = await _convenioRepository.Adicionar(convenio);
+                    result = await _convenioRepository.Adicionar(convenio);
                 }
                 else
                 {
-                    sucesso = await _convenioRepository.Atualizar(convenio);
+                    result = await _convenioRepository.Atualizar(convenio);
+                }
+
+                if (!result)
+                {
+                    response.Errors.Mensagens.Add("Ocorreu um erro interno ao inserir ou atualizar dados.");
+                    return response;
                 }
             }
 
-            return new ResponseMessageDefault() { Sucess = sucesso };
+            return new ResponseResult();
         }
     }
 }

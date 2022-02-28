@@ -9,8 +9,8 @@ namespace GISA.WebApp.MVC.Services
     {
         Task<ConvenioViewModel> ObterPorId(Guid id);
         Task<IEnumerable<ConvenioViewModel>> ObterTodos();
-        Task<ResponseMessageDefault> Atualizar(ConvenioViewModel convenioViewModel);
-        Task<ResponseMessageDefault> Registrar(ConvenioViewModel convenioViewModel);
+        Task<ResponseResult> Atualizar(ConvenioViewModel convenioViewModel);
+        Task<ResponseResult> Registrar(ConvenioViewModel convenioViewModel);
         Task<int> ObterTotalConvenio();
     }
 }

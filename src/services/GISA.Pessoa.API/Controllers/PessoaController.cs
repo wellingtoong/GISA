@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
-using GISA.Core.Messages.Integration;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -129,13 +129,9 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
-            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
+            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseResult>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar a pessoa. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -148,13 +144,9 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!EmailValido(pessoaViewModel.Email)) return CustomResponse();
 
-            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseMessageDefault>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
+            var result = await _bus.RequestAsync<Domain.Pessoa, ResponseResult>(_mapper.Map<Domain.Pessoa>(pessoaViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível registrar a pessoa. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }

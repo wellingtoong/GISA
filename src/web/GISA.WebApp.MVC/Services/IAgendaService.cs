@@ -9,7 +9,7 @@ namespace GISA.WebApp.MVC.Services
     {
         Task<AgendaViewModel> ObterPorId(Guid id);
         Task<IEnumerable<AgendaViewModel>> ObterTodos();
-        Task<ResponseMessageDefault> Atualizar(AgendaViewModel agendaViewModel);
-        Task<ResponseMessageDefault> Registrar(AgendaViewModel agendaViewModel);
+        Task<ResponseResult> Atualizar(AgendaViewModel agendaViewModel);
+        Task<ResponseResult> Registrar(AgendaViewModel agendaViewModel);
     }
 }

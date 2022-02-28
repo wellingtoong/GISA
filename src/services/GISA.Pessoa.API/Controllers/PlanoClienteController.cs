@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GISA.Core.Messages.Integration;
+using GISA.Core.Communication;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
@@ -90,13 +90,9 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!OperacaoValida()) return CustomResponse();
 
-            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseMessageDefault>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
+            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseResult>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar o plano cliente. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -122,13 +118,9 @@ namespace GISA.Pessoa.API.Controllers
 
             CalcularValorDesconto(planoClienteViewModel, plano.Valor);
 
-            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseMessageDefault>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
+            var result = await _bus.RequestAsync<Domain.PlanoCliente, ResponseResult>(_mapper.Map<Domain.PlanoCliente>(planoClienteViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível registrar o plano 2wcliente. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }

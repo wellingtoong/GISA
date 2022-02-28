@@ -1,20 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GISA.Pessoa.API.Data.Repository;
-using GISA.Core.Messages.Integration;
+﻿using GISA.Core.Communication;
 using GISA.MessageBus;
+using GISA.Pessoa.API.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Service.Consumer
 {
-    public class RegistrarAtualizarPessoaIntegration : BackgroundService
+    public class PessoaIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistrarAtualizarPessoaIntegration(
+        public PessoaIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -24,8 +24,8 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void SetResponder()
         {
-            _bus.RespondAsync<Domain.Pessoa, ResponseMessageDefault>(async request =>
-                await ConsumerRegistrarAtualizarPessoa(request));
+            _bus.RespondAsync<Domain.Pessoa, ResponseResult>(async request =>
+                await ConsumerPessoa(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
@@ -38,25 +38,32 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessageDefault> ConsumerRegistrarAtualizarPessoa(Domain.Pessoa pessoa)
+        private async Task<ResponseResult> ConsumerPessoa(Domain.Pessoa pessoa)
         {
-            bool sucesso = false;
+            var response = new ResponseResult();
 
             using (var scope = _serviceProvider.CreateScope())  
             {
+                bool result = false;
                 var _pessoaRepository = scope.ServiceProvider.GetRequiredService<IPessoaRepository>();
 
                 if (pessoa.Id == null || pessoa.Id == Guid.Empty)
                 {
-                    sucesso = await _pessoaRepository.Adicionar(pessoa);
+                    result = await _pessoaRepository.Adicionar(pessoa);
                 }
                 else
                 {
-                    sucesso = await _pessoaRepository.Atualizar(pessoa);
+                    result = await _pessoaRepository.Atualizar(pessoa);
+                }
+
+                if (!result)
+                {
+                    response.Errors.Mensagens.Add("Ocorreu um erro interno ao inserir ou atualizar dados.");
+                    return response;
                 }
             }
 
-            return new ResponseMessageDefault() { Sucess = sucesso };
+            return new ResponseResult();
         }
     }
 }

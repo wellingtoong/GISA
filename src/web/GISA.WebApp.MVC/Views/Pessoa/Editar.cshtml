@@ -61,7 +61,6 @@
                     }
                 }
 
-
                 <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
                     <br />
 
@@ -73,9 +72,11 @@
                     }
 
                     <a class="btn btn-secondary float-end ml-10" asp-action="Index">Voltar</a>
-                    <button type="submit" class="btn btn-primary float-end">Salvar</button>
+                    @*<button type="submit" class="btn btn-primary float-end">Salvar</button>*@
                 </div>
             </form>
+
+         
         </div>
     </div>
 </div>
@@ -96,12 +97,17 @@
 
                 if ($("#Ativo").is(":checked") == true) {
 
+                    console.log('entrou')
+
                     $('#txtDesconto').mask('##0%', { reverse: true });
                     $('#txtNomeCompleto').val($('#NomeCompleto').val());
                     $('#txtTipoPessoa').val($('#TipoPessoaEnum option:selected').text());
 
                     $("#ddlPlano").change(function () {
                         var planos = app.metodos.getLocalStorage('plano');
+
+                        console.log(planos)
+
                         var item = planos.filter(p => p.id == $(this).val());
 
                         $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
@@ -121,7 +127,7 @@
 
                     if ($('#Id').val() == '' && $('#Id').val() == null && $('#Id').val() == undefined) return;
 
-                    plano.metodos.obterPlanoPessoaPorIdPessoa($('#Id').val());
+                    //plano.metodos.obterPlanoPessoaPorIdPessoa($('#Id').val());
                 }
 
                 plano.metodos.obterPlanos();
@@ -158,62 +164,62 @@
 
             },
 
-            enviarPlanoPessoa: () => {
+            //enviarPlanoPessoa: () => {
 
-                var pessoaId = $('#Id').val();
-                var planoId = $('#ddlPlano').val();
-                var desconto = $('#txtDesconto').val().replace('%', '');
-                var valorFinal = $('#txtValorFinal').val().replace(',', '.');
+            //    var pessoaId = $('#Id').val();
+            //    var planoId = $('#ddlPlano').val();
+            //    var desconto = $('#txtDesconto').val().replace('%', '');
+            //    var valorFinal = $('#txtValorFinal').val().replace(',', '.');
 
-                var dado = {
-                    id: app.metodos.newGuid(),
-                    pessoaId: pessoaId,
-                    planoId: planoId,
-                    desconto: desconto,
-                    valorFinal: valorFinal
-                }
+            //    var dado = {
+            //        id: app.metodos.newGuid(),
+            //        pessoaId: pessoaId,
+            //        planoId: planoId,
+            //        desconto: desconto,
+            //        valorFinal: valorFinal
+            //    }
 
-                console.log("dado", dado);
+            //    console.log("dado", dado);
 
-                app.metodos.post('/plano-cliente/novo-plano', dado,
-                    (response) => {
+            //    app.metodos.post('/plano-cliente/novo-plano', dado,
+            //        (response) => {
 
-                        console.log('enviarPlanoPessoa', response)
+            //            console.log('enviarPlanoPessoa', response)
 
-                    },
-                    (xhr, ajaxOptions, error) => {
-                        console.log('xhr', xhr);
-                        console.log('ajaxOptions', ajaxOptions);
-                        console.log('error', error);
-                    }
+            //        },
+            //        (xhr, ajaxOptions, error) => {
+            //            console.log('xhr', xhr);
+            //            console.log('ajaxOptions', ajaxOptions);
+            //            console.log('error', error);
+            //        }
 
-                )
+            //    )
 
-            },
+            //},
 
-            obterPlanoPessoaPorIdPessoa: (idPessoa) => {
+            //obterPlanoPessoaPorIdPessoa: (idPessoa) => {
 
-                app.metodos.get(`/plano-cliente/obter-plano/${idPessoa}`,
-                    (response) => {
-                        console.log('obterPlanoPessoaPorIdPessoa', response)
+            //    app.metodos.get(`/plano-cliente/obter-plano/${idPessoa}`,
+            //        (response) => {
+            //            console.log('obterPlanoPessoaPorIdPessoa', response)
 
-                        if (response.id == null || response.id == "00000000-0000-0000-0000-000000000000") return;
+            //            if (response.id == null || response.id == "00000000-0000-0000-0000-000000000000") return;
 
-                        var total = response.valorFinal + response.desconto;
+            //            var total = response.valorFinal + response.desconto;
 
-                        $('#ddlPlano').val(response.planoId);
-                        $('#txtValorPlano').val(total.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
-                        $('#txtDesconto').val(response.desconto);
-                        $('#txtValorFinal').val(response.valorFinal.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
-                    },
-                    (xhr, ajaxOptions, error) => {
-                        console.log('xhr', xhr);
-                        console.log('ajaxOptions', ajaxOptions);
-                        console.log('error', error);
-                    }
-                )
+            //            $('#ddlPlano').val(response.planoId);
+            //            $('#txtValorPlano').val(total.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
+            //            $('#txtDesconto').val(response.desconto);
+            //            $('#txtValorFinal').val(response.valorFinal.toLocaleString('pt-br', { minimumFractionDigits: 2 }));
+            //        },
+            //        (xhr, ajaxOptions, error) => {
+            //            console.log('xhr', xhr);
+            //            console.log('ajaxOptions', ajaxOptions);
+            //            console.log('error', error);
+            //        }
+            //    )
 
-            },
+            //},
 
         }
 

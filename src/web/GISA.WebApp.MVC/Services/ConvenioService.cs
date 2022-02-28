@@ -19,6 +19,7 @@ namespace GISA.WebApp.MVC.Services
 
             _httpClient = httpClient;
         }
+
         public async Task<ConvenioViewModel> ObterPorId(Guid id)
         {
             var response = await _httpClient.GetAsync($"/api/convenio/obter-convenio/{id}");
@@ -37,21 +38,23 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<IEnumerable<ConvenioViewModel>>(response);
         }
 
-        public async Task<ResponseMessageDefault> Atualizar(ConvenioViewModel convenioViewModel)
+        public async Task<ResponseResult> Atualizar(ConvenioViewModel convenioViewModel)
         {
             var atualizarConvenio = ObterConteudo(convenioViewModel);
 
             var response = await _httpClient.PutAsync("/api/convenio/atualizar-convenio", atualizarConvenio);
 
+            var teste = await response.Content.ReadAsStringAsync();
+
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
-        public async Task<ResponseMessageDefault> Registrar(ConvenioViewModel convenioViewModel)
+        public async Task<ResponseResult> Registrar(ConvenioViewModel convenioViewModel)
         {
             var registroConvenio = ObterConteudo(convenioViewModel);
 
@@ -59,10 +62,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<int> ObterTotalConvenio()

@@ -10,8 +10,8 @@ namespace GISA.WebApp.MVC.Services
         Task<PessoaViewModel> ObterPorId(Guid id);
         Task<PessoaViewModel> ObterPorEmail(string email);
         Task<IEnumerable<PessoaViewModel>> ObterTodos();
-        Task<ResponseMessageDefault> Atualizar(PessoaViewModel pessoaViewModel);
-        Task<ResponseMessageDefault> Registrar(PessoaViewModel pessoaViewModel);
+        Task<ResponseResult> Atualizar(PessoaViewModel pessoaViewModel);
+        Task<ResponseResult> Registrar(PessoaViewModel pessoaViewModel);
         Task<int> ObterTotalUsuario();
         Task<int> ObterTotalUsuarioAtivo();
         Task<int> ObterTotalUsuarioInativo();

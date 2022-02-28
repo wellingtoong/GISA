@@ -12,12 +12,10 @@
 
 @if (ViewData.ModelState.ErrorCount > 0)
 {
-    <div class="row">
-        <div id="msg_box" class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-            <div>Algo deu errado! Verifique e tente novamente.</div>
+    <div id="msg_box">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Ops! Algo deu errado.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
             <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-danger"></div>
         </div>
     </div>
@@ -25,22 +23,18 @@
 
 @if (!string.IsNullOrEmpty(ViewBag.Sucesso))
 {
-    <div class="row">
-        <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-            <div id="msgRetorno">@ViewBag.Sucesso</div>
-        </div>
+    <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+        <div id="msgRetorno">@ViewBag.Sucesso</div>
     </div>
 }
 
 @if (TempData["Sucesso"] != null)
 {
-    <div class="row">
-        <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-            <div>
-                @Html.Raw(TempData["Sucesso"].ToString())
-            </div>
+    <div id="msg_box" class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+        <div>
+            @Html.Raw(TempData["Sucesso"].ToString())
         </div>
     </div>
 }

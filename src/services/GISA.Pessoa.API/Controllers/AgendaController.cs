@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GISA.Core.Messages.Integration;
+using GISA.Core.Communication;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
@@ -17,7 +17,6 @@ namespace GISA.Pessoa.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
-        private readonly IAgendaService _agendaService;
         private readonly IAgendaRepository _agendaRepository;
 
         public AgendaController(IAgendaService agendaService,
@@ -27,7 +26,6 @@ namespace GISA.Pessoa.API.Controllers
         {
             _mapper = mapper;
             _agendaRepository = agendaRepository;
-            _agendaService = agendaService;
             _bus = bus;
         }
 
@@ -67,13 +65,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _bus.RequestAsync<Domain.Agenda, ResponseMessageDefault>(_mapper.Map<Domain.Agenda>(agendaViewModel));
+            var result = await _bus.RequestAsync<Domain.Agenda, ResponseResult>(_mapper.Map<Domain.Agenda>(agendaViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar a agenda. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -84,13 +78,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _bus.RequestAsync<Domain.Agenda, ResponseMessageDefault>(_mapper.Map<Domain.Agenda>(agendaViewModel));
+            var result = await _bus.RequestAsync<Domain.Agenda, ResponseResult>(_mapper.Map<Domain.Agenda>(agendaViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível adicionar a agenda. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }

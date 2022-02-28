@@ -74,6 +74,8 @@
                 $('#Cnpj').mask('00.000.000/0000-00', { placeholder: "  .   .   /    -  " });
                 $('#EnderecoViewModel_Cep').mask('00000-000', { placeholder: "     -   " });
 
+                app.metodos.buscarCep();
+
                 var validade = "@ViewBag.ValidateForm";
                 app.metodos.initValidateForm(validade);
             }
@@ -81,6 +83,5 @@
         }
 
         convenio.eventos.init();
-        app.metodos.buscarCep();
     </script>
 }

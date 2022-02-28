@@ -1,6 +1,6 @@
 ﻿using EasyNetQ;
+using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
-using GISA.Core.Messages.Integration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
 using System;
@@ -48,29 +48,29 @@ namespace GISA.MessageBus
             _bus.SubscribeAsync(subscriptionId, onMessage);
         }
 
-        public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : Entity, IAggregateRoot
-            where TResponse : ResponseMessageDefault
+        public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : Entity
+            where TResponse : ResponseResult
         {
             TryConnect();
             return _bus.Request<TRequest, TResponse>(request);
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
+            where TRequest : Entity where TResponse : ResponseResult
         {
             TryConnect();
             return await _bus.RequestAsync<TRequest, TResponse>(request);
         }
 
         public IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
+            where TRequest : Entity where TResponse : ResponseResult
         {
             TryConnect();
             return _bus.Respond(responder);
         }
 
         public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
-            where TRequest : Entity, IAggregateRoot where TResponse : ResponseMessageDefault
+            where TRequest : Entity where TResponse : ResponseResult
         {
             TryConnect();
             return _bus.RespondAsync(responder);

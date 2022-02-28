@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GISA.Core.Messages.Integration;
+using GISA.Core.Communication;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
@@ -110,13 +110,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _bus.RequestAsync<Domain.Plano, ResponseMessageDefault>(_mapper.Map<Domain.Plano>(planoViewModel));
+            var result = await _bus.RequestAsync<Domain.Plano, ResponseResult>(_mapper.Map<Domain.Plano>(planoViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível atualizar o plano. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }
@@ -127,13 +123,9 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _bus.RequestAsync<Domain.Plano, ResponseMessageDefault>(_mapper.Map<Domain.Plano>(planoViewModel));
+            var result = await _bus.RequestAsync<Domain.Plano, ResponseResult>(_mapper.Map<Domain.Plano>(planoViewModel));
 
-            if (!result.Sucess)
-            {
-                AdicionarErroProcessamento("Não foi possível registrar o plano. Tente novamente!");
-                return CustomResponse();
-            }
+            if (!OperacaoValida()) return CustomResponse(result);
 
             return CustomResponse(result);
         }

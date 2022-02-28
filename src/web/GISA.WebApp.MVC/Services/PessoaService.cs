@@ -20,7 +20,7 @@ namespace GISA.WebApp.MVC.Services
             _httpClient = httpClient;
         }
 
-        public async Task<ResponseMessageDefault> Atualizar(PessoaViewModel pessoaViewModel)
+        public async Task<ResponseResult> Atualizar(PessoaViewModel pessoaViewModel)
         {
             var atualizarPessoa = ObterConteudo(pessoaViewModel);
 
@@ -28,10 +28,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<PessoaViewModel> ObterPorEmail(string email)
@@ -88,7 +88,7 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<int>(response);
         }
 
-        public async Task<ResponseMessageDefault> Registrar(PessoaViewModel pessoaViewModel)
+        public async Task<ResponseResult> Registrar(PessoaViewModel pessoaViewModel)
         {
             var registroPessoa = ObterConteudo(pessoaViewModel);
 
@@ -96,10 +96,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
     }
 }

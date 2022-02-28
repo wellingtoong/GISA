@@ -3,13 +3,14 @@ using System;
 
 namespace GISA.Pessoa.API.Domain
 {
-    public class PlanoCliente : Entity, IAggregateRoot
+    public class PlanoCliente : Entity
     {
-        public Guid PessoaId { get; private set; }
         public Guid PlanoId { get; private set; }
         public int? Desconto { get; private set; }
         public decimal ValorFinal { get; private set; }
         public DateTime DataCadastro { get; private set; }
+        public Guid PessoaId { get; private set; }
+        public Pessoa Pessoa { get; private set; }
 
         protected PlanoCliente() { }
 

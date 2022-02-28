@@ -30,6 +30,13 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("convenio/editar-convenio/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ValidateForm = true;
+                AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
+                return View("Editar");
+            }
+
             var convenio = await _convenioService.ObterPorId(id);
             return View(convenio);
         }
@@ -45,6 +52,7 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("convenio/novo-convenio")]
         public IActionResult Registrar()
         {
+            ViewBag.ValidateForm = false;
             return View();
         }
 
@@ -55,15 +63,13 @@ namespace GISA.WebApp.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ValidateForm = true;
+                AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View(convenioViewModel);
             }
 
             var result = await _convenioService.Registrar(convenioViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Registrar");
 
             return RedirectToAction("Index", "Convenio");
         }
@@ -73,15 +79,13 @@ namespace GISA.WebApp.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ValidateForm = true;
+                AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View("Editar", convenioViewModel);
             }
 
             var result = await _convenioService.Atualizar(convenioViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Editar");
 
             return RedirectToAction("Index", "Convenio");
         }

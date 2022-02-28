@@ -19,7 +19,7 @@ namespace GISA.WebApp.MVC.Services
             _httpClient = httpClient;
         }
 
-        public async Task<ResponseMessageDefault> Atualizar(PlanoViewModel planoViewModel)
+        public async Task<ResponseResult> Atualizar(PlanoViewModel planoViewModel)
         {
             var planoContent = ObterConteudo(planoViewModel);
 
@@ -27,10 +27,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<PlanoViewModel> ObterPorId(Guid id)
@@ -78,7 +78,7 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<int>(response);
         }
 
-        public async Task<ResponseMessageDefault> Registrar(PlanoViewModel planoViewModel)
+        public async Task<ResponseResult> Registrar(PlanoViewModel planoViewModel)
         {
             var planoContent = ObterConteudo(planoViewModel);
 
@@ -86,10 +86,10 @@ namespace GISA.WebApp.MVC.Services
 
             if (!TratarErrosResponse(response))
             {
-                return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+                return await DeserializarObjetoResponse<ResponseResult>(response);
             }
 
-            return await DeserializarObjetoResponse<ResponseMessageDefault>(response);
+            return await DeserializarObjetoResponse<ResponseResult>(response);
         }
     }
 }

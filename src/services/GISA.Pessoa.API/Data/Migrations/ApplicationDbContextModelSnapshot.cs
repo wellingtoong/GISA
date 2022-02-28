@@ -184,6 +184,9 @@ namespace GISA.Pessoa.API.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PessoaId")
+                        .IsUnique();
+
                     b.ToTable("PlanoClientes");
                 });
 
@@ -221,9 +224,22 @@ namespace GISA.Pessoa.API.Data.Migrations
                     b.Navigation("Email");
                 });
 
+            modelBuilder.Entity("GISA.Pessoa.API.Domain.PlanoCliente", b =>
+                {
+                    b.HasOne("GISA.Pessoa.API.Domain.Pessoa", "Pessoa")
+                        .WithOne("PlanoCliente")
+                        .HasForeignKey("GISA.Pessoa.API.Domain.PlanoCliente", "PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pessoa");
+                });
+
             modelBuilder.Entity("GISA.Pessoa.API.Domain.Pessoa", b =>
                 {
                     b.Navigation("Endereco");
+
+                    b.Navigation("PlanoCliente");
                 });
 #pragma warning restore 612, 618
         }

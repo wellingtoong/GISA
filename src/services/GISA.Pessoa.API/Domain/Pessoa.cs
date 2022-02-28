@@ -13,6 +13,7 @@ namespace GISA.Pessoa.API.Domain
         public bool Ativo { get; private set; }
         public Email Email { get; private set; }
         public Endereco Endereco { get; private set; }
+        public PlanoCliente? PlanoCliente { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public TipoPessoaEnum TipoPessoaEnum { get; private set; }
         public DateTime DataCadastro { get; private set; }

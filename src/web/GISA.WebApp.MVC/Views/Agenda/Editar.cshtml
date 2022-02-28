@@ -93,7 +93,7 @@
                 app.metodos.get(`/pessoa/obter-pessoa/${email}`,
                     (response) => {
                         var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
-                        var tipoPessoa = (response.tipoPessoaEnum == 1) ? "Associado" : (response.tipoPessoaEnum == 2) ? "Colaborador" : "N/A";
+                        var tipoPessoa = (response.tipoPessoaEnum == 0) ? "Associado" : (response.tipoPessoaEnum == 1) ? "Colaborador" : "N/A";
 
                         $('#IdPessoa').val(response.id)
                         $('#txtNomeCompleto').val(response.nomeCompleto);

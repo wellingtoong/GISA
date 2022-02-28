@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GISA.Pessoa.API.Data.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class Initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,22 +41,6 @@ namespace GISA.Pessoa.API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pessoas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlanoClientes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlanoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Desconto = table.Column<int>(type: "int", nullable: true),
-                    ValorFinal = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlanoClientes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,9 +86,37 @@ namespace GISA.Pessoa.API.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PlanoClientes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlanoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Desconto = table.Column<int>(type: "int", nullable: true),
+                    ValorFinal = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanoClientes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlanoClientes_Pessoas_PessoaId",
+                        column: x => x.PessoaId,
+                        principalTable: "Pessoas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Enderecos_PessoaId",
                 table: "Enderecos",
+                column: "PessoaId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanoClientes_PessoaId",
+                table: "PlanoClientes",
                 column: "PessoaId",
                 unique: true);
         }

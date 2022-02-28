@@ -30,6 +30,7 @@ namespace GISA.WebApp.MVC.Controllers
         public async Task<IActionResult> Editar(Guid id)
         {
             var plano = await _planoService.ObterPorId(id);
+
             return View(plano);
         }
 
@@ -38,12 +39,14 @@ namespace GISA.WebApp.MVC.Controllers
         public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel)
         {
             var plano = await _planoService.ObterPorId(id);
+
             return View(plano);
         }
 
         [Route("plano/novo-plano")]
         public IActionResult Registrar()
         {
+            ViewBag.ValidateForm = false;
             return View();
         }
 
@@ -59,10 +62,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoService.Registrar(planoViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Registrar");
 
             return RedirectToAction("Index", "Plano");
         }
@@ -77,10 +77,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoService.Atualizar(planoViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Editar");
 
             return RedirectToAction("Index", "Plano");
         }

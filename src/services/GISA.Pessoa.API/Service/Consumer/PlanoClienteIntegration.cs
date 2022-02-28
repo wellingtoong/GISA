@@ -1,20 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GISA.Pessoa.API.Data.Repository;
-using GISA.Core.Messages.Integration;
+﻿using GISA.Core.Communication;
 using GISA.MessageBus;
+using GISA.Pessoa.API.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Service.Consumer
 {
-    public class RegistrarAtualizarPlanoClienteIntegration : BackgroundService
+    public class PlanoClienteIntegration : BackgroundService
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistrarAtualizarPlanoClienteIntegration(
+        public PlanoClienteIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)
         {
@@ -24,8 +24,8 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void SetResponder()
         {
-            _bus.RespondAsync<Domain.PlanoCliente, ResponseMessageDefault>(async request =>
-                await ConsumerRegistrarAtualizarPlanoCliente(request));
+            _bus.RespondAsync<Domain.PlanoCliente, ResponseResult>(async request =>
+                await ConsumerPlanoCliente(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
@@ -38,25 +38,32 @@ namespace GISA.Pessoa.API.Service.Consumer
 
         private void OnConnect(object s, EventArgs e) => SetResponder();
 
-        private async Task<ResponseMessageDefault> ConsumerRegistrarAtualizarPlanoCliente(Domain.PlanoCliente planoCliente)
+        private async Task<ResponseResult> ConsumerPlanoCliente(Domain.PlanoCliente planoCliente)
         {
-            bool sucesso = false;
+            var response = new ResponseResult();
 
             using (var scope = _serviceProvider.CreateScope())  
             {
+                bool result = false;
                 var _planoRepository = scope.ServiceProvider.GetRequiredService<IPlanoClienteRepository>();
 
                 if (planoCliente.Id == null || planoCliente.Id == Guid.Empty)
                 {
-                    sucesso = await _planoRepository.Adicionar(planoCliente);
+                    result = await _planoRepository.Adicionar(planoCliente);
                 }
                 else
                 {
-                    sucesso = await _planoRepository.Atualizar(planoCliente);
+                    result = await _planoRepository.Atualizar(planoCliente);
+                }
+
+                if (!result)
+                {
+                    response.Errors.Mensagens.Add("Ocorreu um erro interno ao inserir ou atualizar dados.");
+                    return response;
                 }
             }
 
-            return new ResponseMessageDefault() { Sucess = sucesso };
+            return new ResponseResult();
         }
     }
 }

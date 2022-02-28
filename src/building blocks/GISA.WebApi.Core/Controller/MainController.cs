@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
+﻿using GISA.Core.Communication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GISA.WebAPI.Core.Controllers
 {
@@ -13,7 +13,10 @@ namespace GISA.WebAPI.Core.Controllers
 
         protected ActionResult CustomResponse(object result = null)
         {
-            if (OperacaoValida()) return Ok(result);
+            if (OperacaoValida())
+            {
+                return Ok(result);
+            }
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
@@ -32,10 +35,46 @@ namespace GISA.WebAPI.Core.Controllers
             return CustomResponse();
         }
 
-        protected bool OperacaoValida() => !Erros.Any();
+        protected ActionResult CustomResponse(ResponseResult resposta)
+        {
+            ResponsePossuiErros(resposta);
 
-        protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);
+            if (OperacaoValida())
+            {
+                return Ok(resposta);
+            }
 
-        protected void LimparErrosProcessamento() => Erros.Clear();
+            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
+            {
+                { "Mensagens", Erros.ToArray() }
+            }));
+        }
+
+        protected bool ResponsePossuiErros(ResponseResult resposta)
+        {
+            if (resposta == null || !resposta.Errors.Mensagens.Any()) return false;
+
+            foreach (var mensagem in resposta.Errors.Mensagens)
+            {
+                AdicionarErroProcessamento(mensagem);
+            }
+
+            return true;
+        }
+
+        protected bool OperacaoValida()
+        {
+            return !Erros.Any();
+        }
+
+        protected void AdicionarErroProcessamento(string erro)
+        {
+            Erros.Add(erro);
+        }
+
+        protected void LimparErrosProcessamento()
+        {
+            Erros.Clear();
+        }
     }
 }

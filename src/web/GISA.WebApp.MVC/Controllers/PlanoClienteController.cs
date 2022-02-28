@@ -55,10 +55,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoClienteService.Registrar(planoClienteViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Registrar");
 
             return Ok(result);
         }
@@ -69,10 +66,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoClienteService.Atualizar(planoClienteViewModel);
 
-            if (!result.Sucess)
-            {
-                // TODO: faço algo
-            }
+            if (ResponsePossuiErros(result)) return View("Editar");
 
             return RedirectToAction("Index", "PlanoCliente");
         }

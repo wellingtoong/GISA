@@ -16,4 +16,8 @@
 		<PackageReference Include="NetDevPack.Security.JwtExtensions" Version="1.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\GISA.Core\GISA.Core.csproj" />
+	</ItemGroup>
+
 </Project>
