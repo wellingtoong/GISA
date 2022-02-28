@@ -1,7 +1,9 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
@@ -46,13 +48,7 @@ namespace GISA.WebApp.MVC.Controllers
         {
             var planos = await _planoService.ObterTodos();
 
-            //using (var storage = new LocalStorage())
-            //{
-            //    storage.Store("plano", planos);
-            //    storage.Persist();
-            //}
-
-            //ViewBag.TipoPlano = planos.Select(c => new SelectListItem() { Text = c.Nome, Value = c.Id.ToString() }).ToList();
+            ViewBag.TipoPlano = planos.Select(c => new SelectListItem() { Text = c.Nome, Value = c.Id.ToString() }).ToList();
 
             var pessoa = await _pessoaService.ObterPorId(id);
             return View(pessoa);
