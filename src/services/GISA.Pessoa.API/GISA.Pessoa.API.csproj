@@ -24,6 +24,8 @@
     <Compile Remove="Data\Migrations\20220226153202_InitialDB.Designer.cs" />
     <Compile Remove="Data\Migrations\20220226153812_InitialDB.cs" />
     <Compile Remove="Data\Migrations\20220226153812_InitialDB.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220226190734_Initial3.cs" />
+    <Compile Remove="Data\Migrations\20220226190734_Initial3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

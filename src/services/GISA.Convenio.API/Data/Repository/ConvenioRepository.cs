@@ -10,14 +10,26 @@ namespace GISA.Convenio.API.Data.Repository
     {
         public ConvenioRepository(ConvenioDbContext context) : base(context) { }
 
-        public async Task<Domain.Convenio> ObterConvenioEnderecoPorId(Guid id) 
-            => await Db.Convenios.AsNoTracking().Include(e => e.Endereco).FirstOrDefaultAsync(c => c.Id == id);
+        public async Task<Domain.Convenio> ObterConvenioEnderecoPorId(Guid id)
+        {
+            return await Db.Convenios.AsNoTracking()
+                .Include(e => e.Endereco).FirstOrDefaultAsync(c => c.Id == id);
+        }
 
-        public async Task<Endereco> ObterEnderecoPorId(Guid id) => await Db.Enderecos.FindAsync(id);
+        public async Task<Endereco> ObterEnderecoPorId(Guid id)
+        {
+            return await Db.Enderecos.FindAsync(id);
+        }
 
-        public async Task<IEnumerable<Domain.Convenio>> ObterTodosConvenioEndereco() 
-            => await Db.Convenios.AsNoTracking().Include(e => e.Endereco).ToListAsync();
+        public async Task<IEnumerable<Domain.Convenio>> ObterTodosConvenioEndereco()
+        {
+            return await Db.Convenios.AsNoTracking()
+                .Include(e => e.Endereco).ToListAsync();
+        }
 
-        public async Task<int> ObterTotalConvenio() => await Db.Convenios.AsNoTracking().CountAsync();
+        public async Task<int> ObterTotalConvenio()
+        {
+            return await Db.Convenios.AsNoTracking().CountAsync();
+        }
     }
 }

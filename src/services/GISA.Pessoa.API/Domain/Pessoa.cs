@@ -28,7 +28,8 @@ namespace GISA.Pessoa.API.Domain
                       Email email,
                       DateTime dataNascimento,
                       Endereco endereco, 
-                      TipoPessoaEnum tipoPessoaEnum)
+                      TipoPessoaEnum tipoPessoaEnum, 
+                      PlanoCliente planoCliente)
         {
             NomeCompleto = nomeCompleto;
             Rg = rg;
@@ -40,10 +41,9 @@ namespace GISA.Pessoa.API.Domain
             DataNascimento = dataNascimento;
             TipoPessoaEnum = tipoPessoaEnum;
             DataCadastro = DateTime.Now;
+            PlanoCliente = planoCliente;
         }
 
-        public void Ativar() => Ativo = true;
-        public void Desativar() => Ativo = false;
         public void AlterarEndereco(Endereco endereco) => Endereco = endereco;
     }
 }

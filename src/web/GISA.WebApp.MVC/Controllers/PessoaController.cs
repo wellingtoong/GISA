@@ -1,10 +1,7 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
-using Hanssens.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
@@ -55,7 +52,7 @@ namespace GISA.WebApp.MVC.Controllers
             //    storage.Persist();
             //}
 
-            // ViewBag.TipoPlano = planos.Select(c => new SelectListItem() { Text = c.Nome, Value = c.Id.ToString() }).ToList();
+            //ViewBag.TipoPlano = planos.Select(c => new SelectListItem() { Text = c.Nome, Value = c.Id.ToString() }).ToList();
 
             var pessoa = await _pessoaService.ObterPorId(id);
             return View(pessoa);
@@ -94,22 +91,35 @@ namespace GISA.WebApp.MVC.Controllers
             return RedirectToAction("Index", "Pessoa");
         }
 
-        public async Task<IActionResult> Atualizar(Guid id, PessoaViewModel pessoaViewModel)
+        [HttpPost]
+        public async Task<IActionResult> Atualizar(PessoaViewModel pessoaViewModel)
         {
-            pessoaViewModel.PlanoClienteViewModel.PessoaId = pessoaViewModel.Id;
+            pessoaViewModel.PlanoClienteViewModel.PessoaId = (Guid)pessoaViewModel.Id;
 
             if (!ModelState.IsValid)
             {
                 ViewBag.ValidateForm = true;
                 AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View("Editar", pessoaViewModel);
-            }            
+            }
+
+            var plano = await _planoService.ObterPorId(pessoaViewModel.PlanoClienteViewModel.PlanoId);
+
+            CalcularDesconto(pessoaViewModel, plano);
 
             var result = await _pessoaService.Atualizar(pessoaViewModel);
 
             if (ResponsePossuiErros(result)) return View("Editar");
 
             return RedirectToAction("Index", "Pessoa");
+        }
+
+        private void CalcularDesconto(PessoaViewModel pessoaViewModel, PlanoViewModel planoViewModel)
+        {
+            var vd = planoViewModel.Valor * (pessoaViewModel.PlanoClienteViewModel.Desconto / 100);
+            var vf = planoViewModel.Valor - vd;
+
+            pessoaViewModel.PlanoClienteViewModel.ValorFinal = vf;
         }
     }
 }

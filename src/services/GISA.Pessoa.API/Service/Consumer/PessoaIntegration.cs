@@ -42,7 +42,7 @@ namespace GISA.Pessoa.API.Service.Consumer
         {
             var response = new ResponseResult();
 
-            using (var scope = _serviceProvider.CreateScope())  
+            using (var scope = _serviceProvider.CreateScope())
             {
                 bool result = false;
                 var _pessoaRepository = scope.ServiceProvider.GetRequiredService<IPessoaRepository>();
@@ -53,7 +53,14 @@ namespace GISA.Pessoa.API.Service.Consumer
                 }
                 else
                 {
-                    result = await _pessoaRepository.Atualizar(pessoa);
+                    try
+                    {
+                        result = await _pessoaRepository.Atualizar(pessoa);
+                    }
+                    catch (Exception ex)
+                    {
+                        var teste = ex;
+                    }
                 }
 
                 if (!result)

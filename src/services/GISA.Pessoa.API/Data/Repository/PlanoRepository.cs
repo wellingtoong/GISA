@@ -8,10 +8,19 @@ namespace GISA.Pessoa.API.Data.Repository
     {
         public PlanoRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task<int> ObterTotalPlano() => await Db.Planos.AsNoTracking().CountAsync();
+        public async Task<int> ObterTotalPlano()
+        {
+            return await Db.Planos.AsNoTracking().CountAsync();
+        }
 
-        public async Task<int> ObterTotalPlanoAtivo() => await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync();
+        public async Task<int> ObterTotalPlanoAtivo()
+        {
+            return await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync();
+        }
 
-        public async Task<int> ObterTotalPlanoInativo() => await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync();
+        public async Task<int> ObterTotalPlanoInativo()
+        {
+            return await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync(); 
+        }
     }
 }

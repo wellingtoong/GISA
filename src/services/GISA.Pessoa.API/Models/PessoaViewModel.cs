@@ -35,6 +35,8 @@ namespace GISA.Pessoa.API.Models
         public int TipoPessoaEnum { get; set; }
     
         public EnderecoViewModel EnderecoViewModel { get; set; }
+
+        public PlanoClienteViewModel PlanoClienteViewModel { get; set; }
         public DateTime DataCadastro { get; set; }
     }
 }
