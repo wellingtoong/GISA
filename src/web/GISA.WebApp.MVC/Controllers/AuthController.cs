@@ -27,6 +27,28 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("novo-cliente")]
+        public IActionResult RegistroCliente()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("novo-cliente")]
+        public async Task<IActionResult> RegistroCliente(UsuarioRegistro usuarioRegistro)
+        {
+            if (!ModelState.IsValid) return View(usuarioRegistro);
+
+            var resposta = await _autenticacaoService.RegistroCliente(usuarioRegistro);
+
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
+
+            await RealizarLogin(resposta);
+
+            return RedirectToAction("Index", "Pessoa");
+        }
+
         [HttpPost]
         [Route("nova-conta")]
         public async Task<IActionResult> Registro(UsuarioRegistro usuarioRegistro)

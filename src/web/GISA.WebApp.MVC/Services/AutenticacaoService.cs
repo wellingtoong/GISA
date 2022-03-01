@@ -52,5 +52,22 @@ namespace GISA.WebApp.MVC.Services
 
             return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
         }
+
+        public async Task<UsuarioRespostaLogin> RegistroCliente(UsuarioRegistro usuarioRegistro)
+        {
+            var registroContent = ObterConteudo(usuarioRegistro);
+
+            var response = await _httpClient.PostAsync("/api/auth/novo-cliente", registroContent);
+
+            if (!TratarErrosResponse(response))
+            {
+                return new UsuarioRespostaLogin
+                {
+                    ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
+                };
+            }
+
+            return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
+        }
     }
 }

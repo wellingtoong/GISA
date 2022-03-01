@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Auth\" />
     <Folder Include="wwwroot\js\jquery-mask\" />
     <Folder Include="wwwroot\font\" />
   </ItemGroup>

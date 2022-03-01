@@ -1,0 +1,26 @@
+﻿@model GISA.WebApp.MVC.Models.UsuarioRegistro
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+        <label class="form-label">Nome Completo</label>
+        <input type="text" class="form-control" id="txtNomeCompleto">
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control">
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
+        <label asp-for="Senha" class="form-label"></label>
+        <input asp-for="Senha" type="password" class="form-control">
+    </div>
+    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
+        <label asp-for="SenhaConfirmacao" class="form-label"></label>
+        <input asp-for="SenhaConfirmacao" type="password"class="form-control">
+    </div>
+</div>

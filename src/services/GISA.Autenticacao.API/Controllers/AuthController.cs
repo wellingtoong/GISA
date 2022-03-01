@@ -18,17 +18,52 @@ namespace GISA.Autenticacao.API.Controllers
     [Route("api/auth")]
     public class AuthController : MainController
     {
+        private const string ROLE_ADMIN = "Admin";
+        private const string ROLE_CLIENTE = "Cliente";
+
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppSettings _appSettings;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
+                              RoleManager<IdentityRole> roleManager, 
                               IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _appSettings = appSettings.Value;
+        }
+
+        [HttpPost("novo-cliente")]
+        public async Task<ActionResult> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var user = new IdentityUser
+            {
+                UserName = usuarioRegistro.Email,
+                Email = usuarioRegistro.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
+
+            await AdicionarRole(user, ROLE_CLIENTE);
+
+            if (result.Succeeded)
+            {
+                return CustomResponse(await GerarJwt(usuarioRegistro.Email));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                AdicionarErroProcessamento(error.Description);
+            }
+
+            return CustomResponse();
         }
 
         [HttpPost("novo-registro")]
@@ -44,6 +79,8 @@ namespace GISA.Autenticacao.API.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
+
+            await AdicionarRole(user, ROLE_ADMIN);
 
             if (result.Succeeded)
             {
@@ -141,6 +178,21 @@ namespace GISA.Autenticacao.API.Controllers
                     Claims = claims.Select(c => new UsuarioClaim { Type = c.Type, Value = c.Value })
                 }
             };
+        }
+
+        private async Task AdicionarRole(IdentityUser identityUser, string role)
+        {
+            if (await _roleManager.RoleExistsAsync(role))
+                await _userManager.AddToRoleAsync(identityUser, role);
+            else
+            {
+                var result = await _roleManager.CreateAsync(new IdentityRole(role));
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(identityUser, role);
+                }
+            }
         }
 
         private static long ToUnixEpochDate(DateTime date)

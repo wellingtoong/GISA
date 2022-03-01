@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GISA.Autenticacao.API.Migrations
+namespace GISA.Autenticacao.API.Data.Migrations
 {
     public partial class Initial : Migration
     {

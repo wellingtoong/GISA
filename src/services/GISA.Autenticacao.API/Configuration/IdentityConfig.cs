@@ -1,7 +1,6 @@
 ﻿using GISA.Autenticacao.API.Data;
 using GISA.Autenticacao.API.Extensions;
 using GISA.WebApi.Core.Autenticacao;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
