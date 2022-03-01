@@ -324,6 +324,10 @@ a.navbar-brand {
 
 /* personalização card callout */
 
+.offcanvas, .offcanvas-backdrop {
+    margin-top: 0px !important;
+}
+
 .info-required {
     color: red;
     font-weight: 600;
