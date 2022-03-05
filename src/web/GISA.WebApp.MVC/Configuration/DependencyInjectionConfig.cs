@@ -4,6 +4,11 @@ using GISA.WebApp.MVC.Extensions;
 using GISA.WebApp.MVC.Services;
 using GISA.WebApp.MVC.Services.Handlers;
 using GISA.WebApi.Core.Usuario;
+using System.Net.Http;
+using Polly.Retry;
+using Polly.Extensions.Http;
+using Polly;
+using System;
 
 namespace GISA.WebApp.MVC.Configuration
 {
@@ -17,23 +22,67 @@ namespace GISA.WebApp.MVC.Configuration
             #region HttpServices
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
+            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<IPessoaService, PessoaService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<IConvenioService, ConvenioService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<IPlanoService, PlanoService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<IPlanoClienteService, PlanoClienteService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<IAgendaService, AgendaService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
             #endregion
         }
     }
+
+    #region PollyExtension
+
+    public static class PollyExtensions
+    {
+        public static AsyncRetryPolicy<HttpResponseMessage> EsperarTentar()
+        {
+            var retry = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(5),
+                    TimeSpan.FromSeconds(10),
+                }, (outcome, timespan, retryCount, context) =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Tentando pela {retryCount} vez!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                });
+
+            return retry;
+        }
+    }
+
+    #endregion
 }
