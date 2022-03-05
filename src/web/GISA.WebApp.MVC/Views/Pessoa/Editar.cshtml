@@ -116,6 +116,7 @@
                 }
 
                 app.metodos.buscarCep();
+                plano.metodos.obterPlanos();
 
                 var validade = "@ViewBag.ValidateForm";
                 app.metodos.initValidateForm(validade);
@@ -146,12 +147,29 @@
 
             },
 
+            obterPlanos: () => {
+
+                app.metodos.get('/plano/todos',
+                    (response) => {
+                        var planos = response.filter(p => p.ativo == true);
+                        app.metodos.setLocalStorage('plano', planos);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
             valorPlano: () => {
 
-                var planos = app.metodos.getLocalStorage('plano');
+                var ddlPlano = $('#ddlPlano').val();
+                var listaPlanos = app.metodos.getLocalStorage('plano');
 
-                if (planos.length > 0) {
-                    var item = planos.filter(p => p.id == $('#ddlPlano').val());
+                if (ddlPlano != null && listaPlanos != null) {
+                    var item = listaPlanos.filter(p => p.id == ddlPlano);
                     $('#txtValorPlano').val(item[0].valor.toLocaleString('pt-br', { minimumFractionDigits: 2 }),);
                 }
                 else {
