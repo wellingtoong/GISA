@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace GISA.Pessoa.API.Controllers
 {
     [Authorize]
-    [Route("api/agenda")]
+    [Route("api")]
     public class AgendaController : MainController
     {
         private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-agendas")]
+        [Route("agenda/todos")]
         public async Task<IActionResult> ObterTodos() 
         {
             var agendas = _mapper.Map<IEnumerable<AgendaViewModel>>(await _agendaRepository.ObterTodos());
@@ -47,7 +47,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-agenda/{id:guid}")]
+        [Route("agenda/{id:guid}")]
         public async Task<IActionResult> ObterPorId(Guid id)
         {
             var agenda = _mapper.Map<AgendaViewModel>(await _agendaRepository.ObterPorId(id));
@@ -62,7 +62,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-agenda")]
+        [Route("agenda/editar")]
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -75,7 +75,7 @@ namespace GISA.Pessoa.API.Controllers
         }
                              
         [HttpPost]
-        [Route("novo-registro")]
+        [Route("agenda/novo")]
         public async Task<IActionResult> Registrar(AgendaViewModel agendaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

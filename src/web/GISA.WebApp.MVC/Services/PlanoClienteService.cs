@@ -22,9 +22,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Atualizar(PlanoClienteViewModel planoClienteViewModel)
         {
-            var planoClient = ObterConteudo(planoClienteViewModel);
+            var planoClientContent = ObterConteudo(planoClienteViewModel);
 
-            var response = await _httpClient.PutAsync("/api/plano-cliente/atualizar-plano-cliente", planoClient);
+            var response = await _httpClient.PutAsync("/api/plano-cliente/editar", planoClientContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -36,7 +36,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<PlanoClienteViewModel> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/plano-cliente/obter-plano-cliente/{id}");
+            var response = await _httpClient.GetAsync($"/api/plano-cliente/editar/{id}");
 
             TratarErrosResponse(response);
 
@@ -45,7 +45,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<PlanoClienteViewModel> ObterPorPessoaId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/plano-cliente/obter-plano-cliente-pessoa/{id}");
+            var response = await _httpClient.GetAsync($"/api/plano-cliente/pessoa/{id}");
 
             TratarErrosResponse(response);
 
@@ -54,7 +54,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<PlanoClienteViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/plano-cliente/obter-planos-clientes");
+            var response = await _httpClient.GetAsync("/api/plano-cliente/todos");
 
             TratarErrosResponse(response);
 
@@ -63,9 +63,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Registrar(PlanoClienteViewModel planoClienteViewModel)
         {
-            var planoClient = ObterConteudo(planoClienteViewModel);
+            var planoClientContent = ObterConteudo(planoClienteViewModel);
 
-            var response = await _httpClient.PostAsync("/api/plano-cliente/novo-registro", planoClient);
+            var response = await _httpClient.PostAsync("/api/plano-cliente/novo", planoClientContent);
 
             if (!TratarErrosResponse(response))
             {

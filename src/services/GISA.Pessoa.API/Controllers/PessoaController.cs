@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace GISA.Pessoa.API.Controllers
 {
     [Authorize]
-    [Route("api/pessoa")]
+    [Route("api")]
     public class PessoaController : MainController
     {
         private readonly IPessoaRepository _pessoaRepository;
@@ -33,7 +33,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-pessoa")]
+        [Route("pessoa/total")]
         public async Task<IActionResult> ObterTotalUsuario()
         {
             var pessoa = await _pessoaRepository.ObterTotalUsuario();
@@ -48,7 +48,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-pessoa-ativo")]
+        [Route("pessoa/total-ativo")]
         public async Task<IActionResult> ObterTotalUsuarioAtivo()
         {
             var pessoa = await _pessoaRepository.ObterTotalUsuarioAtivo();
@@ -63,7 +63,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-pessoa-inativo")]
+        [Route("pessoa/total-inativo")]
         public async Task<IActionResult> ObterTotalUsuarioInativo()
         {
             var pessoa = await _pessoaRepository.ObterTotalUsuarioInativo();
@@ -78,10 +78,11 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-pessoas")]
+        [Route("pessoa/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             var pessoa = _mapper.Map<IEnumerable<PessoaViewModel>>(await _pessoaRepository.ObterTodasPessoasEndereco());
+
             if (pessoa == null)
             {
                 AdicionarErroProcessamento("Não foi possível listar as pessoas. Tente novamente!");
@@ -92,7 +93,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-pessoa/{id:guid}")]
+        [Route("pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPessoaPorId(Guid id)
         {
             var pessoa = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPessoaEnderecoPorId(id));
@@ -107,7 +108,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-pessoa/{email}")]
+        [Route("pessoa/{email}")]
         public async Task<IActionResult> ObterPessoaPorEmail(string email)
         {
             if (!EmailValido(email)) return CustomResponse();
@@ -124,7 +125,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-pessoa")]
+        [Route("pessoa/editar")]
         public async Task<IActionResult> Atualizar(PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -139,7 +140,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPost]
-        [Route("novo-registro")]
+        [Route("pessoa/novo")]
         public async Task<IActionResult> Registrar(PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

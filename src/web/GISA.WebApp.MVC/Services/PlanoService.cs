@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 namespace GISA.WebApp.MVC.Services
 {
     public class PlanoService : Service, IPlanoService
@@ -23,7 +24,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var planoContent = ObterConteudo(planoViewModel);
 
-            var response = await _httpClient.PutAsync("/api/plano/atualizar-plano", planoContent);
+            var response = await _httpClient.PutAsync("/api/plano/editar", planoContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -35,7 +36,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<PlanoViewModel> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/plano/obter-plano/{id}");
+            var response = await _httpClient.GetAsync($"/api/plano/{id}");
 
             TratarErrosResponse(response);
 
@@ -44,7 +45,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<PlanoViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/plano/obter-planos");
+            var response = await _httpClient.GetAsync("/api/plano/todos");
 
             TratarErrosResponse(response);
 
@@ -53,7 +54,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalPlano()
         {
-            var response = await _httpClient.GetAsync("/api/plano/total-plano");
+            var response = await _httpClient.GetAsync("/api/plano/total");
 
             TratarErrosResponse(response);
 
@@ -62,7 +63,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalPlanoAtivo()
         {
-            var response = await _httpClient.GetAsync("/api/plano/total-plano-ativo");
+            var response = await _httpClient.GetAsync("/api/plano/total-ativo");
 
             TratarErrosResponse(response);
 
@@ -71,7 +72,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalPlanoInativo()
         {
-            var response = await _httpClient.GetAsync("/api/plano/total-plano-inativo");
+            var response = await _httpClient.GetAsync("/api/plano/total-inativo");
 
             TratarErrosResponse(response);
 
@@ -82,7 +83,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var planoContent = ObterConteudo(planoViewModel);
 
-            var response = await _httpClient.PostAsync("/api/plano/novo-registro", planoContent);
+            var response = await _httpClient.PostAsync("/api/plano/novo", planoContent);
 
             if (!TratarErrosResponse(response))
             {

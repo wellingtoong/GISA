@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace GISA.Pessoa.API.Controllers
 {
     [Authorize]
-    [Route("api/plano-cliente")]
+    [Route("api")]
     public class PlanoClienteController : MainController
     {
         private readonly IPlanoClienteService _planoClienteService;
@@ -37,7 +37,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-planos-clientes")]
+        [Route("plano-cliente/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             var planoCliente = _mapper.Map<IEnumerable<PlanoClienteViewModel>>(await _planoClienteRepository.ObterTodos());
@@ -52,7 +52,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-plano-cliente-pessoa/{id:guid}")]
+        [Route("plano-cliente/pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPlanoPessoaPorPessoaId(Guid id)
         {
             var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPlanoClientePorPessoaId(id));
@@ -67,7 +67,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-plano-cliente/{id:guid}")]
+        [Route("plano-cliente/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var planoCliente = _mapper.Map<PlanoClienteViewModel>(await _planoClienteRepository.ObterPorId(id));
@@ -82,7 +82,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-plano-cliente")]
+        [Route("plano-cliente/editar")]
         public async Task<IActionResult> Atualizar(Guid id, PlanoClienteViewModel planoClienteViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -100,7 +100,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPost]
-        [Route("novo-registro")]
+        [Route("plano-cliente/novo")]
         public async Task<IActionResult> Registrar(PlanoClienteViewModel planoClienteViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

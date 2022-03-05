@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace GISA.Pessoa.API.Controllers
 {
     [Authorize]
-    [Route("api/plano")]
+    [Route("api")]
     public class PlanoController : MainController
     {
         private readonly IPlanoRepository _planoRepository;
@@ -32,7 +32,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-plano")]
+        [Route("plano/total")]
         public async Task<IActionResult> ObterTotalPlano()
         {
             var total = await _planoRepository.ObterTotalPlano();
@@ -47,7 +47,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-plano-ativo")]
+        [Route("plano/total-ativo")]
         public async Task<IActionResult> ObterTotalPlanoAtivo()
         {
             var total = await _planoRepository.ObterTotalPlanoAtivo();
@@ -62,7 +62,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-plano-inativo")]
+        [Route("plano/total-inativo")]
         public async Task<IActionResult> ObterTotalPlanoInativo()
         {
             var total = await _planoRepository.ObterTotalPlanoInativo();
@@ -77,7 +77,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-planos")]
+        [Route("plano/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             var pessoa = _mapper.Map<IEnumerable<PlanoViewModel>>(await _planoRepository.ObterTodos());
@@ -92,7 +92,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-plano/{id:guid}")]
+        [Route("plano/{id:guid}")]
         public async Task<IActionResult> ObterPlanoPorId(Guid id)
         {
             var plano = _mapper.Map<PlanoViewModel>(await _planoRepository.ObterPorId(id));
@@ -107,7 +107,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-plano")]
+        [Route("plano/editar")]
         public async Task<IActionResult> Atualizar(PlanoViewModel planoViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -120,7 +120,7 @@ namespace GISA.Pessoa.API.Controllers
         }
 
         [HttpPost]
-        [Route("novo-registro")]
+        [Route("plano/novo")]
         public async Task<IActionResult> Registrar(PlanoViewModel planoViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

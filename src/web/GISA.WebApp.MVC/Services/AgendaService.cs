@@ -24,7 +24,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var agendaContent = ObterConteudo(agendaViewModel);
 
-            var response = await _httpClient.PutAsync("/api/agenda/atualizar-agenda", agendaContent);
+            var response = await _httpClient.PutAsync("/api/agenda/editar", agendaContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -36,7 +36,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<AgendaViewModel> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/agenda/obter-agenda/{id}");
+            var response = await _httpClient.GetAsync($"/api/agenda/{id}");
 
             TratarErrosResponse(response);
 
@@ -45,7 +45,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<AgendaViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/agenda/obter-agendas");
+            var response = await _httpClient.GetAsync("/api/agenda/todos");
 
             TratarErrosResponse(response);
              
@@ -56,7 +56,7 @@ namespace GISA.WebApp.MVC.Services
         {
             var agendaContent = ObterConteudo(agendaViewModel);
 
-            var response = await _httpClient.PostAsync("/api/agenda/novo-registro", agendaContent);
+            var response = await _httpClient.PostAsync("/api/agenda/novo", agendaContent);
 
             if (!TratarErrosResponse(response))
             {

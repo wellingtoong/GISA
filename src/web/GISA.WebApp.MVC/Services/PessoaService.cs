@@ -22,9 +22,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Atualizar(PessoaViewModel pessoaViewModel)
         {
-            var atualizarPessoa = ObterConteudo(pessoaViewModel);
+            var pessoaContent = ObterConteudo(pessoaViewModel);
 
-            var response = await _httpClient.PutAsync("/api/pessoa/atualizar-pessoa", atualizarPessoa);
+            var response = await _httpClient.PutAsync("/api/pessoa/editar", pessoaContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -36,7 +36,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<PessoaViewModel> ObterPorEmail(string email)
         {
-            var response = await _httpClient.GetAsync($"/api/pessoa/obter-pessoa/{email}");
+            var response = await _httpClient.GetAsync($"/api/pessoa/{email}");
 
             TratarErrosResponse(response);
 
@@ -45,7 +45,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<PessoaViewModel> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/pessoa/obter-pessoa/{id}");
+            var response = await _httpClient.GetAsync($"/api/pessoa/{id}");
 
             TratarErrosResponse(response);
 
@@ -54,7 +54,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<PessoaViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/pessoa/obter-pessoas");
+            var response = await _httpClient.GetAsync("/api/pessoa/todos");
 
             TratarErrosResponse(response);
 
@@ -63,7 +63,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalUsuario()
         {
-            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa");
+            var response = await _httpClient.GetAsync("/api/pessoa/total");
 
             TratarErrosResponse(response);
 
@@ -72,7 +72,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalUsuarioAtivo()
         {
-            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa-ativo");
+            var response = await _httpClient.GetAsync("/api/pessoa/total-ativo");
 
             TratarErrosResponse(response);
 
@@ -81,7 +81,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<int> ObterTotalUsuarioInativo()
         {
-            var response = await _httpClient.GetAsync("/api/pessoa/total-pessoa-inativo");
+            var response = await _httpClient.GetAsync("/api/pessoa/total-inativo");
 
             TratarErrosResponse(response);
 
@@ -90,9 +90,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Registrar(PessoaViewModel pessoaViewModel)
         {
-            var registroPessoa = ObterConteudo(pessoaViewModel);
+            var pessoaContent = ObterConteudo(pessoaViewModel);
 
-            var response = await _httpClient.PostAsync("/api/pessoa/novo-registro", registroPessoa);
+            var response = await _httpClient.PostAsync("/api/pessoa/novo", pessoaContent);
 
             if (!TratarErrosResponse(response))
             {

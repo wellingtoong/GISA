@@ -20,9 +20,18 @@ namespace GISA.WebApp.MVC.Services
             _httpClient = httpClient;
         }
 
+        public async Task<int> ObterTotalConvenio()
+        {
+            var response = await _httpClient.GetAsync("/api/convenio/total");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<int>(response);
+        }
+
         public async Task<ConvenioViewModel> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/api/convenio/obter-convenio/{id}");
+            var response = await _httpClient.GetAsync($"/api/convenio/{id}");
 
             TratarErrosResponse(response);
 
@@ -31,7 +40,7 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<IEnumerable<ConvenioViewModel>> ObterTodos()
         {
-            var response = await _httpClient.GetAsync("/api/convenio/obter-convenios");
+            var response = await _httpClient.GetAsync("/api/convenio/todos");
 
             TratarErrosResponse(response);
 
@@ -40,11 +49,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Atualizar(ConvenioViewModel convenioViewModel)
         {
-            var atualizarConvenio = ObterConteudo(convenioViewModel);
+            var convenioContent = ObterConteudo(convenioViewModel);
 
-            var response = await _httpClient.PutAsync("/api/convenio/atualizar-convenio", atualizarConvenio);
-
-            var teste = await response.Content.ReadAsStringAsync();
+            var response = await _httpClient.PutAsync("/api/convenio/editar", convenioContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -56,9 +63,9 @@ namespace GISA.WebApp.MVC.Services
 
         public async Task<ResponseResult> Registrar(ConvenioViewModel convenioViewModel)
         {
-            var registroConvenio = ObterConteudo(convenioViewModel);
+            var convenioContent = ObterConteudo(convenioViewModel);
 
-            var response = await _httpClient.PostAsync("/api/convenio/novo-registro", registroConvenio);
+            var response = await _httpClient.PostAsync("/api/convenio/novo", convenioContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -66,15 +73,6 @@ namespace GISA.WebApp.MVC.Services
             }
 
             return await DeserializarObjetoResponse<ResponseResult>(response);
-        }
-
-        public async Task<int> ObterTotalConvenio()
-        {
-            var response = await _httpClient.GetAsync("/api/convenio/total-convenio");
-
-            TratarErrosResponse(response);
-
-            return await DeserializarObjetoResponse<int>(response);
         }
     }
 }

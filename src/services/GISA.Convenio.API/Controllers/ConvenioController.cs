@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace GISA.Convenio.API.Controllers
 {
     [Authorize]
-    [Route("api/convenio")]
+    [Route("api")]
     public class ConvenioController : MainController
     {
         private readonly IConvenioService _convenioService;
@@ -35,7 +35,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("total-convenio")]
+        [Route("convenio/total")]
         public async Task<IActionResult> ObterTotalConvenio()
         {
             var total = await _convenioRepository.ObterTotalConvenio();
@@ -50,7 +50,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-convenios")]
+        [Route("convenio/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             var convenios = _mapper.Map<IEnumerable<ConvenioViewModel>>(await _convenioRepository.ObterTodosConvenioEndereco());
@@ -65,7 +65,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-convenio/{id:guid}")]
+        [Route("convenio/{id:guid}")]
         public async Task<IActionResult> ObterConvenioPorId(Guid id)
         {
             var convenio = _mapper.Map<ConvenioViewModel>(await _convenioRepository.ObterConvenioEnderecoPorId(id));
@@ -80,7 +80,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPost]
-        [Route("novo-registro")]
+        [Route("convenio/novo")]
         public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -95,7 +95,7 @@ namespace GISA.Convenio.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-convenio")]
+        [Route("convenio/editar")]
         public async Task<IActionResult> Atualizar(ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -109,20 +109,20 @@ namespace GISA.Convenio.API.Controllers
             return CustomResponse(result);
         }
 
-        [HttpPut]
-        [Route("atualizar-convenio/{id:guid}/endereco")]
-        public async Task<IActionResult> AtualizarEndereco(Guid id, ConvenioViewModel convenioViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+        //[HttpPut]
+        //[Route("convenio/atualizar-convenio/{id:guid}/endereco")]
+        //public async Task<IActionResult> AtualizarEndereco(Guid id, ConvenioViewModel convenioViewModel)
+        //{
+        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var conveio = _mapper.Map<Domain.Convenio>(convenioViewModel);
+        //    var conveio = _mapper.Map<Domain.Convenio>(convenioViewModel);
 
-            var result = await _convenioService.AtualizarEndereco(id, conveio);
+        //    var result = await _convenioService.AtualizarEndereco(id, conveio);
 
-            if (!OperacaoValida()) return CustomResponse(result);
+        //    if (!OperacaoValida()) return CustomResponse(result);
 
-            return CustomResponse(result);
-        }
+        //    return CustomResponse(result);
+        //}
 
         private bool EmailValido(string email)
         {
