@@ -39,7 +39,7 @@ namespace GISA.WebApp.MVC.Controllers
             return Ok(planoCliente);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("plano-cliente/editar")]
         public async Task<IActionResult> Editar(Guid id, PlanoClienteViewModel planoClienteViewModel)
         {
