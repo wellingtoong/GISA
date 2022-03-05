@@ -5,6 +5,7 @@ using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
 using GISA.Pessoa.API.Service;
 using GISA.WebAPI.Core.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Controllers
 {
+    [Authorize]
     [Route("api/plano")]
     public class PlanoController : MainController
     {

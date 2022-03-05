@@ -5,11 +5,13 @@ namespace GISA.WebApp.MVC.Controllers
 {
     public class HomeController : MainController
     {
+        [Route("")]
         public IActionResult Index()
         {
             return RedirectToAction("Login", "Auth");
         }
 
+        [Route("home")]
         public IActionResult Apresentacao()
         {
             return View();

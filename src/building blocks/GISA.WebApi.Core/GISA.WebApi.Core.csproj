@@ -4,10 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="Usuario\AspNetUser.cs" />
     <Compile Remove="Usuario\IAspNetUser.cs" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="8.6.2" />

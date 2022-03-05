@@ -36,6 +36,11 @@ namespace GISA.WebApi.Core.Usuario
             return _accessor.HttpContext.User.Identity.IsAuthenticated;
         }
 
+        public bool RoleAdmin()
+        {
+            return _accessor.HttpContext.User.FindFirstValue("role").Contains("Admin");
+        }
+
         public bool PossuiRole(string role)
         {
             return _accessor.HttpContext.User.IsInRole(role);

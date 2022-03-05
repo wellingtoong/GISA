@@ -12,6 +12,7 @@ namespace GISA.WebApi.Core.Usuario
         string ObterUserEmail();
         string ObterUserToken();
         bool EstaAutenticado();
+        bool RoleAdmin();
         bool PossuiRole(string role);
         IEnumerable<Claim> ObterClaims();
         HttpContext ObterHttpContext();

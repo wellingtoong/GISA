@@ -1,10 +1,12 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class DashboardController : MainController
     {
         private readonly IConvenioService _convenioService;
@@ -20,6 +22,7 @@ namespace GISA.WebApp.MVC.Controllers
             _planoService = planoService;
         }
 
+        [Route("dashboard")]
         public async Task<IActionResult> Index()
         {
             var obterTotalConvenio = await _convenioService.ObterTotalConvenio();

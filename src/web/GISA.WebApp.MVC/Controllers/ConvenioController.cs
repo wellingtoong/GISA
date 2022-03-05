@@ -1,11 +1,13 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class ConvenioController : MainController
     {
         private readonly IConvenioService _convenioService;
@@ -15,7 +17,7 @@ namespace GISA.WebApp.MVC.Controllers
             _convenioService = convenioService;
         }
 
-        [Route("convenio/gestao-convenio")]
+        [Route("convenio")]
         public IActionResult Index()
         {
             return View();

@@ -1,5 +1,6 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class PessoaController : MainController
     {
         private readonly IPessoaService _pessoaService;
@@ -19,6 +21,7 @@ namespace GISA.WebApp.MVC.Controllers
             _planoService = planoService;
         }
 
+        [Route("pessoa")]
         public IActionResult Index()
         {
             return View();

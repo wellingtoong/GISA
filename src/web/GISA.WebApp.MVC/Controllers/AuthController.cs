@@ -2,15 +2,18 @@
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class AuthController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
@@ -64,6 +67,7 @@ namespace GISA.WebApp.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("login")]
         public IActionResult Login(string returnUrl = null)
@@ -72,6 +76,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(UsuarioLogin usuarioLogin, string returnUrl = null)

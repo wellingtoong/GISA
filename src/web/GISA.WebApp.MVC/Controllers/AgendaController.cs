@@ -1,11 +1,13 @@
 ﻿using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class AgendaController : MainController
     {
         private readonly IAgendaService _agendaService;
@@ -15,6 +17,7 @@ namespace GISA.WebApp.MVC.Controllers
             _agendaService = agendaService;
         }
 
+        [Route("agenda")]
         public IActionResult Index()
         {
             return View();

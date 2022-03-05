@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using GISA.WebApp.MVC.Extensions;
 using GISA.WebApp.MVC.Services;
 using GISA.WebApp.MVC.Services.Handlers;
-
+using GISA.WebApi.Core.Usuario;
 
 namespace GISA.WebApp.MVC.Configuration
 {
@@ -11,6 +11,10 @@ namespace GISA.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+
+            #region HttpServices
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
@@ -29,9 +33,7 @@ namespace GISA.WebApp.MVC.Configuration
 
             services.AddHttpClient<IAgendaService, AgendaService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            #endregion
         }
     }
 }
