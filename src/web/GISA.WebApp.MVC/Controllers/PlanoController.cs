@@ -17,18 +17,21 @@ namespace GISA.WebApp.MVC.Controllers
             _planoService = planoService;
         }
 
+        [HttpGet]
         [Route("plano")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("plano/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _planoService.ObterTodos());
         }
 
+        [HttpGet]
         [Route("plano/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
@@ -46,6 +49,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(plano);
         }
 
+        [HttpGet]
         [Route("plano/novo")]
         public IActionResult Registrar()
         {

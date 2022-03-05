@@ -17,18 +17,28 @@ namespace GISA.WebApp.MVC.Controllers
             _agendaService = agendaService;
         }
 
+        [HttpGet]
         [Route("agenda")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("agenda/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _agendaService.ObterTodos());
         }
 
+        [HttpGet]
+        [Route("agenda/agendamentos/{id:guid}")]
+        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id)
+        {
+            return Json(await _agendaService.ObterAgendamentosPorPessoaId(id));
+        }
+
+        [HttpGet]
         [Route("agenda/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
@@ -46,6 +56,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(agenda);
         }
 
+        [HttpGet]
         [Route("agenda/novo")]
         public IActionResult Registrar()
         {
@@ -85,6 +96,12 @@ namespace GISA.WebApp.MVC.Controllers
             if (ResponsePossuiErros(result)) return View("Editar");
 
             return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult MinhaAgenda()
+        {
+            return View();
         }
     }
 }
