@@ -17,18 +17,21 @@ namespace GISA.WebApp.MVC.Controllers
             _planoClienteService = planoClienteService;
         }
 
+        [HttpGet]
         [Route("plano-cliente")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("plano-cliente/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _planoClienteService.ObterTodos());
         }
 
+        [HttpGet]
         [Route("plano-cliente/{id:guid}")]
         public async Task<IActionResult> ObterPlanoClientePorPessoaId(Guid id)
         {
@@ -36,6 +39,7 @@ namespace GISA.WebApp.MVC.Controllers
             return Ok(planoCliente);
         }
 
+        [HttpGet]
         [HttpPost]
         [Route("plano-cliente/editar")]
         public async Task<IActionResult> Editar(Guid id, PlanoClienteViewModel planoClienteViewModel)
@@ -44,6 +48,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(planoCliente);
         }
 
+        [HttpGet]
         [Route("plano-cliente/novo")]
         public IActionResult Registrar()
         {

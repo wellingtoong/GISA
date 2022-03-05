@@ -17,18 +17,21 @@ namespace GISA.WebApp.MVC.Controllers
             _convenioService = convenioService;
         }
 
+        [HttpGet]
         [Route("convenio")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("convenio/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _convenioService.ObterTodos());
         }
 
+        [HttpGet]
         [Route("convenio/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
@@ -51,6 +54,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(convenio);
         }
 
+        [HttpGet]
         [Route("convenio/novo")]
         public IActionResult Registrar()
         {

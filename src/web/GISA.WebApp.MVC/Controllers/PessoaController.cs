@@ -21,24 +21,28 @@ namespace GISA.WebApp.MVC.Controllers
             _planoService = planoService;
         }
 
+        [HttpGet]
         [Route("pessoa")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("pessoa/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _pessoaService.ObterTodos());
         }
 
+        [HttpGet]
         [Route("pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPessoaPorId(Guid id)
         {
             return Json(await _pessoaService.ObterPorId(id));
         }
 
+        [HttpGet]
         [Route("pessoa/{email}")]
         public async Task<IActionResult> ObterPorEmail(string email)
         {
@@ -46,6 +50,7 @@ namespace GISA.WebApp.MVC.Controllers
             return Json(pessoa);
         }
 
+        [HttpGet]
         [Route("pessoa/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
@@ -65,6 +70,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(pessoa);
         }
 
+        [HttpGet]
         [Route("pessoa/novo")]
         public IActionResult Registrar()
         {

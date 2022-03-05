@@ -22,6 +22,7 @@ namespace GISA.WebApp.MVC.Controllers
             _planoService = planoService;
         }
 
+        [HttpGet]
         [Route("dashboard")]
         public async Task<IActionResult> Index()
         {
