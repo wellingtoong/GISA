@@ -43,6 +43,15 @@ namespace GISA.WebApp.MVC.Services
             return await DeserializarObjetoResponse<AgendaViewModel>(response);
         }
 
+        public async Task<IEnumerable<AgendaViewModel>> ObterAgendamentosPorPessoaId(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"/api/agenda/pessoa/{id}");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<IEnumerable<AgendaViewModel>> (response);
+        }
+
         public async Task<IEnumerable<AgendaViewModel>> ObterTodos()
         {
             var response = await _httpClient.GetAsync("/api/agenda/todos");

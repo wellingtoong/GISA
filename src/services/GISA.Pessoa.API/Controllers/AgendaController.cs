@@ -33,7 +33,7 @@ namespace GISA.Pessoa.API.Controllers
 
         [HttpGet]
         [Route("agenda/todos")]
-        public async Task<IActionResult> ObterTodos() 
+        public async Task<IActionResult> ObterTodos()
         {
             var agendas = _mapper.Map<IEnumerable<AgendaViewModel>>(await _agendaRepository.ObterTodos());
 
@@ -61,6 +61,22 @@ namespace GISA.Pessoa.API.Controllers
             return CustomResponse(agenda);
         }
 
+        [HttpGet]
+        [Route("agenda/pessoa/{id:guid}")]
+        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id)
+        {
+            var agenda = _mapper.Map<IEnumerable<AgendaViewModel>>(await _agendaRepository.ObterAgendamentosPorIdPessoa(id));
+
+            if (agenda == null)
+            {
+                AdicionarErroProcessamento("Não foi possível obter a agenda. Tente novamente!");
+                return CustomResponse();
+            }
+
+            return CustomResponse(agenda);
+        }
+
+
         [HttpPut]
         [Route("agenda/editar")]
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)
@@ -73,7 +89,7 @@ namespace GISA.Pessoa.API.Controllers
 
             return CustomResponse(result);
         }
-                             
+
         [HttpPost]
         [Route("agenda/novo")]
         public async Task<IActionResult> Registrar(AgendaViewModel agendaViewModel)

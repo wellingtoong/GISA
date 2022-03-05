@@ -1,6 +1,7 @@
 ﻿@using GISA.WebApp.MVC.Extensions
 @using GISA.WebApi.Core.Usuario
 @inject IAspNetUser AppUser
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,26 +23,27 @@
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            @{
-                if (AppUser.RoleAdmin() == true)
-                {
-                    <div>
-                        <a asp-action="Apresentacao" asp-controller="Home" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Boa Saúde</span> </a>
-                        <div class="nav_list">
-                            <a asp-action="Index" asp-controller="Dashboard" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-                            <a asp-action="Index" asp-controller="Agenda" class="nav_link"> <i class='bx bx-notepad nav_icon'></i> <span class="nav_name">Agendamentos</span> </a>
-                            <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i> <span class="nav_name">Clientes</span></a>
-                            <a asp-action="Index" asp-controller="Convenio" class="nav_link"> <i class='bx bx-briefcase nav_icon'></i> <span class="nav_name">Convênios</span> </a>
-                            <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i> <span class="nav_name">Planos</span></a>
-                        </div>
-                    </div>
-                    <a asp-action="Index" asp-controller="Administrador" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Configurações</span> </a>
-                }
-                else
-                {
-                    <a asp-action="Index" asp-controller="Administrador" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Minha agenda</span> </a>
-                }
-            }
+
+            <div>
+                <a asp-action="Apresentacao" asp-controller="Home" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name"></span></a>
+                <div class="nav_list">
+                    @{
+                        if (AppUser.RoleAdmin() == true)
+                        {
+                            <a asp-action="Index" asp-controller="Dashboard" class="nav_link"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name"></span></a>
+                            <a asp-action="Index" asp-controller="Agenda" class="nav_link"><i class='bx bx-notepad nav_icon'></i><span class="nav_name"></span></a>
+                            <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name"></span></a>
+                            <a asp-action="Index" asp-controller="Convenio" class="nav_link"><i class='bx bx-briefcase nav_icon'></i><span class="nav_name"></span></a>
+                            <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i><span class="nav_name"></span></a>
+                        }
+                        else
+                        {
+                            <a asp-action="MinhaAgenda" asp-controller="Agenda" class="nav_link"> <i class='bx bx-book-heart'></i> <span class="nav_name">Minha Agenda</span> </a>
+                        }
+                    }
+                </div>
+            </div>
+            <a asp-action="Index" asp-controller="Administrador" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Configurações</span> </a>
         </nav>
     </div>
 
