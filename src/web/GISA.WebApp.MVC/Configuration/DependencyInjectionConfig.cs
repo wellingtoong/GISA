@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using GISA.WebApp.MVC.Extensions;
+﻿using GISA.WebApi.Core.Usuario;
 using GISA.WebApp.MVC.Services;
 using GISA.WebApp.MVC.Services.Handlers;
-using GISA.WebApi.Core.Usuario;
-using System.Net.Http;
-using Polly.Retry;
-using Polly.Extensions.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Polly;
+using Polly.Extensions.Http;
+using Polly.Retry;
 using System;
+using System.Net.Http;
 
 namespace GISA.WebApp.MVC.Configuration
 {

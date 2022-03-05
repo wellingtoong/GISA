@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -24,21 +23,14 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpGet]
-        [Route("nova-conta")]
-        public IActionResult Registro()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [Route("novo-cliente")]
+        [Route("auth/novo-cliente")]
         public IActionResult RegistroCliente()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("novo-cliente")]
+        [Route("auth/novo-cliente")]
         public async Task<IActionResult> RegistroCliente(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return View(usuarioRegistro);
@@ -52,8 +44,15 @@ namespace GISA.WebApp.MVC.Controllers
             return RedirectToAction("Index", "Pessoa");
         }
 
+        [HttpGet]
+        [Route("auth/novo-admin")]
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
         [HttpPost]
-        [Route("nova-conta")]
+        [Route("auth/novo-admin")]
         public async Task<IActionResult> Registro(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return View(usuarioRegistro);
@@ -96,7 +95,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpGet]
-        [Route("sair")]
+        [Route("auth/logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

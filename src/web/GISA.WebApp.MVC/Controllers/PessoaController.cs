@@ -27,26 +27,26 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("pessoa/obter-todos")]
+        [Route("pessoa/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _pessoaService.ObterTodos());
         }
 
-        [Route("pessoa/obter-pessoa/{id:guid}")]
+        [Route("pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPessoaPorId(Guid id)
         {
             return Json(await _pessoaService.ObterPorId(id));
         }
 
-        [Route("pessoa/obter-pessoa/{email}")]
+        [Route("pessoa/{email}")]
         public async Task<IActionResult> ObterPorEmail(string email)
         {
             var pessoa = await _pessoaService.ObterPorEmail(email);
             return Json(pessoa);
         }
 
-        [Route("pessoa/editar-pessoa/{id:guid}")]
+        [Route("pessoa/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var planos = await _planoService.ObterTodos();
@@ -58,14 +58,14 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("pessoa/editar-pessoa")]
+        [Route("pessoa/editar")]
         public async Task<IActionResult> Editar(Guid id, PessoaViewModel pessoaViewModel)
         {
             var pessoa = await _pessoaService.ObterPorId(id);
             return View(pessoa);
         }
 
-        [Route("pessoa/novo-pessoa")]
+        [Route("pessoa/novo")]
         public IActionResult Registrar()
         {
             ViewBag.ValidateForm = true;
@@ -73,7 +73,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("pessoa/novo-pessoa")]
+        [Route("pessoa/novo")]
         public async Task<IActionResult> Registrar(PessoaViewModel pessoaViewModel)
         {
             if (!ModelState.IsValid)

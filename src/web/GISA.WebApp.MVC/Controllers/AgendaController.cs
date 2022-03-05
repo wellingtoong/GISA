@@ -23,13 +23,13 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("agendamento/obter-todos")]
+        [Route("agenda/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _agendaService.ObterTodos());
         }
 
-        [Route("agendamento/editar-agenda/{id:guid}")]
+        [Route("agenda/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var agenda = await _agendaService.ObterPorId(id);
@@ -38,7 +38,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("agendamento/editar-agenda")]
+        [Route("agenda/editar")]
         public async Task<IActionResult> Editar(Guid id, AgendaViewModel agendaViewModel)
         {
             var agenda = await _agendaService.ObterPorId(id);
@@ -46,7 +46,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(agenda);
         }
 
-        [Route("agendamento/novo-agenda")]
+        [Route("agenda/novo")]
         public IActionResult Registrar()
         {
             ViewBag.ValidateForm = false;
@@ -54,7 +54,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("agendamento/novo-agenda")]
+        [Route("agenda/novo")]
         public async Task<IActionResult> Registrar(AgendaViewModel agendaViewModel)
         {
             if (!ModelState.IsValid)

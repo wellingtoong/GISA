@@ -106,7 +106,7 @@
 
             obterUsuario: (email) => {
 
-                app.metodos.get(`/pessoa/obter-pessoa/${email}`,
+                app.metodos.get(`/pessoa/${email}`,
                     (response) => {
                         var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
                         var tipoPessoa = (response.tipoPessoaEnum == 0) ? "Associado" : (response.tipoPessoaEnum == 1) ? "Colaborador" : "N/A";

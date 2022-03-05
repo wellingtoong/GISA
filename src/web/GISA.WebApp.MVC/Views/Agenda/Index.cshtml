@@ -78,7 +78,7 @@
 
             obterPessoa: (id) => {
 
-                app.metodos.get(`pessoa/obter-pessoa/${id}`,
+                app.metodos.get(`pessoa/${id}`,
                     (response) => {
                         app.metodos.setLocalStorage("agenda",
                             { id: response.id, nomeCompleto: response.nomeCompleto, email: response.email })
@@ -94,7 +94,7 @@
 
             obterAgendamentos: () => {
 
-                app.metodos.get('/agendamento/obter-todos',
+                app.metodos.get('/agenda/todos',
                     (response) => {
                         var agendas = [];
 

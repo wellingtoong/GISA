@@ -23,13 +23,13 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("convenio/obter-todos")]
+        [Route("convenio/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _convenioService.ObterTodos());
         }
 
-        [Route("convenio/editar-convenio/{id:guid}")]
+        [Route("convenio/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             if (!ModelState.IsValid)
@@ -44,14 +44,14 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("convenio/editar-convenio")]
+        [Route("convenio/editar")]
         public async Task<IActionResult> Editar(Guid id, ConvenioViewModel convenioViewModel)
         {
             var convenio = await _convenioService.ObterPorId(id);
             return View(convenio);
         }
 
-        [Route("convenio/novo-convenio")]
+        [Route("convenio/novo")]
         public IActionResult Registrar()
         {
             ViewBag.ValidateForm = false;
@@ -59,7 +59,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("convenio/novo-convenio")]
+        [Route("convenio/novo")]
         public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
         {
             if (!ModelState.IsValid)

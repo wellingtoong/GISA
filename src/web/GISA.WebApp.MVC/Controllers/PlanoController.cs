@@ -23,13 +23,13 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("plano/obter-todos")]
+        [Route("plano/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _planoService.ObterTodos());
         }
 
-        [Route("plano/editar-plano/{id:guid}")]
+        [Route("plano/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var plano = await _planoService.ObterPorId(id);
@@ -38,7 +38,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("plano/editar-plano")]
+        [Route("plano/editar")]
         public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel)
         {
             var plano = await _planoService.ObterPorId(id);
@@ -46,7 +46,7 @@ namespace GISA.WebApp.MVC.Controllers
             return View(plano);
         }
 
-        [Route("plano/novo-plano")]
+        [Route("plano/novo")]
         public IActionResult Registrar()
         {
             ViewBag.ValidateForm = false;
@@ -54,7 +54,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("plano/novo-plano")]
+        [Route("plano/novo")]
         public async Task<IActionResult> Registrar(PlanoViewModel planoViewModel)
         {
             if (!ModelState.IsValid)

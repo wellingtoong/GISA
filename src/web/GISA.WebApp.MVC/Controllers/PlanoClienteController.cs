@@ -23,13 +23,13 @@ namespace GISA.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("plano-cliente/obter-todos")]
+        [Route("plano-cliente/todos")]
         public async Task<IActionResult> ObterTodos()
         {
             return Json(await _planoClienteService.ObterTodos());
         }
 
-        [Route("plano-cliente/obter-plano/{id:guid}")]
+        [Route("plano-cliente/{id:guid}")]
         public async Task<IActionResult> ObterPlanoClientePorPessoaId(Guid id)
         {
             var planoCliente = await _planoClienteService.ObterPorPessoaId(id);
@@ -37,21 +37,21 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("plano-cliente/editar-plano")]
+        [Route("plano-cliente/editar")]
         public async Task<IActionResult> Editar(Guid id, PlanoClienteViewModel planoClienteViewModel)
         {
             var planoCliente = await _planoClienteService.ObterPorId(id);
             return View(planoCliente);
         }
 
-        [Route("plano-cliente/novo-plano")]
+        [Route("plano-cliente/novo")]
         public IActionResult Registrar()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("plano-cliente/novo-plano")]
+        [Route("plano-cliente/novo")]
         public async Task<IActionResult> Registrar(PlanoClienteViewModel planoClienteViewModel)
         {
             if (!ModelState.IsValid) return View(planoClienteViewModel);
