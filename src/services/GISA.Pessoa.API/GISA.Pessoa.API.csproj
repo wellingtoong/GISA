@@ -8,27 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20211107205739_Initial.cs" />
-    <Compile Remove="Data\Migrations\20211107205739_Initial.Designer.cs" />
-    <Compile Remove="Data\Migrations\20211113133816_Plano.cs" />
-    <Compile Remove="Data\Migrations\20211113133816_Plano.Designer.cs" />
-    <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.cs" />
-    <Compile Remove="Data\Migrations\20211113185419_PlanoCliente.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220115125834_Initial.cs" />
-    <Compile Remove="Data\Migrations\20220115125834_Initial.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220213190147_Inital2.cs" />
-    <Compile Remove="Data\Migrations\20220213190147_Inital2.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220219165822_Initial3.cs" />
-    <Compile Remove="Data\Migrations\20220219165822_Initial3.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220226153202_InitialDB.cs" />
-    <Compile Remove="Data\Migrations\20220226153202_InitialDB.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220226153812_InitialDB.cs" />
-    <Compile Remove="Data\Migrations\20220226153812_InitialDB.Designer.cs" />
-    <Compile Remove="Data\Migrations\20220226190734_Initial3.cs" />
-    <Compile Remove="Data\Migrations\20220226190734_Initial3.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
@@ -46,10 +25,6 @@
     <ProjectReference Include="..\..\building blocks\GISA.Core\GISA.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 

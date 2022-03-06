@@ -11,7 +11,7 @@ namespace GISA.Pessoa.API.Configuration
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             // repositorys
-            services.AddScoped<ApplicationDbContext>();
+            services.AddScoped<PessoaDbContext>();
             services.AddScoped<IPessoaRepository, PessoaRepository>();
             services.AddScoped<IPlanoRepository, PlanoRepository>();
             services.AddScoped<IPlanoClienteRepository, PlanoClienteRepository>();

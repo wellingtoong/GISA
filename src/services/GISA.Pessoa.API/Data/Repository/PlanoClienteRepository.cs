@@ -7,7 +7,7 @@ namespace GISA.Pessoa.API.Data.Repository
 {
     public class PlanoClienteRepository : Repository<Domain.PlanoCliente>, IPlanoClienteRepository
     {
-        public PlanoClienteRepository(ApplicationDbContext context) : base(context) { }
+        public PlanoClienteRepository(PessoaDbContext context) : base(context) { }
 
         public async Task<bool> PessoaAtivo(Guid id)
         {

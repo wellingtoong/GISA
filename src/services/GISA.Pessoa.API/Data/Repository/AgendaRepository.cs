@@ -9,7 +9,7 @@ namespace GISA.Pessoa.API.Data.Repository
 {
     public class AgendaRepository : Repository<Domain.Agenda>, IAgendaRepository
     {
-        public AgendaRepository(ApplicationDbContext context) : base(context) { }
+        public AgendaRepository(PessoaDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Agenda>> ObterAgendamentosPorIdPessoa(Guid id)
         {

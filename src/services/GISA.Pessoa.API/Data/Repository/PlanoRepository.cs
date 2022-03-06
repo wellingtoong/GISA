@@ -6,7 +6,7 @@ namespace GISA.Pessoa.API.Data.Repository
 {
     public class PlanoRepository : Repository<Domain.Plano>, IPlanoRepository
     {
-        public PlanoRepository(ApplicationDbContext context) : base(context) { }
+        public PlanoRepository(PessoaDbContext context) : base(context) { }
 
         public async Task<int> ObterTotalPlano()
         {

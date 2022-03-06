@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace GISA.Pessoa.API.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class PessoaDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public PessoaDbContext(DbContextOptions<PessoaDbContext> options)
             : base(options) { }
         
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
@@ -19,7 +19,7 @@ namespace GISA.Pessoa.API.Data
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string)))) property.SetColumnType("varchar(100)");
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PessoaDbContext).Assembly);
         }
     }
 }

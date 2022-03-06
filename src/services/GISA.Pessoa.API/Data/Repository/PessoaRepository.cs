@@ -9,7 +9,7 @@ namespace GISA.Pessoa.API.Data.Repository
 {
     public class PessoaRepository : Repository<Domain.Pessoa>, IPessoaRepository
     {
-        public PessoaRepository(ApplicationDbContext context) : base(context) { }
+        public PessoaRepository(PessoaDbContext context) : base(context) { }
 
         public async Task<Domain.Pessoa> ObterPessoaEnderecoPorId(Guid id)
         {
