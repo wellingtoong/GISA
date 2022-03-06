@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace GISA.Autenticacao.API.Controllers
 {
     [Authorize]
-    [Route("api/auth")]
+    [Route("api")]
     public class AuthController : MainController
     {
         private const string ROLE_ADMIN = "Admin";
@@ -39,7 +39,7 @@ namespace GISA.Autenticacao.API.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [HttpPost("novo-cliente")]
+        [HttpPost("auth/novo-cliente")]
         public async Task<ActionResult> RegistrarCliente(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -68,7 +68,7 @@ namespace GISA.Autenticacao.API.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("novo-registro")]
+        [HttpPost("auth/novo-admin")]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -98,7 +98,7 @@ namespace GISA.Autenticacao.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authentication")]
+        [HttpPost("auth/authentication")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
