@@ -1,4 +1,8 @@
-﻿@{
+﻿@using GISA.WebApp.MVC.Extensions
+@using GISA.WebApi.Core.Usuario
+@inject IAspNetUser AppUser
+
+@{
     ViewData["Title"] = "Home";
     Layout = "_LayoutPrivate";
 }
@@ -18,45 +22,64 @@
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="row pt-40">
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Convênios</h3>
-                    <p class="card-text">Para gerenciamento de todos conveniados dentro da plataforma, acesse o link abaixo.</p>
-                    <a asp-action="Index" asp-controller="Convenio" class="mt-10 btn btn-primary">Acessar</a>
+    @{
+        if (AppUser.RoleAdmin() == true)
+        {
+            <div class="row pt-40">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Convênios</h3>
+                            <p class="card-text">Para gerenciamento de todos conveniados dentro da plataforma, acesse o link abaixo.</p>
+                            <a asp-action="Index" asp-controller="Convenio" class="mt-10 btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Dashboard</h3>
-                    <p class="card-text">Dentro da plataforma é possivel consultar o Dashboard para o resumo semanal.</p>
-                    <a asp-action="Index" asp-controller="Dashboard" class="mt-10 btn btn-primary">Acessar</a>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Dashboard</h3>
+                            <p class="card-text">Dentro da plataforma é possivel consultar o Dashboard para o resumo semanal.</p>
+                            <a asp-action="Index" asp-controller="Dashboard" class="mt-10 btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Pessoas</h3>
-                    <p class="card-text">Para vinculos de associados e colaboradores a planos já existentes, acesse o link abaixo.</p>
-                    <a asp-action="Index" asp-controller="Pessoa"  class="mt-10 btn btn-primary">Acessar</a>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Pessoas</h3>
+                            <p class="card-text">Para vinculos de associados e colaboradores a planos já existentes, acesse o link abaixo.</p>
+                            <a asp-action="Index" asp-controller="Pessoa" class="mt-10 btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Planos</h3>
-                    <p class="card-text">Criação de planos e produtos destinados para associados e colaboradores.</p>
-                    <a asp-action="Index" asp-controller="Plano"  class="mt-10 btn btn-primary">Acessar</a>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Planos</h3>
+                            <p class="card-text">Criação de planos e produtos destinados para associados e colaboradores.</p>
+                            <a asp-action="Index" asp-controller="Plano" class="mt-10 btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        }
+        else
+        {
+            <div class="row pt-40">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Minha Agenda</h3>
+                            <p class="card-text">Para verificar toda sua agenda de consultas médicas pendentes nos últimos dias, acesse o link abaixo.</p>
+                            <a asp-action="MinhaAgenda" asp-controller="Agenda" class="mt-10 btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

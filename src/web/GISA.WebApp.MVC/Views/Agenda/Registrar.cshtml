@@ -27,6 +27,7 @@
         <div class="pt-40 col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <form class="row g-3 needs-validation" novalidate asp-action="Registrar" method="post">
                 <vc:Summary></vc:Summary>
+                <div id="msg"></div>
 
                 <div class="bd-callout bd-callout-default">
                     <h4 class="text-title-info">Busque para o agendamento</h4>
@@ -80,6 +81,31 @@
         agenda.eventos = {
 
             init: () => {
+
+                agenda.template = {
+
+                    card: `<div class="card mt-30">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #181c32;">Você tem uma consulta!</h5>
+                                    <p class="card-text">{{Observacao}}</p>
+
+                                    </br>
+                                    <span class="badge bg-primary">{{Data}}</span>
+                                    <span class="badge bg-primary">{{Hora}}</span>
+                                </div>
+                            </div>`,
+
+                    info: `<div class="alert alert-primary alert-dismissible fade show mt-30" role="alert">
+                                <strong>Atenção!</strong> {{Mensagem}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`,
+
+                    erro: `<div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
+                                <strong>Ops!</strong> {{Mensagem}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`,
+                }
+
                 $('#txtHora').mask('00:00', { placeholder: "  :  " });
                 $('#txtData').mask('00/00/0000', { placeholder: "__/__/____" });
 
@@ -94,7 +120,14 @@
 
                 $('#btnBuscaUsuario').on('click', function () {
                     var email = $('#txtBuscaUsuario').val();
-                    if (email == '' && email == null && email == undefined) return;
+                    
+                    if (email == '' || email == null || email == undefined) {
+                        var template = agenda.template.info
+                            .replace('{{Mensagem}}', "Verifique o e-mail não foi encontrado ou não esta valido. Verifique e tente novamente!")
+
+                        $('#msg').append(template);
+                        return;
+                    }
 
                     agenda.metodos.obterUsuario(email);
                 })
@@ -108,22 +141,39 @@
 
                 app.metodos.get(`/pessoa/${email}`,
                     (response) => {
-                        var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
-                        var tipoPessoa = (response.tipoPessoaEnum == 0) ? "Associado" : (response.tipoPessoaEnum == 1) ? "Colaborador" : "N/A";
 
-                        $('#IdPessoa').val(response.id)
-                        $('#txtNomeCompleto').val(response.nomeCompleto);
-                        $('#txtTipoPessoa').val(tipoPessoa);
-                        $('#txtTelefone').val(response.telefone);
-                        $('#txtEmail').val(response.email);
-                        $('#txtDataNascimento').val(dataNascimento);
-                        $('#txtRg').val(response.rg);
-                        $('#txtCpf').val(response.cpf);
+                        if (response.id != null) {
+                            var dataNascimento = app.metodos.formataDataBR(response.dataNascimento);
+                            var tipoPessoa = (response.tipoPessoaEnum == 0) ? "Associado" : (response.tipoPessoaEnum == 1) ? "Colaborador" : "N/A";
+
+                            $('#IdPessoa').val(response.id)
+                            $('#txtNomeCompleto').val(response.nomeCompleto);
+                            $('#txtTipoPessoa').val(tipoPessoa);
+                            $('#txtTelefone').val(response.telefone);
+                            $('#txtEmail').val(response.email);
+                            $('#txtDataNascimento').val(dataNascimento);
+                            $('#txtRg').val(response.rg);
+                            $('#txtCpf').val(response.cpf);
+                        }
+                        else {
+                            var template = agenda.template.info
+                                .replace('{{Mensagem}}', "Verifique o e-mail não foi encontrado ou não esta valido. Verifique e tente novamente!")
+
+                            $('#msg').append(template);
+                            return;
+                        }
+
                     },
                     (xhr, ajaxOptions, error) => {
                         console.log('xhr', xhr);
                         console.log('ajaxOptions', ajaxOptions);
                         console.log('error', error);
+
+                        var template = agenda.template.erro
+                            .replace('{{Mensagem}}', "Algo deu errado, verifique e tente novamente mais tarde.")
+
+                        $('#msg').append(template);
+                        return;
                     }
                 )
 

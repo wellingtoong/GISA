@@ -26,12 +26,14 @@
 </div>
 
 <div class="container">
+    
     <div class="row">
+        <div id="msg"></div>
         <div id="agendaPessoal"></div>
+        <input type="hidden" id="txtUserEmail" value="@AppUser.ObterUserEmail()" />
     </div>
 
 </div>
-
 
 @section Scripts {
     <script>
@@ -52,25 +54,37 @@
                                     <span class="badge bg-primary">{{Data}}</span>
                                     <span class="badge bg-primary">{{Hora}}</span>
                                 </div>
-                            </div>`
+                            </div>`,
+
+                    info: `<div class="alert alert-primary alert-dismissible fade show mt-30" role="alert">
+                                <strong>Atenção!</strong> Não foi encontrado nenhum agendamento em seu usuário.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`,
+
+                    erro: `<div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
+                                <strong>Ops!</strong> Algo deu errado, tente novamente mais tarde.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`,
                 }
 
-                agenda.metodos.obterAgendamentosPessoa();
+                var email = $('#txtUserEmail').val();
+
+                if (email != null && email != undefined) {
+                    agenda.metodos.obterPessoaPorEmail(email);
+                }
             }
 
         }
 
         agenda.metodos = {
 
-            obterAgendamentosPessoa: () => {
+            obterAgendamentosPessoa: (idPessoa) => {
 
-                app.metodos.get(`/agenda/agendamentos/342b9972-06e3-472a-d201-08d9fafc46c6`,
+                app.metodos.get(`/agenda/agendamentos/${idPessoa}`,
                     (response) => {
                         var cards = [];
-                        console.log(response);
 
-                        if (response != null) {
-
+                        if (response.length) {
                             response.forEach(function (item, index, arr) {
 
                                 var data = app.metodos.formataDataBR(item.data);
@@ -82,10 +96,33 @@
                                     .replace("{{Observacao}}", obs)
 
                                 cards.push(card);
-
                             });
 
                             $('#agendaPessoal').append(cards);
+                        }
+                        else {
+                            $("#msg").append(agenda.template.info)
+                        }
+
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+
+                        $("#msg").append(agenda.template.erro)
+                    }
+                )
+
+            },
+
+            obterPessoaPorEmail: (email) => {
+
+                app.metodos.get(`/pessoa/${email}`,
+                    (response) => {
+
+                        if (response.id != null) {
+                            agenda.metodos.obterAgendamentosPessoa(response.id);
                         }
 
                     },

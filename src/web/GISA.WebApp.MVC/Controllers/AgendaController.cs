@@ -99,6 +99,7 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         [HttpGet]
+        [Route("agenda/minha-agenda")]
         public IActionResult MinhaAgenda()
         {
             return View();
