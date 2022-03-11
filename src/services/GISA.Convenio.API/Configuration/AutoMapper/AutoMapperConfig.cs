@@ -9,11 +9,11 @@ namespace GISA.Convenio.API.Configuration.AutoMapper
         {
             CreateMap<Domain.Convenio, ConvenioViewModel>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Endereco))
-                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.Endereco))
+                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.EnderecoConvenio))
                 .ReverseMap()
                 .ForPath(dest => dest.Email.Endereco, opt => opt.MapFrom(src => src.Email));
 
-            CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
+            CreateMap<Domain.EnderecoConvenio, EnderecoViewModel>().ReverseMap();
         }
     }
 }

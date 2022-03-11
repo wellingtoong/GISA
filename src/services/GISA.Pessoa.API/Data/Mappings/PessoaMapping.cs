@@ -44,6 +44,9 @@ namespace GISA.Pessoa.API.Data.Mappings
             builder.Property(p => p.DataCadastro)
               .IsRequired();
 
+            builder.HasOne(p => p.EnderecoPessoa)
+                .WithOne(e => e.Pessoa);
+
             builder.ToTable("Pessoas");
         }
     }

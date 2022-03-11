@@ -25,16 +25,16 @@
         <nav class="nav">
 
             <div>
-                <a asp-action="Apresentacao" asp-controller="Home" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name"></span></a>
+                <a asp-action="Apresentacao" asp-controller="Home" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Boa Saúde</span></a>
                 <div class="nav_list">
                     @{
                         if (AppUser.RoleAdmin() == true)
                         {
-                            <a asp-action="Index" asp-controller="Dashboard" class="nav_link"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name"></span></a>
-                            <a asp-action="Index" asp-controller="Agenda" class="nav_link"><i class='bx bx-notepad nav_icon'></i><span class="nav_name"></span></a>
-                            <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name"></span></a>
-                            <a asp-action="Index" asp-controller="Convenio" class="nav_link"><i class='bx bx-briefcase nav_icon'></i><span class="nav_name"></span></a>
-                            <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i><span class="nav_name"></span></a>
+                            <a asp-action="Index" asp-controller="Dashboard" class="nav_link"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                            <a asp-action="Index" asp-controller="Agenda" class="nav_link"><i class='bx bx-notepad nav_icon'></i><span class="nav_name">Agenda</span></a>
+                            <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Pessoa</span></a>
+                            <a asp-action="Index" asp-controller="Convenio" class="nav_link"><i class='bx bx-briefcase nav_icon'></i><span class="nav_name">Convenio</span></a>
+                            <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i><span class="nav_name">Plano</span></a>
                         }
                         else
                         {

@@ -11,22 +11,18 @@ namespace GISA.Pessoa.API.Data.Repository
     {
         public PessoaRepository(PessoaDbContext context) : base(context) { }
 
-        public async Task<Domain.Pessoa> ObterPessoaEnderecoPorId(Guid id)
+        public async Task<IEnumerable<Domain.Pessoa>> ObterTodosComEndereco()
         {
             return await Db.Pessoas.AsNoTracking()
-                .Include(e => e.Endereco)
-                .Include(p => p.PlanoCliente).FirstOrDefaultAsync(p => p.Id == id);
+                .Include(e => e.EnderecoPessoa)
+                .Include(p => p.PlanoCliente).ToListAsync();
         }
 
-        public async Task<Endereco> ObterEnderecoPorId(Guid id)
-        {
-            return await Db.Enderecos.FindAsync(id);
-        }
-
-        public async Task<IEnumerable<Domain.Pessoa>> ObterTodasPessoasEndereco()
+        public async Task<Domain.Pessoa> ObterPessoaComEndereco(Guid id)
         {
             return await Db.Pessoas.AsNoTracking()
-                .Include(e => e.Endereco).ToListAsync();
+                .Include(p => p.PlanoCliente)
+                .Include(e => e.EnderecoPessoa).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Domain.Pessoa> ObterPessoaPorEmail(string email)

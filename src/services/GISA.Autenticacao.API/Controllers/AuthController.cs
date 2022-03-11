@@ -1,7 +1,6 @@
 ﻿using GISA.Autenticacao.API.Models;
 using GISA.WebApi.Core.Autenticacao;
 using GISA.WebAPI.Core.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -16,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace GISA.Autenticacao.API.Controllers
 {
-    [Authorize]
     [Route("api")]
     public class AuthController : MainController
     {
@@ -97,7 +95,6 @@ namespace GISA.Autenticacao.API.Controllers
             return CustomResponse();
         }
 
-        [AllowAnonymous]
         [HttpPost("auth/authentication")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {

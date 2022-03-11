@@ -9,7 +9,7 @@ namespace GISA.Convenio.API.Data.Repository
     {
         Task<Domain.Convenio> ObterConvenioEnderecoPorId(Guid id);
         Task<IEnumerable<Domain.Convenio>> ObterTodosConvenioEndereco();
-        Task<Domain.Endereco> ObterEnderecoPorId(Guid id);
+        Task<Domain.EnderecoConvenio> ObterEnderecoPorId(Guid id);
         Task<int> ObterTotalConvenio();
     }
 }

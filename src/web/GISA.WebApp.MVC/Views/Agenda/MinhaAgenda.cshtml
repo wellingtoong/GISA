@@ -124,12 +124,17 @@
                         if (response.id != null) {
                             agenda.metodos.obterAgendamentosPessoa(response.id);
                         }
+                        else {
+                            $("#msg").append(agenda.template.info)
+                        }
 
                     },
                     (xhr, ajaxOptions, error) => {
                         console.log('xhr', xhr);
                         console.log('ajaxOptions', ajaxOptions);
                         console.log('error', error);
+
+                        $("#msg").append(agenda.template.erro)
                     }
                 )
 

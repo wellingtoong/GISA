@@ -19,21 +19,21 @@ namespace GISA.Pessoa.API.Service
 
         public async Task<bool> Atualizar(Guid id, Domain.Pessoa pessoa)
         {
-            var enderecoAtual = await _pessoaRepository.ObterEnderecoPorId(id);
-            pessoa.AlterarEndereco(enderecoAtual);
+            //var enderecoAtual = await _pessoaRepository.ObterEnderecoPorId(id);
+            //pessoa.AlterarEndereco(enderecoAtual);
 
             return await _pessoaRepository.Atualizar(pessoa);
         }
 
-        public async Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa pessoa)
-        {
-            var pessoaAtual = await _pessoaRepository.ObterPessoaEnderecoPorId(id);
-            pessoaAtual.AlterarEndereco(pessoa.Endereco);
+        //public async Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa pessoa)
+        //{
+        //    var pessoaAtual = await _pessoaRepository.ObterPessoaEnderecoPorId(id);
+        //    pessoaAtual.AlterarEndereco(pessoa.Endereco);
 
-            return await _pessoaRepository.Atualizar(pessoaAtual);
-        }
+        //    return await _pessoaRepository.Atualizar(pessoaAtual);
+        //}
 
-        public async Task<Endereco> ObterEnderecoPorId(Guid id) => await _pessoaRepository.ObterEnderecoPorId(id);
+        //public async Task<Endereco> ObterEnderecoPorId(Guid id) => await _pessoaRepository.ObterEnderecoPorId(id);
 
         public async Task<IEnumerable<Domain.Pessoa>> ObterTodos() => await _pessoaRepository.ObterTodos();
 

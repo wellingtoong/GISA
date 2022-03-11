@@ -9,7 +9,7 @@ namespace GISA.Convenio.API.Data
             : base(options) { }
 
         public DbSet<Domain.Convenio> Convenios { get; set; }
-        public DbSet<Domain.Endereco> Enderecos { get; set; }
+        public DbSet<Domain.EnderecoConvenio> EnderecoConvenio { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

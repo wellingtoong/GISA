@@ -53,14 +53,7 @@ namespace GISA.Pessoa.API.Service.Consumer
                 }
                 else
                 {
-                    try
-                    {
-                        result = await _pessoaRepository.Atualizar(pessoa);
-                    }
-                    catch (Exception ex)
-                    {
-                        var teste = ex;
-                    }
+                    result = await _pessoaRepository.Atualizar(pessoa);
                 }
 
                 if (!result)

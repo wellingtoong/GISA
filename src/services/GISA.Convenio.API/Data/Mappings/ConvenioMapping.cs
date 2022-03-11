@@ -45,8 +45,7 @@ namespace GISA.Convenio.API.Data.Mappings
                     .HasColumnType($"varchar({Email.EnderecoMaxLength})");
             });
 
-            // 1 : 1 => Convenio : Endereco
-            builder.HasOne(c => c.Endereco)
+            builder.HasOne(p => p.EnderecoConvenio)
                 .WithOne(e => e.Convenio);
 
             builder.ToTable("Convenios");

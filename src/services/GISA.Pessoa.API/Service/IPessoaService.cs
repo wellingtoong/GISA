@@ -9,8 +9,8 @@ namespace GISA.Pessoa.API.Service
     {
         Task<bool> Adicionar(Domain.Pessoa pessoa);
         Task<bool> Atualizar(Guid id, Domain.Pessoa convenio);
-        Task<Endereco> ObterEnderecoPorId(Guid id);
-        Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa convenio);
+        //Task<Endereco> ObterEnderecoPorId(Guid id);
+        //Task<bool> AtualizarEndereco(Guid id, Domain.Pessoa convenio);
         Task<IEnumerable<Domain.Pessoa>> ObterTodos();
         Task<int> ObterTotalUsuario();
         Task<int> ObterTotalUsuarioAtivo();

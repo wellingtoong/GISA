@@ -81,12 +81,29 @@
 
                 app.metodos.get('/pessoa/todos',
                     (response) => {
+                        console.log(response)
+                        
                         var pessoas = [];
 
                         response.forEach(function (item, index, arr) {
                             var status = (item.ativo == true)
                                 ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
                                 : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
+
+                            var acao = (item.ativo == true)
+                                ? `<div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa('${item.id}');">Editar</a>
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarUsuario();">Usuário</a>
+                                        </ul>
+                                   </div>`
+                                : `<div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa('${item.id}');">Editar</a>
+                                        </ul>
+                                   </div>`
 
                             var pessoa = item.tipoPessoaEnum == 0 ? "Associado" : "Colaborador";
 
@@ -98,13 +115,7 @@
                                 telefone: item.telefone,
                                 tipoPessoa: pessoa,
                                 status: status,
-                                acao: `<div class="btn-group">
-                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa('${item.id}');">Editar</a>
-                                                <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarUsuario();">Usuário</a>
-                                            </ul>
-                                       </div>`
+                                acao: acao
                             }
 
                             pessoas.push(dado);

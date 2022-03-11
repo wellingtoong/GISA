@@ -9,7 +9,7 @@ namespace GISA.Pessoa.API.Data
             : base(options) { }
         
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
-        public DbSet<Domain.Endereco> Enderecos { get; set; }
+        public DbSet<Domain.EnderecoPessoa> EnderecoPessoa { get; set; }
         public DbSet<Domain.Plano> Planos { get; set; }
         public DbSet<Domain.PlanoCliente> PlanoClientes { get; private set; }
         public DbSet<Domain.Agenda> Agendas { get; set; }

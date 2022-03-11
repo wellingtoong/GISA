@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace GISA.Convenio.API.Data.Mappings
 {
-    public class EnderecoMapping : IEntityTypeConfiguration<Domain.Endereco>
+    public class EnderecoMapping : IEntityTypeConfiguration<Domain.EnderecoConvenio>
     {
-        public void Configure(EntityTypeBuilder<Domain.Endereco> builder)
+        public void Configure(EntityTypeBuilder<Domain.EnderecoConvenio> builder)
         {
             builder.HasKey(e => e.Id);
 
@@ -37,7 +36,7 @@ namespace GISA.Convenio.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            builder.ToTable("Enderecos");
+            builder.ToTable("EnderecoConvenio");
         }
     }
 }

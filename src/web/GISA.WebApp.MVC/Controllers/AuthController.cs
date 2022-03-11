@@ -39,8 +39,6 @@ namespace GISA.WebApp.MVC.Controllers
 
             if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
 
-            await RealizarLogin(resposta);
-
             return RedirectToAction("Index", "Pessoa");
         }
 

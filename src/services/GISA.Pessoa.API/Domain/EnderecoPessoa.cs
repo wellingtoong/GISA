@@ -1,10 +1,11 @@
 ﻿using GISA.Core.DomainObjects;
 using System;
 
-namespace GISA.Convenio.API.Domain
+namespace GISA.Pessoa.API.Domain
 {
-    public class Endereco : Entity
+    public class EnderecoPessoa : Entity
     {
+        public Guid PessoaId { get; private set; }
         public string Cep { get; private set; }
         public string Logradouro { get; private set; }
         public string Numero { get; private set; }
@@ -12,20 +13,29 @@ namespace GISA.Convenio.API.Domain
         public string Bairro { get; private set; }
         public string Estado { get; private set; }
         public string Municipio { get; private set; }
-        public Guid ConvenioId { get; private set; }
-        public Convenio Convenio { get; protected set; }
         public DateTime DataCadastro { get; private set; }
+        public Pessoa Pessoa { get; private set; }
 
-        protected Endereco() { }
+        protected EnderecoPessoa() { }
 
-        public Endereco(string cep, string logradouro, string numero, string bairro, string estado, string municipio)
+        public EnderecoPessoa(
+            string cep,
+            string logradouro,
+            string numero,
+            string complemento,
+            string bairro,
+            string estado,
+            string municipio,
+            Guid pessoaId)
         {
             Cep = cep;
             Logradouro = logradouro;
             Numero = numero;
+            Complemento = complemento;
             Bairro = bairro;
             Estado = estado;
             Municipio = municipio;
+            PessoaId = pessoaId;
             DataCadastro = DateTime.Now;
         }
     }

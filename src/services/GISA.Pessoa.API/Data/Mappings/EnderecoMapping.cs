@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GISA.Pessoa.API.Data.Mappings
 {
-    public class EnderecoMapping : IEntityTypeConfiguration<Domain.Endereco>
+    public class EnderecoMapping : IEntityTypeConfiguration<Domain.EnderecoPessoa>
     {
-        public void Configure(EntityTypeBuilder<Domain.Endereco> builder)
+        public void Configure(EntityTypeBuilder<Domain.EnderecoPessoa> builder)
         {
             builder.HasKey(e => e.Id);
 
@@ -39,7 +39,7 @@ namespace GISA.Pessoa.API.Data.Mappings
             builder.Property(e => e.DataCadastro)
                 .IsRequired();
 
-            builder.ToTable("Enderecos");
+            builder.ToTable("EnderecoPessoa");
         }
     }
 }

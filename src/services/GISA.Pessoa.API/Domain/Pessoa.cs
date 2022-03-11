@@ -12,7 +12,7 @@ namespace GISA.Pessoa.API.Domain
         public string Telefone { get; private set; }
         public bool Ativo { get; private set; }
         public Email Email { get; private set; }
-        public Endereco Endereco { get; private set; }
+        public EnderecoPessoa EnderecoPessoa { get; private set; }
         public PlanoCliente? PlanoCliente { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public TipoPessoaEnum TipoPessoaEnum { get; private set; }
@@ -27,7 +27,7 @@ namespace GISA.Pessoa.API.Domain
                       bool ativo,
                       Email email,
                       DateTime dataNascimento,
-                      Endereco endereco, 
+                      EnderecoPessoa enderecoPessoa, 
                       TipoPessoaEnum tipoPessoaEnum, 
                       PlanoCliente planoCliente)
         {
@@ -36,14 +36,12 @@ namespace GISA.Pessoa.API.Domain
             Cpf = cpf;
             Telefone = telefone;
             Ativo = ativo;
-            Endereco = endereco;
+            EnderecoPessoa = enderecoPessoa;
             Email = email;
             DataNascimento = dataNascimento;
             TipoPessoaEnum = tipoPessoaEnum;
             DataCadastro = DateTime.Now;
             PlanoCliente = planoCliente;
         }
-
-        public void AlterarEndereco(Endereco endereco) => Endereco = endereco;
     }
 }

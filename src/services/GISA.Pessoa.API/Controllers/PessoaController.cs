@@ -81,7 +81,7 @@ namespace GISA.Pessoa.API.Controllers
         [Route("pessoa/todos")]
         public async Task<IActionResult> ObterTodos()
         {
-            var pessoa = _mapper.Map<IEnumerable<PessoaViewModel>>(await _pessoaRepository.ObterTodasPessoasEndereco());
+            var pessoa = _mapper.Map<IEnumerable<PessoaViewModel>>(await _pessoaRepository.ObterTodosComEndereco());
 
             if (pessoa == null)
             {
@@ -96,7 +96,7 @@ namespace GISA.Pessoa.API.Controllers
         [Route("pessoa/{id:guid}")]
         public async Task<IActionResult> ObterPessoaPorId(Guid id)
         {
-            var pessoa = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPessoaEnderecoPorId(id));
+            var pessoa = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPessoaComEndereco(id));
 
             if (pessoa == null)
             {

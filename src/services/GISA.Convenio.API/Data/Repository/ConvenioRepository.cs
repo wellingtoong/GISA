@@ -13,18 +13,18 @@ namespace GISA.Convenio.API.Data.Repository
         public async Task<Domain.Convenio> ObterConvenioEnderecoPorId(Guid id)
         {
             return await Db.Convenios.AsNoTracking()
-                .Include(e => e.Endereco).FirstOrDefaultAsync(c => c.Id == id);
+                .Include(e => e.EnderecoConvenio).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Endereco> ObterEnderecoPorId(Guid id)
+        public async Task<EnderecoConvenio> ObterEnderecoPorId(Guid id)
         {
-            return await Db.Enderecos.FindAsync(id);
+            return await Db.EnderecoConvenio.FindAsync(id);
         }
 
         public async Task<IEnumerable<Domain.Convenio>> ObterTodosConvenioEndereco()
         {
             return await Db.Convenios.AsNoTracking()
-                .Include(e => e.Endereco).ToListAsync();
+                .Include(e => e.EnderecoConvenio).ToListAsync();
         }
 
         public async Task<int> ObterTotalConvenio()

@@ -9,12 +9,12 @@ namespace GISA.Pessoa.API.Configuration.AutoMapper
         {
             CreateMap<Domain.Pessoa, PessoaViewModel>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Endereco))
-                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.Endereco))
+                .ForMember(dest => dest.EnderecoViewModel, opt => opt.MapFrom(src => src.EnderecoPessoa))
                 .ForMember(dest => dest.PlanoClienteViewModel, opt => opt.MapFrom(src => src.PlanoCliente))
                 .ReverseMap()
                 .ForPath(dest => dest.Email.Endereco, opt => opt.MapFrom(src => src.Email));
 
-            CreateMap<Domain.Endereco, EnderecoViewModel>().ReverseMap();
+            CreateMap<Domain.EnderecoPessoa, EnderecoViewModel>().ReverseMap();
             CreateMap<Domain.Plano, PlanoViewModel>().ReverseMap();
             CreateMap<Domain.PlanoCliente, PlanoClienteViewModel>().ReverseMap();
             CreateMap<Domain.Agenda, AgendaViewModel>().ReverseMap();

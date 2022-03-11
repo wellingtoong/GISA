@@ -7,9 +7,8 @@ namespace GISA.Pessoa.API.Data.Repository
 {
     public interface IPessoaRepository : IRepository<Domain.Pessoa>
     {
-        Task<Domain.Pessoa> ObterPessoaEnderecoPorId(Guid id);
-        Task<IEnumerable<Domain.Pessoa>> ObterTodasPessoasEndereco();
-        Task<Domain.Endereco> ObterEnderecoPorId(Guid id);
+        Task<IEnumerable<Domain.Pessoa>> ObterTodosComEndereco();
+        Task<Domain.Pessoa> ObterPessoaComEndereco(Guid id);
         Task<Domain.Pessoa> ObterPessoaPorEmail(string email);
         Task<int> ObterTotalUsuario();
         Task<int> ObterTotalUsuarioAtivo();

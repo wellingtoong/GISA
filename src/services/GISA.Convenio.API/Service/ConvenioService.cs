@@ -27,12 +27,12 @@ namespace GISA.Convenio.API.Service
         public async Task<bool> AtualizarEndereco(Guid id, Domain.Convenio convenio)
         {
             var convenioAtual = await _convenioRepository.ObterConvenioEnderecoPorId(id);
-            convenioAtual.AlterarEndereco(convenio.Endereco);
+            convenioAtual.AlterarEndereco(convenio.EnderecoConvenio);
 
             return await _convenioRepository.Atualizar(convenioAtual);
         }
 
-        public async Task<Domain.Endereco> ObterEnderecoPorId(Guid id) => await _convenioRepository.ObterEnderecoPorId(id);
+        public async Task<Domain.EnderecoConvenio> ObterEnderecoPorId(Guid id) => await _convenioRepository.ObterEnderecoPorId(id);
 
         public async Task<IEnumerable<Domain.Convenio>> ObterTodos() => await _convenioRepository.ObterTodos();
 
