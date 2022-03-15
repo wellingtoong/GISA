@@ -12,35 +12,33 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IAgendaService _agendaService;
 
-        public AgendaController(IAgendaService agendaService) => _agendaService = agendaService;
+        public AgendaController(IAgendaService agendaService)
+            => _agendaService = agendaService;
 
         [HttpGet]
         [Route("agenda")]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View();
 
         [HttpGet]
         [Route("agenda/todos")]
-        public async Task<IActionResult> ObterTodos() => Json(await _agendaService.ObterTodos());
+        public async Task<IActionResult> ObterTodos()
+            => Json(await _agendaService.ObterTodos());
 
         [HttpGet]
         [Route("agenda/agendamentos/{id:guid}")]
-        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id) => Json(await _agendaService.ObterAgendamentosPorPessoaId(id));
+        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id)
+            => Json(await _agendaService.ObterAgendamentosPorPessoaId(id));
 
         [HttpGet]
         [Route("agenda/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
-        {
-            var agenda = await _agendaService.ObterPorId(id);
-            return View(agenda);
-        }
+            => View(await _agendaService.ObterPorId(id));
 
         [HttpPost]
         [Route("agenda/editar")]
         public async Task<IActionResult> Editar(Guid id, AgendaViewModel agendaViewModel)
-        {
-            var agenda = await _agendaService.ObterPorId(id);
-            return View(agenda);
-        }
+            => View(await _agendaService.ObterPorId(id));
 
         [HttpGet]
         [Route("agenda/novo")]
@@ -80,6 +78,7 @@ namespace GISA.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("agenda/minha-agenda")]
-        public IActionResult MinhaAgenda() => View();
+        public IActionResult MinhaAgenda()
+            => View();
     }
 }

@@ -17,11 +17,13 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
-        public AuthController(IAutenticacaoService autenticacaoService) => _autenticacaoService = autenticacaoService;
+        public AuthController(IAutenticacaoService autenticacaoService)
+            => _autenticacaoService = autenticacaoService;
 
         [HttpGet]
         [Route("auth/novo-cliente")]
-        public IActionResult RegistroCliente() => View();
+        public IActionResult RegistroCliente()
+            => View();
 
         [HttpPost]
         [Route("auth/novo-cliente")]
@@ -33,12 +35,14 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var resposta = await _autenticacaoService.RegistroCliente(usuarioRegistro);
-            return ResponsePossuiErros(resposta.ResponseResult) ? View(usuarioRegistro) : RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(resposta.ResponseResult) ?
+                View(usuarioRegistro) : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
         [HttpGet]
         [Route("auth/novo-admin")]
-        public IActionResult Registro() => View();
+        public IActionResult Registro()
+            => View();
 
         [HttpPost]
         [Route("auth/novo-admin")]
@@ -86,7 +90,8 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             await RealizarLogin(resposta);
-            return string.IsNullOrEmpty(returnUrl) ? RedirectToAction("Apresentacao", "Home") : LocalRedirect(returnUrl);
+            return string.IsNullOrWhiteSpace(returnUrl) ?
+                RedirectToAction("Apresentacao", "Home") : (IActionResult)LocalRedirect(returnUrl);
         }
 
         [HttpGet]

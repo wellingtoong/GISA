@@ -23,43 +23,37 @@ namespace GISA.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("pessoa")]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View();
 
         [HttpGet]
         [Route("pessoa/todos")]
-        public async Task<IActionResult> ObterTodos() => Json(await _pessoaService.ObterTodos());
+        public async Task<IActionResult> ObterTodos()
+            => Json(await _pessoaService.ObterTodos());
 
         [HttpGet]
         [Route("pessoa/{id:guid}")]
-        public async Task<IActionResult> ObterPessoaPorId(Guid id) => Json(await _pessoaService.ObterPorId(id));
+        public async Task<IActionResult> ObterPessoaPorId(Guid id)
+            => Json(await _pessoaService.ObterPorId(id));
 
         [HttpGet]
         [Route("pessoa/{email}")]
         public async Task<IActionResult> ObterPorEmail(string email)
-        {
-            var pessoa = await _pessoaService.ObterPorEmail(email);
-            return Json(pessoa);
-        }
+            => Json(await _pessoaService.ObterPorEmail(email));
 
         [HttpGet]
         [Route("pessoa/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var planos = await _planoService.ObterTodos();
-
             ViewBag.TipoPlano = planos.Select(c => new SelectListItem() { Text = c.Nome, Value = c.Id.ToString() }).ToList();
-
-            var pessoa = await _pessoaService.ObterPorId(id);
-            return View(pessoa);
+            return View(await _pessoaService.ObterPorId(id));
         }
 
         [HttpPost]
         [Route("pessoa/editar")]
         public async Task<IActionResult> Editar(Guid id, PessoaViewModel pessoaViewModel)
-        {
-            var pessoa = await _pessoaService.ObterPorId(id);
-            return View(pessoa);
-        }
+            => View(await _pessoaService.ObterPorId(id));
 
         [HttpGet]
         [Route("pessoa/novo")]

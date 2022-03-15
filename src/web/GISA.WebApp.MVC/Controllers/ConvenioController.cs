@@ -12,15 +12,18 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IConvenioService _convenioService;
 
-        public ConvenioController(IConvenioService convenioService) => _convenioService = convenioService;
+        public ConvenioController(IConvenioService convenioService)
+            => _convenioService = convenioService;
 
         [HttpGet]
         [Route("convenio")]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View();
 
         [HttpGet]
         [Route("convenio/todos")]
-        public async Task<IActionResult> ObterTodos() => Json(await _convenioService.ObterTodos());
+        public async Task<IActionResult> ObterTodos()
+            => Json(await _convenioService.ObterTodos());
 
         [HttpGet]
         [Route("convenio/editar/{id:guid}")]
@@ -33,17 +36,13 @@ namespace GISA.WebApp.MVC.Controllers
                 return View("Editar");
             }
 
-            var convenio = await _convenioService.ObterPorId(id);
-            return View(convenio);
+            return View(await _convenioService.ObterPorId(id));
         }
 
         [HttpPost]
         [Route("convenio/editar")]
         public async Task<IActionResult> Editar(Guid id, ConvenioViewModel convenioViewModel)
-        {
-            var convenio = await _convenioService.ObterPorId(id);
-            return View(convenio);
-        }
+            => View(await _convenioService.ObterPorId(id));
 
         [HttpGet]
         [Route("convenio/novo")]

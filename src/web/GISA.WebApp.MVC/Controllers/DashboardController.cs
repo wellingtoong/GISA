@@ -34,7 +34,7 @@ namespace GISA.WebApp.MVC.Controllers
             var obterTotalPlanoAtivo = await _planoService.ObterTotalPlanoAtivo();
             var obterTotalPlanoInativo = await _planoService.ObterTotalPlanoInativo();
 
-            var dashboard = new DashboardViewModels()
+            return View(new DashboardViewModels
             {
                 TotalUsuario = obterTotalUsuario,
                 TotalAtivo = obterTotalUsuarioAtivo,
@@ -43,9 +43,7 @@ namespace GISA.WebApp.MVC.Controllers
                 TotalPlano = obterTotalPlano,
                 PlanoVendido = obterTotalPlanoAtivo,
                 PlanoCancelado = obterTotalPlanoInativo,
-            };
-
-            return View(dashboard);
+            });
         }
     }
 }

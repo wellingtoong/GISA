@@ -6,10 +6,12 @@ namespace GISA.WebApp.MVC.Controllers
     public class HomeController : MainController
     {
         [Route("")]
-        public IActionResult Index() => RedirectToAction("Login", "Auth");
+        public IActionResult Index()
+            => RedirectToAction("Login", "Auth");
 
         [Route("home")]
-        public IActionResult Apresentacao() => View();
+        public IActionResult Apresentacao()
+            => View();
 
         [Route("sistema-indisponivel")]
         public IActionResult SistemaIndisponivel()

@@ -12,23 +12,28 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IPlanoService _planoService;
 
-        public PlanoController(IPlanoService planoService) => _planoService = planoService;
+        public PlanoController(IPlanoService planoService)
+            => _planoService = planoService;
 
         [HttpGet]
         [Route("plano")]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View();
 
         [HttpGet]
         [Route("plano/todos")]
-        public async Task<IActionResult> ObterTodos() => Json(await _planoService.ObterTodos());
+        public async Task<IActionResult> ObterTodos()
+            => Json(await _planoService.ObterTodos());
 
         [HttpGet]
         [Route("plano/editar/{id:guid}")]
-        public async Task<IActionResult> Editar(Guid id) => View(await _planoService.ObterPorId(id));
+        public async Task<IActionResult> Editar(Guid id)
+            => View(await _planoService.ObterPorId(id));
 
         [HttpPost]
         [Route("plano/editar")]
-        public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel) => View(await _planoService.ObterPorId(id));
+        public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel)
+            => View(await _planoService.ObterPorId(id));
 
         [HttpGet]
         [Route("plano/novo")]
@@ -49,7 +54,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoService.Registrar(planoViewModel);
-            return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Plano");
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Plano");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, PlanoViewModel planoViewModel)
@@ -61,7 +66,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoService.Atualizar(planoViewModel);
-            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Plano");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Plano");
         }
     }
 }

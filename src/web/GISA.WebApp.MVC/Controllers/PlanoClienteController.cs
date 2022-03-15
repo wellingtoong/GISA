@@ -12,35 +12,33 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IPlanoClienteService _planoClienteService;
 
-        public PlanoClienteController(IPlanoClienteService planoClienteService) => _planoClienteService = planoClienteService;
+        public PlanoClienteController(IPlanoClienteService planoClienteService)
+            => _planoClienteService = planoClienteService;
 
         [HttpGet]
         [Route("plano-cliente")]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View();
 
         [HttpGet]
         [Route("plano-cliente/todos")]
-        public async Task<IActionResult> ObterTodos() => Json(await _planoClienteService.ObterTodos());
+        public async Task<IActionResult> ObterTodos()
+            => Json(await _planoClienteService.ObterTodos());
 
         [HttpGet]
         [Route("plano-cliente/{id:guid}")]
         public async Task<IActionResult> ObterPlanoClientePorPessoaId(Guid id)
-        {
-            var planoCliente = await _planoClienteService.ObterPorPessoaId(id);
-            return Ok(planoCliente);
-        }
+            => Ok(await _planoClienteService.ObterPorPessoaId(id));
 
         [HttpPost]
         [Route("plano-cliente/editar")]
         public async Task<IActionResult> Editar(Guid id, PlanoClienteViewModel planoClienteViewModel)
-        {
-            var planoCliente = await _planoClienteService.ObterPorId(id);
-            return View(planoCliente);
-        }
+            => View(await _planoClienteService.ObterPorId(id));
 
         [HttpGet]
         [Route("plano-cliente/novo")]
-        public IActionResult Registrar() => View();
+        public IActionResult Registrar()
+            => View();
 
         [HttpPost]
         [Route("plano-cliente/novo")]
@@ -52,7 +50,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoClienteService.Registrar(planoClienteViewModel);
-            return ResponsePossuiErros(result) ? View("Registrar") : Ok(result);
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)Ok(result);
         }
 
         public async Task<IActionResult> Atualizar(Guid id, PlanoClienteViewModel planoClienteViewModel)
@@ -63,7 +61,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoClienteService.Atualizar(planoClienteViewModel);
-            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "PlanoCliente");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "PlanoCliente");
         }
     }
 }
