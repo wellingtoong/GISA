@@ -1,6 +1,6 @@
-﻿using GISA.Pessoa.API.Service.Consumer;
-using GISA.Core.Utils;
+﻿using GISA.Core.Utils;
 using GISA.MessageBus;
+using GISA.Pessoa.API.Service.Consumer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

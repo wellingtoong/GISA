@@ -1,7 +1,7 @@
-﻿using GISA.Convenio.API.Data.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GISA.Convenio.API.Data.Repository;
 
 namespace GISA.Convenio.API.Service
 {

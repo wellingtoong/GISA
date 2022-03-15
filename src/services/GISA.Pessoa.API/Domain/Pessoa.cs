@@ -1,6 +1,6 @@
-﻿using GISA.Core.DomainObjects;
+﻿using System;
+using GISA.Core.DomainObjects;
 using GISA.Pessoa.API.Enums;
-using System;
 
 namespace GISA.Pessoa.API.Domain
 {
@@ -20,15 +20,15 @@ namespace GISA.Pessoa.API.Domain
 
         protected Pessoa() { }
 
-        public Pessoa(string nomeCompleto, 
-                      string rg, 
+        public Pessoa(string nomeCompleto,
+                      string rg,
                       string cpf,
                       string telefone,
                       bool ativo,
                       Email email,
                       DateTime dataNascimento,
-                      EnderecoPessoa enderecoPessoa, 
-                      TipoPessoaEnum tipoPessoaEnum, 
+                      EnderecoPessoa enderecoPessoa,
+                      TipoPessoaEnum tipoPessoaEnum,
                       PlanoCliente planoCliente)
         {
             NomeCompleto = nomeCompleto;

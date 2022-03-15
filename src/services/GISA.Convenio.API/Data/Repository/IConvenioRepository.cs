@@ -1,7 +1,7 @@
-﻿using GISA.Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GISA.Core.Data;
 
 namespace GISA.Convenio.API.Data.Repository
 {

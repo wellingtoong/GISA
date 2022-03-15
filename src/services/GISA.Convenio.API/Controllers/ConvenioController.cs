@@ -1,16 +1,15 @@
-﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using GISA.Convenio.API.Data.Repository;
 using GISA.Convenio.API.Models;
-using GISA.Convenio.API.Service;
 using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
 using GISA.MessageBus;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace GISA.Convenio.API.Controllers
 {
@@ -18,17 +17,12 @@ namespace GISA.Convenio.API.Controllers
     [Route("api")]
     public class ConvenioController : MainController
     {
-        private readonly IConvenioService _convenioService;
         private readonly IConvenioRepository _convenioRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
 
-        public ConvenioController(IConvenioService convenioService,
-                                  IConvenioRepository convenioRepository,
-                                  IMapper mapper,
-                                  IMessageBus bus)
+        public ConvenioController(IConvenioRepository convenioRepository, IMapper mapper, IMessageBus bus)
         {
-            _convenioService = convenioService;
             _convenioRepository = convenioRepository;
             _mapper = mapper;
             _bus = bus;
@@ -39,7 +33,6 @@ namespace GISA.Convenio.API.Controllers
         public async Task<IActionResult> ObterTotalConvenio()
         {
             var total = await _convenioRepository.ObterTotalConvenio();
-
             if (total == null)
             {
                 AdicionarErroProcessamento("Não foi possível obter total de convenios. Tente novamente!");
@@ -54,7 +47,6 @@ namespace GISA.Convenio.API.Controllers
         public async Task<IActionResult> ObterTodos()
         {
             var convenios = _mapper.Map<IEnumerable<ConvenioViewModel>>(await _convenioRepository.ObterTodosConvenioEndereco());
-
             if (convenios == null)
             {
                 AdicionarErroProcessamento("Não foi possível listar os convenios. Tente novamente!");
@@ -69,7 +61,6 @@ namespace GISA.Convenio.API.Controllers
         public async Task<IActionResult> ObterConvenioPorId(Guid id)
         {
             var convenio = _mapper.Map<ConvenioViewModel>(await _convenioRepository.ObterConvenioEnderecoPorId(id));
-
             if (convenio == null)
             {
                 AdicionarErroProcessamento("Não foi possível obter o convenio. Tente novamente!");
@@ -83,30 +74,38 @@ namespace GISA.Convenio.API.Controllers
         [Route("convenio/novo")]
         public async Task<IActionResult> Registrar(ConvenioViewModel convenioViewModel)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
-            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
+            if (!EmailValido(convenioViewModel.Email))
+            {
+                return CustomResponse();
+            }
 
             var result = await _bus.RequestAsync<Domain.Convenio, ResponseResult>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!OperacaoValida()) return CustomResponse(result);
-
-            return CustomResponse(result);
+            return !OperacaoValida() ? CustomResponse(result) : (IActionResult)CustomResponse(result);
         }
 
         [HttpPut]
         [Route("convenio/editar")]
         public async Task<IActionResult> Atualizar(ConvenioViewModel convenioViewModel)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
-            if (!EmailValido(convenioViewModel.Email)) return CustomResponse();
+            if (!EmailValido(convenioViewModel.Email))
+            {
+                return CustomResponse();
+            }
 
             var result = await _bus.RequestAsync<Domain.Convenio, ResponseResult>(_mapper.Map<Domain.Convenio>(convenioViewModel));
 
-            if (!OperacaoValida()) return CustomResponse(result);
-
-            return CustomResponse(result);
+            return !OperacaoValida() ? CustomResponse(result) : (IActionResult)CustomResponse(result);
         }
 
         //[HttpPut]
@@ -129,7 +128,10 @@ namespace GISA.Convenio.API.Controllers
             try
             {
                 var result = new Email(email);
-                if (!String.IsNullOrWhiteSpace(result.Endereco)) return true;
+                if (!string.IsNullOrWhiteSpace(result.Endereco))
+                {
+                    return true;
+                }
             }
             catch (DomainException)
             {

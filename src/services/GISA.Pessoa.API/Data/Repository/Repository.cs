@@ -1,11 +1,11 @@
-﻿using GISA.Core.Data;
-using GISA.Core.DomainObjects;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using GISA.Core.Data;
+using GISA.Core.DomainObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Pessoa.API.Data
 {
@@ -21,19 +21,13 @@ namespace GISA.Pessoa.API.Data
         }
 
         public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
-        }
+            => await DbSet.AsNoTracking().Where(predicate).ToListAsync();
 
         public virtual async Task<TEntity> ObterPorId(Guid id)
-        {
-            return await DbSet.FindAsync(id);
-        }
+            => await DbSet.FindAsync(id);
 
         public virtual async Task<List<TEntity>> ObterTodos()
-        {
-            return await DbSet.ToListAsync();
-        }
+            => await DbSet.ToListAsync();
 
         public virtual async Task<bool> Adicionar(TEntity entity)
         {
@@ -48,9 +42,7 @@ namespace GISA.Pessoa.API.Data
         }
 
         public async Task<bool> SaveChanges()
-        {
-            return await Db.SaveChangesAsync() > 0;
-        }
+            => await Db.SaveChangesAsync() > 0;
 
         public void Dispose() => Db?.Dispose();
     }

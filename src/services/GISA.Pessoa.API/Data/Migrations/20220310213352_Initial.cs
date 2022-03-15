@@ -18,10 +18,7 @@ namespace GISA.Pessoa.API.Data.Migrations
                     Observacao = table.Column<string>(type: "varchar(200)", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Agendas", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Agendas", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "Pessoas",
@@ -38,10 +35,7 @@ namespace GISA.Pessoa.API.Data.Migrations
                     TipoPessoaEnum = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pessoas", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Pessoas", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "Planos",
@@ -55,10 +49,7 @@ namespace GISA.Pessoa.API.Data.Migrations
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Planos", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Planos", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "EnderecoPessoa",

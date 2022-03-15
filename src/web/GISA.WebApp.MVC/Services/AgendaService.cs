@@ -1,10 +1,10 @@
-﻿using GISA.WebApp.MVC.Extensions;
-using GISA.WebApp.MVC.Models;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GISA.WebApp.MVC.Extensions;
+using GISA.WebApp.MVC.Models;
+using Microsoft.Extensions.Options;
 
 namespace GISA.WebApp.MVC.Services
 {
@@ -26,12 +26,9 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PutAsync("/api/agenda/editar", agendaContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return await DeserializarObjetoResponse<ResponseResult>(response);
-            }
-
-            return await DeserializarObjetoResponse<ResponseResult>(response);
+            return !TratarErrosResponse(response)
+                ? await DeserializarObjetoResponse<ResponseResult>(response)
+                : await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<AgendaViewModel> ObterPorId(Guid id)
@@ -49,7 +46,7 @@ namespace GISA.WebApp.MVC.Services
 
             TratarErrosResponse(response);
 
-            return await DeserializarObjetoResponse<IEnumerable<AgendaViewModel>> (response);
+            return await DeserializarObjetoResponse<IEnumerable<AgendaViewModel>>(response);
         }
 
         public async Task<IEnumerable<AgendaViewModel>> ObterTodos()
@@ -57,7 +54,7 @@ namespace GISA.WebApp.MVC.Services
             var response = await _httpClient.GetAsync("/api/agenda/todos");
 
             TratarErrosResponse(response);
-             
+
             return await DeserializarObjetoResponse<IEnumerable<AgendaViewModel>>(response);
         }
 
@@ -67,12 +64,9 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("/api/agenda/novo", agendaContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return await DeserializarObjetoResponse<ResponseResult>(response);
-            }
-
-            return await DeserializarObjetoResponse<ResponseResult>(response);
+            return !TratarErrosResponse(response)
+                ? await DeserializarObjetoResponse<ResponseResult>(response)
+                : await DeserializarObjetoResponse<ResponseResult>(response);
         }
     }
 }

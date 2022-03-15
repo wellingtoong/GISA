@@ -1,5 +1,5 @@
 ﻿namespace GISA.WebApi.Core.Autenticacao
-{ 
+{
     public class AppSettings
     {
         public string Secret { get; set; }

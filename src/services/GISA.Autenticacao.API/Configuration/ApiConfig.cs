@@ -28,10 +28,7 @@ namespace GISA.Autenticacao.API.Configuration
 
             app.UseAuthConfiguration();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             return app;
         }

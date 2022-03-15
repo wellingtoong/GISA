@@ -1,9 +1,9 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System;
+using System.Threading.Tasks;
+using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -58,24 +58,26 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("plano-cliente/novo")]
         public async Task<IActionResult> Registrar(PlanoClienteViewModel planoClienteViewModel)
         {
-            if (!ModelState.IsValid) return View(planoClienteViewModel);
+            if (!ModelState.IsValid)
+            {
+                return View(planoClienteViewModel);
+            }
 
             var result = await _planoClienteService.Registrar(planoClienteViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Registrar");
-
-            return Ok(result);
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)Ok(result);
         }
 
         public async Task<IActionResult> Atualizar(Guid id, PlanoClienteViewModel planoClienteViewModel)
         {
-            if (!ModelState.IsValid) return View(planoClienteViewModel);
+            if (!ModelState.IsValid)
+            {
+                return View(planoClienteViewModel);
+            }
 
             var result = await _planoClienteService.Atualizar(planoClienteViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Editar");
-
-            return RedirectToAction("Index", "PlanoCliente");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "PlanoCliente");
         }
     }
 }

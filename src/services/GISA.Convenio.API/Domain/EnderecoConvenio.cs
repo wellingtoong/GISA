@@ -1,5 +1,5 @@
-﻿using GISA.Core.DomainObjects;
-using System;
+﻿using System;
+using GISA.Core.DomainObjects;
 
 namespace GISA.Convenio.API.Domain
 {
@@ -19,13 +19,13 @@ namespace GISA.Convenio.API.Domain
         protected EnderecoConvenio() { }
 
         public EnderecoConvenio(
-            string cep, 
-            string logradouro, 
-            string numero, 
-            string complemento, 
-            string bairro, 
-            string estado, 
-            string municipio, 
+            string cep,
+            string logradouro,
+            string numero,
+            string complemento,
+            string bairro,
+            string estado,
+            string municipio,
             Guid convenioId)
         {
             Cep = cep;

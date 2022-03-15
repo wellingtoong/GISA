@@ -1,8 +1,8 @@
-﻿using EasyNetQ;
+﻿using System;
+using System.Threading.Tasks;
+using EasyNetQ;
 using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
-using System;
-using System.Threading.Tasks;
 
 namespace GISA.MessageBus
 {

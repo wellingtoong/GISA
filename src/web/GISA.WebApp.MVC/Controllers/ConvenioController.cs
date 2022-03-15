@@ -1,9 +1,9 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System;
+using System.Threading.Tasks;
+using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -75,9 +75,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _convenioService.Registrar(convenioViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Registrar");
-
-            return RedirectToAction("Index", "Convenio");
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Convenio");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
@@ -91,9 +89,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _convenioService.Atualizar(convenioViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Editar");
-
-            return RedirectToAction("Index", "Convenio");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Convenio");
         }
     }
 }

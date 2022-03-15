@@ -11,7 +11,7 @@ namespace GISA.WebApp.MVC.Services
     {
         private readonly HttpClient _httpClient;
 
-        public AutenticacaoService(HttpClient httpClient, 
+        public AutenticacaoService(HttpClient httpClient,
                                    IOptions<AppSettings> settings)
         {
             httpClient.BaseAddress = new Uri(settings.Value.AutenticacaoUrl);
@@ -25,15 +25,12 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("/api/auth/authentication", loginContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return new UsuarioRespostaLogin
+            return !TratarErrosResponse(response)
+                ? new UsuarioRespostaLogin
                 {
                     ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
-                };
-            }
-
-            return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
+                }
+                : await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
         }
 
         public async Task<UsuarioRespostaLogin> Registro(UsuarioRegistro usuarioRegistro)
@@ -42,15 +39,12 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("/api/auth/novo-admin", registroContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return new UsuarioRespostaLogin
+            return !TratarErrosResponse(response)
+                ? new UsuarioRespostaLogin
                 {
                     ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
-                };
-            }
-
-            return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
+                }
+                : await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
         }
 
         public async Task<UsuarioRespostaLogin> RegistroCliente(UsuarioRegistro usuarioRegistro)
@@ -59,15 +53,12 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("/api/auth/novo-cliente", registroContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return new UsuarioRespostaLogin
+            return !TratarErrosResponse(response)
+                ? new UsuarioRespostaLogin
                 {
                     ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
-                };
-            }
-
-            return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
+                }
+                : await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
         }
     }
 }

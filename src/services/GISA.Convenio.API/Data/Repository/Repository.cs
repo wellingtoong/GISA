@@ -1,11 +1,11 @@
-﻿using GISA.Core.Data;
-using GISA.Core.DomainObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using GISA.Core.Data;
+using GISA.Core.DomainObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Convenio.API.Data
 {

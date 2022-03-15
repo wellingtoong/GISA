@@ -1,24 +1,21 @@
-﻿using GISA.Core.Communication;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
+using GISA.Core.Communication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GISA.WebAPI.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller
     {
-        protected ICollection<string> Erros = new List<string>();
+        protected readonly ICollection<string> Erros = new List<string>();
 
         protected ActionResult CustomResponse(object result = null)
         {
-            if (OperacaoValida())
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
+            return OperacaoValida()
+                ? Ok(result)
+                : (ActionResult)BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
                 { "Mensagens", Erros.ToArray() }
             }));
@@ -26,11 +23,8 @@ namespace GISA.WebAPI.Core.Controllers
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
-            var erros = modelState.Values.SelectMany(e => e.Errors);
-            foreach (var erro in erros)
-            {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
                 AdicionarErroProcessamento(erro.ErrorMessage);
-            }
 
             return CustomResponse();
         }
@@ -39,12 +33,9 @@ namespace GISA.WebAPI.Core.Controllers
         {
             ResponsePossuiErros(resposta);
 
-            if (OperacaoValida())
-            {
-                return Ok(resposta);
-            }
-
-            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
+            return OperacaoValida()
+                ? Ok(resposta)
+                : (ActionResult)BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
                 { "Mensagens", Erros.ToArray() }
             }));
@@ -52,29 +43,19 @@ namespace GISA.WebAPI.Core.Controllers
 
         protected bool ResponsePossuiErros(ResponseResult resposta)
         {
-            if (resposta == null || !resposta.Errors.Mensagens.Any()) return false;
+            if (resposta == null || resposta.Errors.Mensagens.Count == 0)
+                return false;
 
             foreach (var mensagem in resposta.Errors.Mensagens)
-            {
                 AdicionarErroProcessamento(mensagem);
-            }
 
             return true;
         }
 
-        protected bool OperacaoValida()
-        {
-            return !Erros.Any();
-        }
+        protected bool OperacaoValida() => Erros.Count == 0;
 
-        protected void AdicionarErroProcessamento(string erro)
-        {
-            Erros.Add(erro);
-        }
+        protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);
 
-        protected void LimparErrosProcessamento()
-        {
-            Erros.Clear();
-        }
+        protected void LimparErrosProcessamento() => Erros.Clear();
     }
 }

@@ -34,7 +34,7 @@ namespace GISA.Convenio.API
 
             services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfiguration(); 
+            services.AddSwaggerConfiguration();
 
             services.AddAutoMapper(typeof(Startup));
 

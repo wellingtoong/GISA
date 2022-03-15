@@ -1,7 +1,7 @@
-﻿using GISA.Pessoa.API.Data.Repository;
-using GISA.Pessoa.API.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using GISA.Pessoa.API.Data.Repository;
+using GISA.Pessoa.API.Domain;
 
 namespace GISA.Pessoa.API.Service
 {

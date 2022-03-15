@@ -1,7 +1,7 @@
-﻿using GISA.Pessoa.API.Enums;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using GISA.Pessoa.API.Enums;
 
 namespace GISA.Pessoa.API.Models
 {

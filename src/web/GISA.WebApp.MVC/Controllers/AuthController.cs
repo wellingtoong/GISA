@@ -1,14 +1,14 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -33,13 +33,14 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("auth/novo-cliente")]
         public async Task<IActionResult> RegistroCliente(UsuarioRegistro usuarioRegistro)
         {
-            if (!ModelState.IsValid) return View(usuarioRegistro);
+            if (!ModelState.IsValid)
+            {
+                return View(usuarioRegistro);
+            }
 
             var resposta = await _autenticacaoService.RegistroCliente(usuarioRegistro);
 
-            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
-
-            return RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(resposta.ResponseResult) ? View(usuarioRegistro) : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
         [HttpGet]
@@ -53,11 +54,17 @@ namespace GISA.WebApp.MVC.Controllers
         [Route("auth/novo-admin")]
         public async Task<IActionResult> Registro(UsuarioRegistro usuarioRegistro)
         {
-            if (!ModelState.IsValid) return View(usuarioRegistro);
+            if (!ModelState.IsValid)
+            {
+                return View(usuarioRegistro);
+            }
 
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
-            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
+            if (ResponsePossuiErros(resposta.ResponseResult))
+            {
+                return View(usuarioRegistro);
+            }
 
             await RealizarLogin(resposta);
 
@@ -79,17 +86,21 @@ namespace GISA.WebApp.MVC.Controllers
         public async Task<IActionResult> Login(UsuarioLogin usuarioLogin, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (!ModelState.IsValid) return View(usuarioLogin);
+            if (!ModelState.IsValid)
+            {
+                return View(usuarioLogin);
+            }
 
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
-            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
+            if (ResponsePossuiErros(resposta.ResponseResult))
+            {
+                return View(usuarioLogin);
+            }
 
             await RealizarLogin(resposta);
 
-            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Apresentacao", "Home");
-
-            return LocalRedirect(returnUrl);
+            return string.IsNullOrEmpty(returnUrl) ? RedirectToAction("Apresentacao", "Home") : (IActionResult)LocalRedirect(returnUrl);
         }
 
         [HttpGet]
@@ -104,8 +115,10 @@ namespace GISA.WebApp.MVC.Controllers
         {
             var token = ObterTokenFormatado(resposta.AccessToken);
 
-            var claims = new List<Claim>();
-            claims.Add(new Claim("JWT", resposta.AccessToken));
+            var claims = new List<Claim>
+            {
+                new Claim("JWT", resposta.AccessToken)
+            };
             claims.AddRange(token.Claims);
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

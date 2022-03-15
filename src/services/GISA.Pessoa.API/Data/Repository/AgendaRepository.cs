@@ -1,9 +1,9 @@
-﻿using GISA.Pessoa.API.Domain;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GISA.Pessoa.API.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Pessoa.API.Data.Repository
 {

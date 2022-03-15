@@ -1,9 +1,9 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System;
+using System.Threading.Tasks;
+using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -69,7 +69,7 @@ namespace GISA.WebApp.MVC.Controllers
         public async Task<IActionResult> Registrar(AgendaViewModel agendaViewModel)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 ViewBag.ValidateForm = true;
                 AdicionarErroValidacao("Verifique os dados preenchidos e tente novamente.");
                 return View(agendaViewModel);
@@ -77,9 +77,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _agendaService.Registrar(agendaViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Editar");
-
-            return RedirectToAction("Index", "Agenda");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Agenda");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)
@@ -93,9 +91,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _agendaService.Atualizar(agendaViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Editar");
-
-            return View("Index");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)View("Index");
         }
 
         [HttpGet]

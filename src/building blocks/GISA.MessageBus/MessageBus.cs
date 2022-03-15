@@ -1,10 +1,10 @@
-﻿using EasyNetQ;
+﻿using System;
+using System.Threading.Tasks;
+using EasyNetQ;
 using GISA.Core.Communication;
 using GISA.Core.DomainObjects;
 using Polly;
 using RabbitMQ.Client.Exceptions;
-using System;
-using System.Threading.Tasks;
 
 namespace GISA.MessageBus
 {
@@ -78,7 +78,10 @@ namespace GISA.MessageBus
 
         private void TryConnect()
         {
-            if (IsConnected) return;
+            if (IsConnected)
+            {
+                return;
+            }
 
             var policy = Policy.Handle<EasyNetQException>()
                 .Or<BrokerUnreachableException>()

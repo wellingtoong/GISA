@@ -1,8 +1,8 @@
-﻿using GISA.Convenio.API.Domain;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GISA.Convenio.API.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Convenio.API.Data.Repository
 {

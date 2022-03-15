@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System;
 
 namespace GISA.Convenio.API.Configuration
 {
@@ -43,7 +43,6 @@ namespace GISA.Convenio.API.Configuration
                         new string[] {}
                     }
                 });
-
             });
 
             return services;
@@ -52,10 +51,7 @@ namespace GISA.Convenio.API.Configuration
         public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
 
             return app;
         }

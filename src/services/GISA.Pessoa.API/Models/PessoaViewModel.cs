@@ -33,7 +33,7 @@ namespace GISA.Pessoa.API.Models
         [DisplayName("Tipo Pessoa")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int TipoPessoaEnum { get; set; }
-    
+
         public EnderecoViewModel EnderecoViewModel { get; set; }
 
         public PlanoClienteViewModel PlanoClienteViewModel { get; set; }

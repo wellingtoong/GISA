@@ -22,10 +22,7 @@ namespace GISA.Convenio.API.Data.Migrations
                     Email = table.Column<string>(type: "varchar(150)", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Convenios", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Convenios", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "EnderecoConvenio",

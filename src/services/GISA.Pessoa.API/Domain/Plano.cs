@@ -1,6 +1,6 @@
-﻿using GISA.Core.DomainObjects;
+﻿using System;
+using GISA.Core.DomainObjects;
 using GISA.Pessoa.API.Enums;
-using System;
 
 namespace GISA.Pessoa.API.Domain
 {

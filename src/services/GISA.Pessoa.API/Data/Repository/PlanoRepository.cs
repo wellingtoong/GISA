@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Pessoa.API.Data.Repository
 {
@@ -20,7 +20,7 @@ namespace GISA.Pessoa.API.Data.Repository
 
         public async Task<int> ObterTotalPlanoInativo()
         {
-            return await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync(); 
+            return await Db.Planos.AsNoTracking().Where(p => p.Ativo).CountAsync();
         }
     }
 }

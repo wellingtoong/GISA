@@ -1,11 +1,11 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -91,9 +91,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _pessoaService.Registrar(pessoaViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Registrar");
-
-            return RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
         [HttpPost]
@@ -114,9 +112,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _pessoaService.Atualizar(pessoaViewModel);
 
-            if (ResponsePossuiErros(result)) return View("Editar");
-
-            return RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
         private void CalcularDesconto(PessoaViewModel pessoaViewModel, PlanoViewModel planoViewModel)

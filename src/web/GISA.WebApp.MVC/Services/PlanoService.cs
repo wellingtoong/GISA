@@ -1,10 +1,10 @@
-﻿using GISA.WebApp.MVC.Extensions;
-using GISA.WebApp.MVC.Models;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GISA.WebApp.MVC.Extensions;
+using GISA.WebApp.MVC.Models;
+using Microsoft.Extensions.Options;
 
 namespace GISA.WebApp.MVC.Services
 {
@@ -26,12 +26,9 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PutAsync("/api/plano/editar", planoContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return await DeserializarObjetoResponse<ResponseResult>(response);
-            }
-
-            return await DeserializarObjetoResponse<ResponseResult>(response);
+            return !TratarErrosResponse(response)
+                ? await DeserializarObjetoResponse<ResponseResult>(response)
+                : await DeserializarObjetoResponse<ResponseResult>(response);
         }
 
         public async Task<PlanoViewModel> ObterPorId(Guid id)
@@ -85,12 +82,9 @@ namespace GISA.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("/api/plano/novo", planoContent);
 
-            if (!TratarErrosResponse(response))
-            {
-                return await DeserializarObjetoResponse<ResponseResult>(response);
-            }
-
-            return await DeserializarObjetoResponse<ResponseResult>(response);
+            return !TratarErrosResponse(response)
+                ? await DeserializarObjetoResponse<ResponseResult>(response)
+                : await DeserializarObjetoResponse<ResponseResult>(response);
         }
     }
 }

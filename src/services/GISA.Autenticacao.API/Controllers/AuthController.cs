@@ -1,17 +1,17 @@
-﻿using GISA.Autenticacao.API.Models;
-using GISA.WebApi.Core.Autenticacao;
-using GISA.WebAPI.Core.Controllers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using GISA.Autenticacao.API.Models;
+using GISA.WebApi.Core.Autenticacao;
+using GISA.WebAPI.Core.Controllers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GISA.Autenticacao.API.Controllers
 {
@@ -28,7 +28,7 @@ namespace GISA.Autenticacao.API.Controllers
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              RoleManager<IdentityRole> roleManager, 
+                              RoleManager<IdentityRole> roleManager,
                               IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
@@ -40,7 +40,10 @@ namespace GISA.Autenticacao.API.Controllers
         [HttpPost("auth/novo-cliente")]
         public async Task<ActionResult> RegistrarCliente(UsuarioRegistro usuarioRegistro)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var user = new IdentityUser
             {
@@ -69,7 +72,10 @@ namespace GISA.Autenticacao.API.Controllers
         [HttpPost("auth/novo-admin")]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var user = new IdentityUser
             {
@@ -98,7 +104,10 @@ namespace GISA.Autenticacao.API.Controllers
         [HttpPost("auth/authentication")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha,
                 false, true);
@@ -183,7 +192,9 @@ namespace GISA.Autenticacao.API.Controllers
         private async Task AdicionarRole(IdentityUser identityUser, string role)
         {
             if (await _roleManager.RoleExistsAsync(role))
+            {
                 await _userManager.AddToRoleAsync(identityUser, role);
+            }
             else
             {
                 var result = await _roleManager.CreateAsync(new IdentityRole(role));

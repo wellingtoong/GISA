@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Pessoa.API.Data
 {
@@ -7,7 +7,7 @@ namespace GISA.Pessoa.API.Data
     {
         public PessoaDbContext(DbContextOptions<PessoaDbContext> options)
             : base(options) { }
-        
+
         public DbSet<Domain.Pessoa> Pessoas { get; set; }
         public DbSet<Domain.EnderecoPessoa> EnderecoPessoa { get; set; }
         public DbSet<Domain.Plano> Planos { get; set; }
@@ -17,7 +17,10 @@ namespace GISA.Pessoa.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
-                e => e.GetProperties().Where(p => p.ClrType == typeof(string)))) property.SetColumnType("varchar(100)");
+                e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
+            {
+                property.SetColumnType("varchar(100)");
+            }
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PessoaDbContext).Assembly);
         }

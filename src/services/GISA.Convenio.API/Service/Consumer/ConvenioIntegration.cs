@@ -1,11 +1,11 @@
-﻿using GISA.Convenio.API.Data.Repository;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using GISA.Convenio.API.Data.Repository;
 using GISA.Core.Communication;
 using GISA.MessageBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GISA.Convenio.API.Services.Consumer
 {

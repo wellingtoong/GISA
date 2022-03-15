@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace GISA.WebApi.Core.Autenticacao
 {
     public static class JwtConfig
     {
-        public static void AddJwtConfiguration(this IServiceCollection services,
-             IConfiguration configuration)
+        public static void AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettingsSection = configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

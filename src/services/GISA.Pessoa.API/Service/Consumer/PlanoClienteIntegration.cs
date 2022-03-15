@@ -1,11 +1,11 @@
-﻿using GISA.Core.Communication;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using GISA.Core.Communication;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GISA.Pessoa.API.Service.Consumer
 {
@@ -42,7 +42,7 @@ namespace GISA.Pessoa.API.Service.Consumer
         {
             var response = new ResponseResult();
 
-            using (var scope = _serviceProvider.CreateScope())  
+            using (var scope = _serviceProvider.CreateScope())
             {
                 bool result = false;
                 var _planoRepository = scope.ServiceProvider.GetRequiredService<IPlanoClienteRepository>();
