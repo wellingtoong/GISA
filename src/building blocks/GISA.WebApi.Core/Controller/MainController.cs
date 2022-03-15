@@ -12,14 +12,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected readonly ICollection<string> Erros = new List<string>();
 
         protected ActionResult CustomResponse(object result = null)
-        {
-            return OperacaoValida()
-                ? Ok(result)
-                : (ActionResult)BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-            {
-                { "Mensagens", Erros.ToArray() }
-            }));
-        }
+            => OperacaoValida() ? Ok(result) : (ActionResult)CreateBadRequest();
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
@@ -32,13 +25,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected ActionResult CustomResponse(ResponseResult resposta)
         {
             ResponsePossuiErros(resposta);
-
-            return OperacaoValida()
-                ? Ok(resposta)
-                : (ActionResult)BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-            {
-                { "Mensagens", Erros.ToArray() }
-            }));
+            return OperacaoValida() ? Ok(resposta) : (ActionResult)CreateBadRequest();
         }
 
         protected bool ResponsePossuiErros(ResponseResult resposta)
@@ -52,10 +39,16 @@ namespace GISA.WebAPI.Core.Controllers
             return true;
         }
 
-        protected bool OperacaoValida() => Erros.Count == 0;
+        protected bool OperacaoValida()
+            => Erros.Count == 0;
 
-        protected void AdicionarErroProcessamento(string erro) => Erros.Add(erro);
+        protected void AdicionarErroProcessamento(string erro)
+            => Erros.Add(erro);
 
-        protected void LimparErrosProcessamento() => Erros.Clear();
+        protected void LimparErrosProcessamento()
+            => Erros.Clear();
+
+        private BadRequestObjectResult CreateBadRequest()
+            => BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]> { { "Mensagens", Erros.ToArray() } }));
     }
 }
