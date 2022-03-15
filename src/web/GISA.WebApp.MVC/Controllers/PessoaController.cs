@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using GISA.WebApp.MVC.Models;
@@ -23,24 +23,15 @@ namespace GISA.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("pessoa")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpGet]
         [Route("pessoa/todos")]
-        public async Task<IActionResult> ObterTodos()
-        {
-            return Json(await _pessoaService.ObterTodos());
-        }
+        public async Task<IActionResult> ObterTodos() => Json(await _pessoaService.ObterTodos());
 
         [HttpGet]
         [Route("pessoa/{id:guid}")]
-        public async Task<IActionResult> ObterPessoaPorId(Guid id)
-        {
-            return Json(await _pessoaService.ObterPorId(id));
-        }
+        public async Task<IActionResult> ObterPessoaPorId(Guid id) => Json(await _pessoaService.ObterPorId(id));
 
         [HttpGet]
         [Route("pessoa/{email}")]
@@ -90,8 +81,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _pessoaService.Registrar(pessoaViewModel);
-
-            return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
         [HttpPost]
@@ -112,14 +102,13 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _pessoaService.Atualizar(pessoaViewModel);
 
-            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Pessoa");
         }
 
-        private void CalcularDesconto(PessoaViewModel pessoaViewModel, PlanoViewModel planoViewModel)
+        private static void CalcularDesconto(PessoaViewModel pessoaViewModel, PlanoViewModel planoViewModel)
         {
             var vd = planoViewModel.Valor * (pessoaViewModel.PlanoClienteViewModel.Desconto / 100);
             var vf = planoViewModel.Valor - vd;
-
             pessoaViewModel.PlanoClienteViewModel.ValorFinal = vf;
         }
     }

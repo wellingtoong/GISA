@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,9 +13,7 @@ namespace GISA.WebApp.MVC.Controllers
         private readonly IPessoaService _pessoaService;
         private readonly IPlanoService _planoService;
 
-        public DashboardController(IConvenioService convenioService,
-                                   IPessoaService pessoaService,
-                                   IPlanoService planoService)
+        public DashboardController(IConvenioService convenioService, IPessoaService pessoaService, IPlanoService planoService)
         {
             _convenioService = convenioService;
             _pessoaService = pessoaService;

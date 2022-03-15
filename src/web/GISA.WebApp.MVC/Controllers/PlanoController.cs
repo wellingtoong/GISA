@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
@@ -12,42 +12,23 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IPlanoService _planoService;
 
-        public PlanoController(IPlanoService planoService)
-        {
-            _planoService = planoService;
-        }
+        public PlanoController(IPlanoService planoService) => _planoService = planoService;
 
         [HttpGet]
         [Route("plano")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpGet]
         [Route("plano/todos")]
-        public async Task<IActionResult> ObterTodos()
-        {
-            return Json(await _planoService.ObterTodos());
-        }
+        public async Task<IActionResult> ObterTodos() => Json(await _planoService.ObterTodos());
 
         [HttpGet]
         [Route("plano/editar/{id:guid}")]
-        public async Task<IActionResult> Editar(Guid id)
-        {
-            var plano = await _planoService.ObterPorId(id);
-
-            return View(plano);
-        }
+        public async Task<IActionResult> Editar(Guid id) => View(await _planoService.ObterPorId(id));
 
         [HttpPost]
         [Route("plano/editar")]
-        public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel)
-        {
-            var plano = await _planoService.ObterPorId(id);
-
-            return View(plano);
-        }
+        public async Task<IActionResult> Editar(Guid id, PlanoViewModel planoViewModel) => View(await _planoService.ObterPorId(id));
 
         [HttpGet]
         [Route("plano/novo")]
@@ -68,7 +49,6 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoService.Registrar(planoViewModel);
-
             return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Plano");
         }
 
@@ -81,7 +61,6 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoService.Atualizar(planoViewModel);
-
             return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Plano");
         }
     }

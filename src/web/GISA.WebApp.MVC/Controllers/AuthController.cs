@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,17 +17,11 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
-        public AuthController(IAutenticacaoService autenticacaoService)
-        {
-            _autenticacaoService = autenticacaoService;
-        }
+        public AuthController(IAutenticacaoService autenticacaoService) => _autenticacaoService = autenticacaoService;
 
         [HttpGet]
         [Route("auth/novo-cliente")]
-        public IActionResult RegistroCliente()
-        {
-            return View();
-        }
+        public IActionResult RegistroCliente() => View();
 
         [HttpPost]
         [Route("auth/novo-cliente")]
@@ -39,16 +33,12 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var resposta = await _autenticacaoService.RegistroCliente(usuarioRegistro);
-
             return ResponsePossuiErros(resposta.ResponseResult) ? View(usuarioRegistro) : RedirectToAction("Index", "Pessoa");
         }
 
         [HttpGet]
         [Route("auth/novo-admin")]
-        public IActionResult Registro()
-        {
-            return View();
-        }
+        public IActionResult Registro() => View();
 
         [HttpPost]
         [Route("auth/novo-admin")]
@@ -60,14 +50,12 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
-
             if (ResponsePossuiErros(resposta.ResponseResult))
             {
                 return View(usuarioRegistro);
             }
 
             await RealizarLogin(resposta);
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -92,14 +80,12 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var resposta = await _autenticacaoService.Login(usuarioLogin);
-
             if (ResponsePossuiErros(resposta.ResponseResult))
             {
                 return View(usuarioLogin);
             }
 
             await RealizarLogin(resposta);
-
             return string.IsNullOrEmpty(returnUrl) ? RedirectToAction("Apresentacao", "Home") : LocalRedirect(returnUrl);
         }
 
@@ -136,8 +122,6 @@ namespace GISA.WebApp.MVC.Controllers
         }
 
         private static JwtSecurityToken ObterTokenFormatado(string jwtToken)
-        {
-            return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
-        }
+            => new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
     }
 }

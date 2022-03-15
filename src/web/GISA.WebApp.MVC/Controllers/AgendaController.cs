@@ -12,38 +12,25 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IAgendaService _agendaService;
 
-        public AgendaController(IAgendaService agendaService)
-        {
-            _agendaService = agendaService;
-        }
+        public AgendaController(IAgendaService agendaService) => _agendaService = agendaService;
 
         [HttpGet]
         [Route("agenda")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpGet]
         [Route("agenda/todos")]
-        public async Task<IActionResult> ObterTodos()
-        {
-            return Json(await _agendaService.ObterTodos());
-        }
+        public async Task<IActionResult> ObterTodos() => Json(await _agendaService.ObterTodos());
 
         [HttpGet]
         [Route("agenda/agendamentos/{id:guid}")]
-        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id)
-        {
-            return Json(await _agendaService.ObterAgendamentosPorPessoaId(id));
-        }
+        public async Task<IActionResult> ObterAgendamentosPorPessoaId(Guid id) => Json(await _agendaService.ObterAgendamentosPorPessoaId(id));
 
         [HttpGet]
         [Route("agenda/editar/{id:guid}")]
         public async Task<IActionResult> Editar(Guid id)
         {
             var agenda = await _agendaService.ObterPorId(id);
-
             return View(agenda);
         }
 
@@ -52,7 +39,6 @@ namespace GISA.WebApp.MVC.Controllers
         public async Task<IActionResult> Editar(Guid id, AgendaViewModel agendaViewModel)
         {
             var agenda = await _agendaService.ObterPorId(id);
-
             return View(agenda);
         }
 
@@ -76,8 +62,7 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _agendaService.Registrar(agendaViewModel);
-
-            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Agenda");
+            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Agenda");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)
@@ -90,15 +75,11 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _agendaService.Atualizar(agendaViewModel);
-
             return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)View("Index");
         }
 
         [HttpGet]
         [Route("agenda/minha-agenda")]
-        public IActionResult MinhaAgenda()
-        {
-            return View();
-        }
+        public IActionResult MinhaAgenda() => View();
     }
 }

@@ -1,4 +1,4 @@
-﻿using GISA.WebApp.MVC.Models;
+using GISA.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GISA.WebApp.MVC.Controllers
@@ -6,16 +6,10 @@ namespace GISA.WebApp.MVC.Controllers
     public class HomeController : MainController
     {
         [Route("")]
-        public IActionResult Index()
-        {
-            return RedirectToAction("Login", "Auth");
-        }
+        public IActionResult Index() => RedirectToAction("Login", "Auth");
 
         [Route("home")]
-        public IActionResult Apresentacao()
-        {
-            return View();
-        }
+        public IActionResult Apresentacao() => View();
 
         [Route("sistema-indisponivel")]
         public IActionResult SistemaIndisponivel()

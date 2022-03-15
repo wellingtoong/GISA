@@ -1,4 +1,4 @@
-﻿using GISA.WebApp.MVC.Models;
+using GISA.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GISA.WebApp.MVC.Controllers
@@ -23,6 +23,7 @@ namespace GISA.WebApp.MVC.Controllers
         protected void AdicionarErroValidacao(string mensagem)
             => ModelState.AddModelError(string.Empty, mensagem);
 
-        protected bool OperacaoValida() => ModelState.ErrorCount == 0;
+        protected bool OperacaoValida()
+            => ModelState.ErrorCount == 0;
     }
 }

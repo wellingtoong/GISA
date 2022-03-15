@@ -12,7 +12,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected readonly ICollection<string> Erros = new List<string>();
 
         protected ActionResult CustomResponse(object result = null)
-            => OperacaoValida() ? Ok(result) : CreateBadRequest();
+            => OperacaoValida() ? Ok(result) : (ActionResult)CreateBadRequest();
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
@@ -25,7 +25,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected ActionResult CustomResponse(ResponseResult resposta)
         {
             ResponsePossuiErros(resposta);
-            return OperacaoValida() ? Ok(resposta) : CreateBadRequest();
+            return OperacaoValida() ? Ok(resposta) : (ActionResult)CreateBadRequest();
         }
 
         protected bool ResponsePossuiErros(ResponseResult resposta)
@@ -48,7 +48,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected void LimparErrosProcessamento()
             => Erros.Clear();
 
-        private ActionResult CreateBadRequest()
+        private BadRequestObjectResult CreateBadRequest()
             => BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]> { { "Mensagens", Erros.ToArray() } }));
     }
 }

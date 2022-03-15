@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;
@@ -12,24 +12,15 @@ namespace GISA.WebApp.MVC.Controllers
     {
         private readonly IPlanoClienteService _planoClienteService;
 
-        public PlanoClienteController(IPlanoClienteService planoClienteService)
-        {
-            _planoClienteService = planoClienteService;
-        }
+        public PlanoClienteController(IPlanoClienteService planoClienteService) => _planoClienteService = planoClienteService;
 
         [HttpGet]
         [Route("plano-cliente")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpGet]
         [Route("plano-cliente/todos")]
-        public async Task<IActionResult> ObterTodos()
-        {
-            return Json(await _planoClienteService.ObterTodos());
-        }
+        public async Task<IActionResult> ObterTodos() => Json(await _planoClienteService.ObterTodos());
 
         [HttpGet]
         [Route("plano-cliente/{id:guid}")]
@@ -49,10 +40,7 @@ namespace GISA.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("plano-cliente/novo")]
-        public IActionResult Registrar()
-        {
-            return View();
-        }
+        public IActionResult Registrar() => View();
 
         [HttpPost]
         [Route("plano-cliente/novo")]
@@ -64,7 +52,6 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoClienteService.Registrar(planoClienteViewModel);
-
             return ResponsePossuiErros(result) ? View("Registrar") : Ok(result);
         }
 
@@ -76,7 +63,6 @@ namespace GISA.WebApp.MVC.Controllers
             }
 
             var result = await _planoClienteService.Atualizar(planoClienteViewModel);
-
             return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "PlanoCliente");
         }
     }
