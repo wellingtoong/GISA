@@ -7,10 +7,10 @@ namespace GISA.Convenio.API.Models
     public class EnderecoViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [MaxLength(8, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
+        [MaxLength(9, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
         public string Cep { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
@@ -36,6 +36,5 @@ namespace GISA.Convenio.API.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [MaxLength(200, ErrorMessage = "O campo {0} pode ter no máximo {1} caracteres.")]
         public string Municipio { get; set; }
-
     }
 }

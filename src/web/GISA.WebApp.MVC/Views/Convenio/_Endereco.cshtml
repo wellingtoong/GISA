@@ -1,0 +1,88 @@
+﻿@model GISA.WebApp.MVC.Models.ConvenioViewModel
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
+        <label asp-for="EnderecoViewModel.Cep" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="EnderecoViewModel.Cep" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Cep" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3 position-relative col-sm-12 col-md-8 col-lg-8">
+        <label asp-for="EnderecoViewModel.Logradouro" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="EnderecoViewModel.Logradouro" class="form-control" placeholder="Av. João Manoel" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Logradouro" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3 position-relative col-sm-12 col-md-2 col-lg-2">
+        <label asp-for="EnderecoViewModel.Numero" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="EnderecoViewModel.Numero" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Numero" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-4 col-lg-4">
+        <label asp-for="EnderecoViewModel.Bairro" class="form-label">Bairro</label><span class="info-required"> *</span>
+        <input asp-for="EnderecoViewModel.Bairro" class="form-control" placeholder="Centro" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Bairro" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3 position-relative col-sm-12 col-md-8 col-lg-8">
+        <label asp-for="EnderecoViewModel.Complemento" class="form-label"></label>
+        <input asp-for="EnderecoViewModel.Complemento" class="form-control">
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Complemento" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-4 col-lg-4">
+        <label asp-for="EnderecoViewModel.Estado" class="form-label"></label><span class="info-required"> *</span>
+        <select asp-for="EnderecoViewModel.Estado" class="form-select" required>
+            <option selected disabled value="">-selecine um estado-</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+        </select>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Estado" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3 position-relative col-sm-12 col-md-8 col-lg-8">
+        <label asp-for="EnderecoViewModel.Municipio" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="EnderecoViewModel.Municipio" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="EnderecoViewModel.Municipio" class="text-danger"></span>
+        </div>
+    </div>
+</div>

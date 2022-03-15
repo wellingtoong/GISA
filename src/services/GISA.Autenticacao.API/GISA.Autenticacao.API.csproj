@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20211023204550_Initial.cs" />
-    <Compile Remove="Migrations\20211023204550_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220306212519_Initial-Autenticacao.cs" />
+    <Compile Remove="Data\Migrations\20220306212519_Initial-Autenticacao.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +26,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\GISA.MessageBus\GISA.MessageBus.csproj" />
+    <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 

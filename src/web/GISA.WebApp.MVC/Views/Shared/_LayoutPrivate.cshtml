@@ -1,57 +1,133 @@
-﻿<!DOCTYPE html>
+﻿@using GISA.WebApp.MVC.Extensions
+@using GISA.WebApi.Core.Usuario
+@inject IAspNetUser AppUser
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Boa Saúde</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewData["Title"] | Boa Saúde</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/css/dist/bootstrap-datepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/main.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NerdStore Enterprise</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-
-                    <partial name="_LoginPartial" />
-
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<body id="body-pd" class='snippet-body'>
+    <header class="header" id="header">
+        <partial name="_LoginPartial" />
     </header>
 
-    <partial name="_MenuPartial">
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                @RenderBody()
+            <div>
+                <a asp-action="Apresentacao" asp-controller="Home" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Boa Saúde</span></a>
+                <div class="nav_list">
+                    @{
+                        if (AppUser.RoleAdmin() == true)
+                        {
+                            <a asp-action="Index" asp-controller="Dashboard" class="nav_link"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                            <a asp-action="Index" asp-controller="Agenda" class="nav_link"><i class='bx bx-notepad nav_icon'></i><span class="nav_name">Agenda</span></a>
+                            <a asp-action="Index" asp-controller="Pessoa" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Pessoa</span></a>
+                            <a asp-action="Index" asp-controller="Convenio" class="nav_link"><i class='bx bx-briefcase nav_icon'></i><span class="nav_name">Convenio</span></a>
+                            <a asp-action="Index" asp-controller="Plano" class="nav_link"><i class='bx bx-food-menu'></i><span class="nav_name">Plano</span></a>
+                        }
+                        else
+                        {
+                            <a asp-action="MinhaAgenda" asp-controller="Agenda" class="nav_link"> <i class='bx bx-book-heart'></i> <span class="nav_name">Minha Agenda</span> </a>
+                        }
+                    }
+                </div>
             </div>
-        </div>
+            <a asp-action="Index" asp-controller="Administrador" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Configurações</span> </a>
+        </nav>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2020 - NerdStore Enterprise
-        </div>
-    </footer>
+    <div class="height-100">
+        @RenderBody()
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-mask/jquery.mask.min.js"></script>
+    <script src="~/js/dist/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/dist/bootstrap-datepicker.pt-BR.min.js"></script>
+
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script type='text/javascript'>
+        app.eventos.init();
+
+        // Routers
+        function EditarAgenda(id) {
+            window.location.href = `@Url.Action("Editar", "Agenda")/${id}`;
+        }
+
+        function EditarPlano(id) {
+            window.location.href = `@Url.Action("Editar", "Plano")/${id}`;
+        }
+
+        function EditarConvenio(id) {
+            window.location.href = `@Url.Action("Editar", "Convenio")/${id}`;
+        }
+
+        function EditarPessoa(id) {
+            window.location.href = `@Url.Action("Editar", "Pessoa")/${id}`;
+        }
+
+        function EditarUsuario() {
+            window.location.href = `@Url.Action("RegistroCliente", "Auth")`;
+        }
+
+        // Menu
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            const showNavbar = (toggleId, navId, bodyId, headerId, headerManagement) => {
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    bodypd = document.getElementById(bodyId),
+                    headerpd = document.getElementById(headerId),
+                    headerManagementmg = document.getElementById(headerManagement)
+
+                // Validate that all variables exist
+                if (toggle && nav && bodypd && headerpd) {
+                    toggle.addEventListener('click', () => {
+                        // show navbar
+                        nav.classList.toggle('show-nav')
+                        // change icon
+                        toggle.classList.toggle('bx-x')
+                        // add padding to body
+                        bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                        headerpd.classList.toggle('body-pd')
+                        // add margin to header title management page
+                        headerManagementmg.classList.toggle("ml-155")
+                    })
+                }
+            }
+
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'header-management')
+
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link')
+
+            function colorLink() {
+                if (linkColor) {
+                    linkColor.forEach(l => l.classList.remove('active'))
+                    this.classList.add('active')
+                }
+            }
+            linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+            // Your code to run since DOM is loaded and ready
+        });
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

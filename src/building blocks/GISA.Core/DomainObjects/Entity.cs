@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace GISA.Core.DomainObjects
 {
     public abstract class Entity
     {
-        public Guid Id { get; set; }
+        protected Entity() => Id = Guid.NewGuid();
 
-        protected Entity()
-        {
-            Id = Guid.NewGuid();
-        }
+        public Guid Id { get; set; }
     }
 }

@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using GISA.Convenio.API.Data.Repository;
-using GISA.Convenio.API.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GISA.Convenio.API.Data.Repository;
 
 namespace GISA.Convenio.API.Service
 {
     public class ConvenioService : IConvenioService
-    { 
+    {
         private readonly IConvenioRepository _convenioRepository;
 
         public ConvenioService(IConvenioRepository convenioRepository)
@@ -16,29 +14,30 @@ namespace GISA.Convenio.API.Service
             _convenioRepository = convenioRepository;
         }
 
-        public async Task<int> Adicionar(Domain.Convenio convenio)
+        public async Task<bool> Adicionar(Domain.Convenio convenio) => await _convenioRepository.Adicionar(convenio);
+
+        public async Task<bool> Atualizar(Guid id, Domain.Convenio convenio)
         {
-            return await _convenioRepository.Adicionar(convenio);
+            var enderecoAtual = await _convenioRepository.ObterEnderecoPorId(id);
+            convenio.AlterarEndereco(enderecoAtual);
+
+            return await _convenioRepository.Atualizar(convenio);
         }
 
-        public Task Atualizar(Domain.Convenio convenio)
+        public async Task<bool> AtualizarEndereco(Guid id, Domain.Convenio convenio)
         {
-            throw new NotImplementedException();
+            var convenioAtual = await _convenioRepository.ObterConvenioEnderecoPorId(id);
+            convenioAtual.AlterarEndereco(convenio.EnderecoConvenio);
+
+            return await _convenioRepository.Atualizar(convenioAtual);
         }
 
-        public void Dispose()
-        {
-            _convenioRepository?.Dispose();
-        }
+        public async Task<Domain.EnderecoConvenio> ObterEnderecoPorId(Guid id) => await _convenioRepository.ObterEnderecoPorId(id);
 
-        public async Task<IEnumerable<Domain.Convenio>> ObterTodos()
-        {
-            return await _convenioRepository.ObterTodos();
-        }
+        public async Task<IEnumerable<Domain.Convenio>> ObterTodos() => await _convenioRepository.ObterTodos();
 
-        public Task Remover(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<int> ObterTotalConvenio() => await _convenioRepository.ObterTotalConvenio();
+
+        public void Dispose() => _convenioRepository?.Dispose();
     }
 }

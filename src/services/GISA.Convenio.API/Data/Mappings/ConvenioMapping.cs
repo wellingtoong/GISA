@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GISA.Core.DomainObjects;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace GISA.Convenio.API.Data.Mappings
 {
@@ -26,13 +26,10 @@ namespace GISA.Convenio.API.Data.Mappings
 
             builder.Property(c => c.Cnpj)
                 .IsRequired()
-                .HasColumnType("varchar(14)");
+                .HasColumnType("varchar(18)");
 
             builder.Property(c => c.Telefone)
                 .HasColumnType("varchar(20)");
-
-            builder.Property(c => c.Email)
-                .HasColumnType("varchar(150)");
 
             builder.Property(c => c.Ativo)
                 .IsRequired();
@@ -40,12 +37,18 @@ namespace GISA.Convenio.API.Data.Mappings
             builder.Property(c => c.DataCadastro)
                 .IsRequired();
 
-            // 1 : 1 => Convenio : Endereco
-            builder.HasOne(c => c.Endereco)
+            builder.OwnsOne(c => c.Email, tf =>
+            {
+                tf.Property(c => c.Endereco)
+                    .IsRequired()
+                    .HasColumnName("Email")
+                    .HasColumnType($"varchar({Email.EnderecoMaxLength})");
+            });
+
+            builder.HasOne(p => p.EnderecoConvenio)
                 .WithOne(e => e.Convenio);
 
             builder.ToTable("Convenios");
-
         }
     }
 }

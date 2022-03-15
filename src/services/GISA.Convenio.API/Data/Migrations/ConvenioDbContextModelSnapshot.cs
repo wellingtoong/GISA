@@ -30,13 +30,10 @@ namespace GISA.Convenio.API.Data.Migrations
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("varchar(18)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("InscricaoEstadual")
                         .HasColumnType("varchar(200)");
@@ -60,7 +57,7 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.ToTable("Convenios");
                 });
 
-            modelBuilder.Entity("GISA.Convenio.API.Domain.Endereco", b =>
+            modelBuilder.Entity("GISA.Convenio.API.Domain.EnderecoConvenio", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,13 +69,16 @@ namespace GISA.Convenio.API.Data.Migrations
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("varchar(8)");
+                        .HasColumnType("varchar(9)");
 
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(200)");
 
                     b.Property<Guid>("ConvenioId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Estado")
                         .IsRequired()
@@ -101,14 +101,37 @@ namespace GISA.Convenio.API.Data.Migrations
                     b.HasIndex("ConvenioId")
                         .IsUnique();
 
-                    b.ToTable("Enderecos");
+                    b.ToTable("EnderecoConvenio");
                 });
 
-            modelBuilder.Entity("GISA.Convenio.API.Domain.Endereco", b =>
+            modelBuilder.Entity("GISA.Convenio.API.Domain.Convenio", b =>
+                {
+                    b.OwnsOne("GISA.Core.DomainObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("ConvenioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Endereco")
+                                .IsRequired()
+                                .HasColumnType("varchar(150)")
+                                .HasColumnName("Email");
+
+                            b1.HasKey("ConvenioId");
+
+                            b1.ToTable("Convenios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ConvenioId");
+                        });
+
+                    b.Navigation("Email");
+                });
+
+            modelBuilder.Entity("GISA.Convenio.API.Domain.EnderecoConvenio", b =>
                 {
                     b.HasOne("GISA.Convenio.API.Domain.Convenio", "Convenio")
-                        .WithOne("Endereco")
-                        .HasForeignKey("GISA.Convenio.API.Domain.Endereco", "ConvenioId")
+                        .WithOne("EnderecoConvenio")
+                        .HasForeignKey("GISA.Convenio.API.Domain.EnderecoConvenio", "ConvenioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -117,7 +140,7 @@ namespace GISA.Convenio.API.Data.Migrations
 
             modelBuilder.Entity("GISA.Convenio.API.Domain.Convenio", b =>
                 {
-                    b.Navigation("Endereco");
+                    b.Navigation("EnderecoConvenio");
                 });
 #pragma warning restore 612, 618
         }

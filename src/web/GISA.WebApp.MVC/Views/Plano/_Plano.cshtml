@@ -1,0 +1,57 @@
+﻿@model GISA.WebApp.MVC.Models.PlanoViewModel
+
+<input type="hidden" asp-for="Id" />
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-12 col-lg-12">
+        <label asp-for="Nome" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="Nome" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-12 col-lg-12">
+        <label asp-for="Descricao" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="Descricao" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-4 col-lg-4">
+        <label asp-for="TipoPlanoEnum" class="form-label"></label><span class="info-required"> *</span>
+        <select asp-for="TipoPlanoEnum" class="form-select" required>
+            <option selected disabled value="">-selecine um tipo pessoa-</option>
+            <option value="0">Enfermaria</option>
+            <option value="1">Apartamento</option>
+            <option value="2">VIP</option>
+        </select>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="TipoPlanoEnum" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3 position-relative col-sm-12 col-md-4 col-lg-4">
+        <label asp-for="Valor" class="form-label"></label><span class="info-required"> *</span>
+        <input asp-for="Valor" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Valor" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-12 col-md-4 col-lg-4">
+        <label asp-for="Ativo" class="form-check-label"></label><span class="info-required"> *</span>
+        <div class="form-check form-switch">
+            <input asp-for="Ativo" class="form-check-input" type="checkbox" required>
+        </div>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Ativo" class="text-danger"></span>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
-﻿using GISA.WebApp.MVC.Models;
+﻿using System.Linq;
+using GISA.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace GISA.WebApp.MVC.Controllers
 {
@@ -8,7 +8,7 @@ namespace GISA.WebApp.MVC.Controllers
     {
         protected bool ResponsePossuiErros(ResponseResult resposta)
         {
-            if (resposta != null && resposta.Errors.Mensagens.Any())
+            if (resposta != null && resposta.Errors.Mensagens.Count > 0)
             {
                 foreach (var mensagem in resposta.Errors.Mensagens)
                 {
@@ -20,5 +20,10 @@ namespace GISA.WebApp.MVC.Controllers
 
             return false;
         }
+
+        protected void AdicionarErroValidacao(string mensagem)
+            => ModelState.AddModelError(string.Empty, mensagem);
+
+        protected bool OperacaoValida() => ModelState.ErrorCount == 0;
     }
 }

@@ -21,11 +21,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    
+    <Compile Remove="Controllers\NewFolder\**" />
+    <Content Remove="Controllers\NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\NewFolder\**" />
+    <None Remove="Controllers\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Auth\" />
+    <Folder Include="wwwroot\js\jquery-mask\" />
+    <Folder Include="wwwroot\font\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\GISA.WebApi.Core\GISA.WebApi.Core.csproj" />
   </ItemGroup>
 
 </Project>

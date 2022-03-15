@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Clientes";
+    Layout = "_LayoutPrivate";
+}
+
+<!-- Título Page -->
+<div class="header title-page" id="header-management">
+    <h3 class="text-title-page">Gestão de Pessoas</h3>
+</div>
+
+<!-- Informações sobre ações da página -->
+<div class="row pt-75">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Apresentacao" asp-controller="Home">Início</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> / Pessoa</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row pt-40">
+    <div class="col-md-12">
+        <div class="card card-config">
+            <div class="card-body">
+                <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos clientes ou voltar a página inicial</span>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary" asp-action="Registrar">Novo Cliente</a>
+                    <a class="btn btn-light ml-10" asp-action="Apresentacao" asp-controller="Home">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="text-title-info pt-40">Clientes cadastrados</h3>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Componente - DataTable -->
+        <div id="listaPessoa"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var pessoa = {}
+
+        pessoa.eventos = {
+
+            init: () => {
+
+                pessoa.template = {
+                    tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Cidade</th>
+                                                <th>Endereço</th>
+                                                <th>Telefone</th>
+                                                <th>Tipo</th>
+                                                <th>Status</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                    </table>`
+                }
+
+                $('#listaPessoa').html('');
+                $('#listaPessoa').append(pessoa.template.tabela);
+
+                pessoa.metodos.obterPessoas();
+            }
+
+        }
+
+        pessoa.metodos = {
+
+            obterPessoas: () => {
+
+                app.metodos.get('/pessoa/todos',
+                    (response) => {
+                        console.log(response)
+                        
+                        var pessoas = [];
+
+                        response.forEach(function (item, index, arr) {
+                            var status = (item.ativo == true)
+                                ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
+                                : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
+
+                            var acao = (item.ativo == true)
+                                ? `<div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa('${item.id}');">Editar</a>
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarUsuario();">Usuário</a>
+                                        </ul>
+                                   </div>`
+                                : `<div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="EditarPessoa('${item.id}');">Editar</a>
+                                        </ul>
+                                   </div>`
+
+                            var pessoa = item.tipoPessoaEnum == 0 ? "Associado" : "Colaborador";
+
+                            var dado = {
+                                id: item.id,
+                                nome: item.nomeCompleto,
+                                cidade: item.enderecoViewModel.municipio,
+                                endereco: item.enderecoViewModel.logradouro,
+                                telefone: item.telefone,
+                                tipoPessoa: pessoa,
+                                status: status,
+                                acao: acao
+                            }
+
+                            pessoas.push(dado);
+                        });
+
+                        pessoa.metodos.carregarTabela(pessoas);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
+
+            carregarTabela: (pessoas) => {
+
+                $('#example').DataTable({
+                    processing: true,
+                    data: pessoas,
+                    columns: [
+                        { data: "nome" },
+                        { data: "cidade" },
+                        { data: "endereco" },
+                        { data: "telefone" },
+                        { data: "tipoPessoa" },
+                        { data: "status" },
+                        { data: "acao" }
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json',
+                        processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
+                    }
+                });
+
+            }
+
+        }
+
+        pessoa.eventos.init();
+    </script>
+}

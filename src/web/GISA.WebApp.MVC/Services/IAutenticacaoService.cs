@@ -8,5 +8,6 @@ namespace GISA.WebApp.MVC.Services
         Task<UsuarioRespostaLogin> Login(UsuarioLogin usuarioLogin);
 
         Task<UsuarioRespostaLogin> Registro(UsuarioRegistro usuarioRegistro);
+        Task<UsuarioRespostaLogin> RegistroCliente(UsuarioRegistro usuarioRegistro);
     }
 }

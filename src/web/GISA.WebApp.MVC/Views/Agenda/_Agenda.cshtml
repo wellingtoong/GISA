@@ -1,0 +1,36 @@
+﻿@model GISA.WebApp.MVC.Models.AgendaViewModel
+
+<input asp-for="Id" type="hidden" />
+<input asp-for="IdPessoa" type="hidden" />
+
+<div class="row">
+    <div class="mb-3 position-relative col-sm-3 col-md-3 col-lg-3">
+        <label asp-for="Data" class="form-label"></label><span class="info-required"> *</span>
+        <div class="input-group">
+            <input asp-for="Data" id="txtData" type="text" class="form-control" required>
+            <span class="input-group-text"><i class='bx bx-calendar'></i></span>
+        </div>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Data" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-3 position-relative col-sm-3 col-md-3 col-lg-3">
+        <label asp-for="Hora" class="form-label"></label><span class="info-required"> *</span>
+        <div class="input-group">
+            <input asp-for="Hora" id="txtHora" type="text" class="form-control" required>
+            <span class="input-group-text"><i class='bx bx-stopwatch'></i></span>
+        </div>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Hora" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-3 position-relative col-sm-6 col-md-6 col-lg-6">
+        <label asp-for="Observacao" class="form-label"></label>
+        <input asp-for="Observacao" type="text" class="form-control" required>
+        <div class="invalid-tooltip">
+            <span asp-validation-for="Observacao" class="text-danger"></span>
+        </div>
+    </div>
+</div>

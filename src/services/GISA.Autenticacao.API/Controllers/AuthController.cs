@@ -1,39 +1,49 @@
-﻿using GISA.Autenticacao.API.Extensions;
-using GISA.Autenticacao.API.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using GISA.Autenticacao.API.Models;
+using GISA.WebApi.Core.Autenticacao;
+using GISA.WebAPI.Core.Controllers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GISA.Autenticacao.API.Controllers
 {
-    [Route("api/auth")]
+    [Route("api")]
     public class AuthController : MainController
     {
+        private const string ROLE_ADMIN = "Admin";
+        private const string ROLE_CLIENTE = "Cliente";
+
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppSettings _appSettings;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
+                              RoleManager<IdentityRole> roleManager,
                               IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _appSettings = appSettings.Value;
         }
 
-        [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
+        [HttpPost("auth/novo-cliente")]
+        public async Task<ActionResult> RegistrarCliente(UsuarioRegistro usuarioRegistro)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var user = new IdentityUser
             {
@@ -43,6 +53,8 @@ namespace GISA.Autenticacao.API.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
+
+            await AdicionarRole(user, ROLE_CLIENTE);
 
             if (result.Succeeded)
             {
@@ -57,10 +69,45 @@ namespace GISA.Autenticacao.API.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("autenticar")]
+        [HttpPost("auth/novo-admin")]
+        public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
+        {
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
+
+            var user = new IdentityUser
+            {
+                UserName = usuarioRegistro.Email,
+                Email = usuarioRegistro.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
+
+            await AdicionarRole(user, ROLE_ADMIN);
+
+            if (result.Succeeded)
+            {
+                return CustomResponse(await GerarJwt(usuarioRegistro.Email));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                AdicionarErroProcessamento(error.Description);
+            }
+
+            return CustomResponse();
+        }
+
+        [HttpPost("auth/authentication")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha,
                 false, true);
@@ -140,6 +187,23 @@ namespace GISA.Autenticacao.API.Controllers
                     Claims = claims.Select(c => new UsuarioClaim { Type = c.Type, Value = c.Value })
                 }
             };
+        }
+
+        private async Task AdicionarRole(IdentityUser identityUser, string role)
+        {
+            if (await _roleManager.RoleExistsAsync(role))
+            {
+                await _userManager.AddToRoleAsync(identityUser, role);
+            }
+            else
+            {
+                var result = await _roleManager.CreateAsync(new IdentityRole(role));
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(identityUser, role);
+                }
+            }
         }
 
         private static long ToUnixEpochDate(DateTime date)

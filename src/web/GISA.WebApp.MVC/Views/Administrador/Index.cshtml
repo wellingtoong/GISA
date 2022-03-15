@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Administrador";
+    Layout = "_LayoutPrivate";
+}
+
+<!-- Título Page -->
+<div class="header title-page" id="header-management">
+    <h3 class="text-title-page">Configurações Administrativas</h3>
+</div>
+
+<!-- Informações sobre ações da página -->
+<div class="row pt-75">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-breadcrumb">
+                <li class="breadcrumb-item"><a chref="#">Início</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> / Configurações</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row pt-40">
+    <div class="col-md-12">
+        <div class="card card-config">
+            <div class="card-body">
+                <span class="d-flex justify-content-start"><i class='bx bx-info-circle nav_icon'></i> Aqui você pode incluir novos administradores ou voltar a página inicial</span>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novo_admin">Novo Administrador</button>
+                    <button type="button" class="btn btn-light ml-10">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="text-title-info pt-40">Convênios cadastrados</h3>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Componente - DataTable -->
+        <table id="example" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>wellingtoong</td>
+                    <td>Wellington Gonzalez</td>
+                    <td>wellington.gonzalez@hotmail.com</td>
+                    <td>Administrador</td>
+                    <td><span class="badge bg-success">Ativo</span></td>
+                </tr>
+                <tr>
+                    <td>bruna.gabriela</td>
+                    <td>Bruna Gabriela</td>
+                    <td>bruna.gabriela.pereira98@gmail.com</td>
+                    <td>Médica</td>
+                    <td><span class="badge bg-success">Ativo</span></td>
+                </tr>
+                <tr>
+                    <td>maa.caroline</td>
+                    <td>Mariane Carolina Santos Gonzalez</td>
+                    <td>mariane.gonzalez@hotmail.com</td>
+                    <td>Funcionário</td>
+                    <td><span class="badge bg-success">Ativo</span></td>
+                </tr>
+                <tr>
+                    <td>gustavo.santos</td>
+                    <td>Gustavo Santos Pereira</td>
+                    <td>gustanvo.santos@hotmail.com</td>
+                    <td>Funcionário</td>
+                    <td><span class="badge bg-danger">Inativo</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@*Modal - cadastro configurações*@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="modal fade" id="novo_admin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title title-modal" id="exampleModalLabel">Cadastro de Convênio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <vc:Summary></vc:Summary>
+
+                                <div class="row">
+                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                                        <label for="exampleFormControlInput1" class="form-label">Nome Completo</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                                        <label for="exampleFormControlInput1" class="form-label">E-mail</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Senha</label>
+                                        <input type="password" class="form-control" id="exampleFormControlInput1">
+                                    </div>
+                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Confirmação de senha</label>
+                                        <input type="password" class="form-control" id="exampleFormControlInput1">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-sm-12 col-md-2 col-lg-3">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Ativo</label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="row">
+                                    <div class="mb-3 col-sm-12 col-md-12 col-lg-12">
+                                        <button type="button" class="btn btn-secondary float-end ml-10" data-bs-dismiss="modal">Sair</button>
+                                        <button type="button" class="btn btn-primary float-end">Salvar</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            //$('#example').DataTable({
+            //    "language": {
+            //        "url": '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json'
+            //    }
+            //});
+        });
+    </script>
+}

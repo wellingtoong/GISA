@@ -1,15 +1,15 @@
-﻿using GISA.Core.Data;
-using GISA.Core.DomainObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using GISA.Core.Data;
+using GISA.Core.DomainObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace GISA.Convenio.API.Data
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly ConvenioDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
@@ -35,32 +35,23 @@ namespace GISA.Convenio.API.Data
             return await DbSet.ToListAsync();
         }
 
-        public virtual async Task<int> Adicionar(TEntity entity)
+        public virtual async Task<bool> Adicionar(TEntity entity)
         {
             DbSet.Add(entity);
             return await SaveChanges();
         }
 
-        public virtual async Task<int> Atualizar(TEntity entity)
+        public virtual async Task<bool> Atualizar(TEntity entity)
         {
             DbSet.Update(entity);
             return await SaveChanges();
         }
 
-        public virtual async Task<int> Remover(Guid id)
+        public async Task<bool> SaveChanges()
         {
-            DbSet.Remove(new TEntity { Id = id });
-            return await SaveChanges();
+            return await Db.SaveChangesAsync() > 0;
         }
 
-        public async Task<int> SaveChanges()
-        {
-            return await Db.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            Db?.Dispose();
-        }
+        public void Dispose() => Db?.Dispose();
     }
 }

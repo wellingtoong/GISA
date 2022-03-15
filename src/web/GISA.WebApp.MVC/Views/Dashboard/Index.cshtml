@@ -1,0 +1,220 @@
+﻿@using GISA.WebApp.MVC.Extensions
+@using GISA.WebApi.Core.Usuario
+@inject IAspNetUser AppUser
+@model GISA.WebApp.MVC.Models.DashboardViewModels
+
+
+@{
+    ViewData["Title"] = "Agendamentos";
+    Layout = "_LayoutPrivate";
+}
+
+<!-- Título Page -->
+<div class="header title-page" id="header-management">
+    <h3 class="text-title-page">Dashboard</h3>
+</div>
+
+<!-- Informações sobre ações da página -->
+<div class="row pt-75">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Apresentacao" asp-controller="Home">Início</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> / Dashboard</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row pt-40">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card profile-greeting">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="greeting-user">
+                            <h5>@AppUser.ObterUserEmail()</h5>
+                            <p>Bem-vindo de volta, seu painel está pronto!</p>
+                            <a asp-action="Apresentacao" asp-controller="Home" class="btn btn-outline-white_color">Plataforma<i class='bx bx-right-arrow-alt'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cartoon-img"><img class="img-fluid" src="~/img/images.svg" alt=""></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6><strong>Total de usuários</strong></h6>
+                        <div class="card-board-pro">
+                            <input type="text" asp-for="TotalUsuario" class="form-control-plaintext" readonly>
+                            <div class="top-30 rounded-pro rounded-position-pro">
+                                <i class='bx bx-user'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mt-25 col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-board">
+                            <h6><strong>Ativos</strong></h6>
+                            <input type="text" asp-for="TotalAtivo" class="form-control-plaintext" readonly>
+                            <div class="top-20 rounded rounded-position color-success">
+                                <i class='bx bx-user-plus'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-25 col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-board">
+                            <h6><strong>Inativos</strong></h6>
+                            <input type="text" asp-for="TotalInativo" class="form-control-plaintext" readonly>
+                            <div class="top-20 rounded color-danger rounded-position">
+                                <i class='bx bx-user-minus'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-40">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-board">
+                    <h6><strong>Total Convenios</strong></h6>
+                    <input type="text" asp-for="TotalConvenio" class="form-control-plaintext" readonly>
+                    <div class="top-20 rounded rounded-position">
+                        <i class="bx bx-briefcase"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-board">
+                    <h6><strong>Total Planos</strong></h6>
+                    <input type="text" asp-for="TotalPlano" class="form-control-plaintext" readonly>
+                    <div class="top-20 rounded rounded-position">
+                        <i class="bx bx-food-menu"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-board">
+                    <h6><strong>Planos vendidos</strong></h6>
+                    <input type="text" asp-for="PlanoVendido" class="form-control-plaintext" readonly>
+                    <div class="top-20 rounded rounded-position">
+                        <i class='bx bx-up-arrow-alt'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-board">
+                    <h6><strong>Planos cancelados</strong></h6>
+                    <input type="text" asp-for="PlanoCancelado" class="form-control-plaintext" readonly>
+                    <div class="top-20 rounded rounded-position">
+                        <i class='bx bx-down-arrow-alt'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-40">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- DataTable -->
+        <div id="listaPlanoUsuario"></div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        var planoPessoa = {}
+
+        planoPessoa.eventos = {
+
+            init: () => {
+
+                planoPessoa.template = {
+                    tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nome</th>
+                                                            <th>Usuário</th>
+                                                            <th>Data Início</th>
+                                                            <th>Tipo</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>`
+                }
+
+                $('#listaPlanoUsuario').html('');
+                $('#listaPlanoUsuario').append(planoPessoa.template.tabela);
+
+                planoPessoa.metodos.carregarTabela();
+            }
+
+        }
+
+        planoPessoa.metodos = {
+
+            carregarTabela: (pessoas) => {
+
+                $('#example').DataTable({
+                    processing: true,
+                    data: { nome: "Wellington", usuario: "wellington.gonzalez@hotmail.com", data: "12/02/2022", tipo: "Associado", status: "Ativo" },
+                    columns: [
+                        { data: "nome" },
+                        { data: "usuario" },
+                        { data: "data" },
+                        { data: "tipo" },
+                        { data: "status" }
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json',
+                        processing: '<i class="fa fa-spinner fa-spin" style="font-size:24px;color:rgb(75, 183, 245);"></i>'
+                    }
+                });
+
+            }
+
+        }
+
+        planoPessoa.eventos.init();
+    </script>
+}
+
