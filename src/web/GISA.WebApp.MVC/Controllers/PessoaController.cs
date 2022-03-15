@@ -91,7 +91,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _pessoaService.Registrar(pessoaViewModel);
 
-            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Pessoa");
         }
 
         [HttpPost]
@@ -112,7 +112,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _pessoaService.Atualizar(pessoaViewModel);
 
-            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Pessoa");
         }
 
         private void CalcularDesconto(PessoaViewModel pessoaViewModel, PlanoViewModel planoViewModel)

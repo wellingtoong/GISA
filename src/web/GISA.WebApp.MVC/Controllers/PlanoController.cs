@@ -69,7 +69,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoService.Registrar(planoViewModel);
 
-            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Plano");
+            return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Plano");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, PlanoViewModel planoViewModel)
@@ -82,7 +82,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _planoService.Atualizar(planoViewModel);
 
-            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Plano");
+            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Plano");
         }
     }
 }

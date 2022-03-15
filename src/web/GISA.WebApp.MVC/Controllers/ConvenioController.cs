@@ -75,7 +75,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _convenioService.Registrar(convenioViewModel);
 
-            return ResponsePossuiErros(result) ? View("Registrar") : (IActionResult)RedirectToAction("Index", "Convenio");
+            return ResponsePossuiErros(result) ? View("Registrar") : RedirectToAction("Index", "Convenio");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, ConvenioViewModel convenioViewModel)
@@ -89,7 +89,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _convenioService.Atualizar(convenioViewModel);
 
-            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Convenio");
+            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Convenio");
         }
     }
 }

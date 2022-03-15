@@ -40,7 +40,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var resposta = await _autenticacaoService.RegistroCliente(usuarioRegistro);
 
-            return ResponsePossuiErros(resposta.ResponseResult) ? View(usuarioRegistro) : (IActionResult)RedirectToAction("Index", "Pessoa");
+            return ResponsePossuiErros(resposta.ResponseResult) ? View(usuarioRegistro) : RedirectToAction("Index", "Pessoa");
         }
 
         [HttpGet]
@@ -100,7 +100,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             await RealizarLogin(resposta);
 
-            return string.IsNullOrEmpty(returnUrl) ? RedirectToAction("Apresentacao", "Home") : (IActionResult)LocalRedirect(returnUrl);
+            return string.IsNullOrEmpty(returnUrl) ? RedirectToAction("Apresentacao", "Home") : LocalRedirect(returnUrl);
         }
 
         [HttpGet]

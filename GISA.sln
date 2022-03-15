@@ -45,12 +45,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{315991E8-B490-4C7D-B434-1E7354F6DE14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.Tests", "tests\GISA.Tests\GISA.Tests.csproj", "{E533AC6C-5273-4B03-8FC5-736DDCC9508C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.Tests", "tests\GISA.Tests\GISA.Tests.csproj", "{E533AC6C-5273-4B03-8FC5-736DDCC9508C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

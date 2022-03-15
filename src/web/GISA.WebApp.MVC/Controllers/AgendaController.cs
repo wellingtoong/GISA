@@ -77,7 +77,7 @@ namespace GISA.WebApp.MVC.Controllers
 
             var result = await _agendaService.Registrar(agendaViewModel);
 
-            return ResponsePossuiErros(result) ? View("Editar") : (IActionResult)RedirectToAction("Index", "Agenda");
+            return ResponsePossuiErros(result) ? View("Editar") : RedirectToAction("Index", "Agenda");
         }
 
         public async Task<IActionResult> Atualizar(Guid id, AgendaViewModel agendaViewModel)

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using GISA.WebApp.MVC.Models;
+﻿using GISA.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GISA.WebApp.MVC.Controllers
