@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using GISA.WebApp.MVC.Models;
 using GISA.WebApp.MVC.Services;

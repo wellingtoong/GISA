@@ -48,7 +48,7 @@ namespace GISA.WebAPI.Core.Controllers
         protected void LimparErrosProcessamento()
             => Erros.Clear();
 
-        private BadRequestObjectResult CreateBadRequest()
+        private ActionResult CreateBadRequest()
             => BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]> { { "Mensagens", Erros.ToArray() } }));
     }
 }
