@@ -11,7 +11,7 @@ on:
     paths-ignore:
     - 'README.md'
 
-# Criando uma variável de ambiente chamada DOTNET_VERSION e defindo a versão como "6.0.x"
+# Criando uma variável de ambiente chamada DOTNET_VERSION e defindo a versão
 env:
   DOTNET_VERSION: '3.1.x' # A versão do .NET SDK
 
