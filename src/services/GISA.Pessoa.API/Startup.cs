@@ -47,7 +47,7 @@ namespace GISA.Pessoa.API
         {
             app.UseSwaggerConfiguration();
 
-            app.UseApiConfiguration(env);
+            app.UseApiConfiguration(env, Configuration);
         }
     }
 }
