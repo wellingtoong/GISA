@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using GISA.Convenio.API.Data.Repository;
@@ -13,7 +13,7 @@ namespace GISA.Convenio.API.Services.Consumer
     {
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
-
+        
         public ConvenioIntegration(
                             IServiceProvider serviceProvider,
                             IMessageBus bus)

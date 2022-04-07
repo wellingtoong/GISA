@@ -47,7 +47,7 @@ namespace GISA.Convenio.API
         {
             app.UseSwaggerConfiguration();
 
-            app.UseApiConfiguration(env);
+            app.UseApiConfiguration(env, Configuration);
         }
     }
 }

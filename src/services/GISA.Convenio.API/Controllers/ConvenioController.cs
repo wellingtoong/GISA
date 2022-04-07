@@ -10,6 +10,7 @@ using GISA.MessageBus;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace GISA.Convenio.API.Controllers
 {
@@ -20,12 +21,14 @@ namespace GISA.Convenio.API.Controllers
         private readonly IConvenioRepository _convenioRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
+        private readonly ILogger<ConvenioController> _logger;
 
-        public ConvenioController(IConvenioRepository convenioRepository, IMapper mapper, IMessageBus bus)
+        public ConvenioController(IConvenioRepository convenioRepository, IMapper mapper, IMessageBus bus, ILogger<ConvenioController> logger)
         {
             _convenioRepository = convenioRepository;
             _mapper = mapper;
             _bus = bus;
+            _logger = logger;
         }
 
         [HttpGet]
