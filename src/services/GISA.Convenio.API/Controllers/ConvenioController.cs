@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GISA.Convenio.API.Data.Repository;
@@ -10,6 +11,7 @@ using GISA.MessageBus;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
 namespace GISA.Convenio.API.Controllers
@@ -79,11 +81,13 @@ namespace GISA.Convenio.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
             if (!EmailValido(convenioViewModel.Email))
             {
+                LoggerRegister(ModelState);
                 return CustomResponse();
             }
 
@@ -98,11 +102,13 @@ namespace GISA.Convenio.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
             if (!EmailValido(convenioViewModel.Email))
             {
+                LoggerRegister(ModelState);
                 return CustomResponse();
             }
 
@@ -110,21 +116,6 @@ namespace GISA.Convenio.API.Controllers
 
             return !OperacaoValida() ? CustomResponse(result) : (IActionResult)CustomResponse(result);
         }
-
-        //[HttpPut]
-        //[Route("convenio/atualizar-convenio/{id:guid}/endereco")]
-        //public async Task<IActionResult> AtualizarEndereco(Guid id, ConvenioViewModel convenioViewModel)
-        //{
-        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-        //    var conveio = _mapper.Map<Domain.Convenio>(convenioViewModel);
-
-        //    var result = await _convenioService.AtualizarEndereco(id, conveio);
-
-        //    if (!OperacaoValida()) return CustomResponse(result);
-
-        //    return CustomResponse(result);
-        //}
 
         private bool EmailValido(string email)
         {
@@ -143,6 +134,12 @@ namespace GISA.Convenio.API.Controllers
             }
 
             return false;
+        }
+
+        private void LoggerRegister(ModelStateDictionary modelState)
+        {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
+                _logger.LogTrace(erro.ErrorMessage);
         }
     }
 }
