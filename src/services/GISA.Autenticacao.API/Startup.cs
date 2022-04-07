@@ -42,7 +42,7 @@ namespace GISA.Autenticacao.API
         {
             app.UseSwaggerConfiguration();
 
-            app.UseApiConfiguration(env);
+            app.UseApiConfiguration(env, Configuration);
         }
     }
 }
