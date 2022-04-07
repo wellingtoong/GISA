@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GISA.Core.Communication;
@@ -10,6 +11,8 @@ using GISA.Pessoa.API.Models;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 
 namespace GISA.Pessoa.API.Controllers
 {
@@ -20,6 +23,7 @@ namespace GISA.Pessoa.API.Controllers
         private readonly IPessoaRepository _pessoaRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
+        private readonly ILogger<PessoaController> _logger;
 
         public PessoaController(IPessoaRepository pessoaRepository, IMapper mapper, IMessageBus bus)
         {
@@ -123,6 +127,7 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -142,6 +147,7 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -172,6 +178,12 @@ namespace GISA.Pessoa.API.Controllers
             }
 
             return false;
+        }
+
+        private void LoggerRegister(ModelStateDictionary modelState)
+        {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
+                _logger.LogTrace(erro.ErrorMessage);
         }
     }
 }

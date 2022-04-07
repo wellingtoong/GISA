@@ -1,15 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GISA.Core.Communication;
 using GISA.MessageBus;
 using GISA.Pessoa.API.Data.Repository;
 using GISA.Pessoa.API.Models;
-using GISA.Pessoa.API.Service;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 
 namespace GISA.Pessoa.API.Controllers
 {
@@ -17,23 +19,24 @@ namespace GISA.Pessoa.API.Controllers
     [Route("api")]
     public class PlanoClienteController : MainController
     {
-        private readonly IPlanoClienteService _planoClienteService;
         private readonly IPlanoClienteRepository _planoClienteRepository;
         private readonly IPlanoRepository _planoRepository;
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
+        private readonly ILogger<PlanoClienteController> _logger;
 
-        public PlanoClienteController(IPlanoClienteService planoClienteService,
+        public PlanoClienteController(
             IPlanoClienteRepository planoClienteRepository,
             IPlanoRepository planoRepository,
             IMapper mapper,
-            IMessageBus bus)
+            IMessageBus bus,
+            ILogger<PlanoClienteController> logger)
         {
-            _planoClienteService = planoClienteService;
             _planoClienteRepository = planoClienteRepository;
             _planoRepository = planoRepository;
             _mapper = mapper;
             _bus = bus;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -95,6 +98,7 @@ namespace GISA.Pessoa.API.Controllers
 
             if (!OperacaoValida())
             {
+                LoggerRegister(ModelState);
                 return CustomResponse();
             }
 
@@ -109,6 +113,7 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -163,6 +168,12 @@ namespace GISA.Pessoa.API.Controllers
                 var valorFinal = valor - desconto;
                 plano.ValorFinal = valorFinal > 0 ? valorFinal : 0;
             }
+        }
+
+        private void LoggerRegister(ModelStateDictionary modelState)
+        {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
+                _logger.LogTrace(erro.ErrorMessage);
         }
     }
 }

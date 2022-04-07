@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GISA.Core.Communication;
@@ -9,6 +10,8 @@ using GISA.Pessoa.API.Models;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 
 namespace GISA.Pessoa.API.Controllers
 {
@@ -19,12 +22,14 @@ namespace GISA.Pessoa.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMessageBus _bus;
         private readonly IAgendaRepository _agendaRepository;
+        private readonly ILogger<AgendaController> _logger;
 
-        public AgendaController(IAgendaRepository agendaRepository, IMapper mapper, IMessageBus bus)
+        public AgendaController(IAgendaRepository agendaRepository, IMapper mapper, IMessageBus bus, ILogger<AgendaController> logger)
         {
             _mapper = mapper;
             _agendaRepository = agendaRepository;
             _bus = bus;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -78,6 +83,7 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -92,12 +98,19 @@ namespace GISA.Pessoa.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
             var result = await _bus.RequestAsync<Domain.Agenda, ResponseResult>(_mapper.Map<Domain.Agenda>(agendaViewModel));
 
             return !OperacaoValida() ? CustomResponse(result) : (IActionResult)CustomResponse(result);
+        }
+
+        private void LoggerRegister(ModelStateDictionary modelState)
+        {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
+                _logger.LogTrace(erro.ErrorMessage);
         }
     }
 }
