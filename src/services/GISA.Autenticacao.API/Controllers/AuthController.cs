@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -10,6 +10,8 @@ using GISA.WebApi.Core.Autenticacao;
 using GISA.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,16 +27,19 @@ namespace GISA.Autenticacao.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppSettings _appSettings;
+        private readonly ILogger<AuthController> _logger;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               RoleManager<IdentityRole> roleManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              ILogger<AuthController> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _appSettings = appSettings.Value;
+            _logger = logger;
         }
 
         [HttpPost("auth/novo-cliente")]
@@ -63,6 +68,7 @@ namespace GISA.Autenticacao.API.Controllers
 
             foreach (var error in result.Errors)
             {
+                _logger.LogError(error.Description);
                 AdicionarErroProcessamento(error.Description);
             }
 
@@ -74,6 +80,7 @@ namespace GISA.Autenticacao.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -95,6 +102,7 @@ namespace GISA.Autenticacao.API.Controllers
 
             foreach (var error in result.Errors)
             {
+                _logger.LogError(error.Description);
                 AdicionarErroProcessamento(error.Description);
             }
 
@@ -106,6 +114,7 @@ namespace GISA.Autenticacao.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggerRegister(ModelState);
                 return CustomResponse(ModelState);
             }
 
@@ -208,5 +217,11 @@ namespace GISA.Autenticacao.API.Controllers
 
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        private void LoggerRegister(ModelStateDictionary modelState)
+        {
+            foreach (var erro in modelState.Values.SelectMany(e => e.Errors))
+                _logger.LogTrace(erro.ErrorMessage);
+        }
     }
 }
