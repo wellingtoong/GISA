@@ -38,7 +38,7 @@ namespace GISA.WebApp.MVC
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMvcConfiguration(env);
+            app.UseMvcConfiguration(env, Configuration);
         }
     }
 }
