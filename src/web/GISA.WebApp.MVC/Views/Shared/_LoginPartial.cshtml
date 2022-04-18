@@ -1,4 +1,4 @@
-﻿@using GISA.WebApp.MVC.Extensions
+@using GISA.WebApp.MVC.Extensions
 @using GISA.WebApi.Core.Usuario
 @inject IAspNetUser AppUser
 
@@ -8,7 +8,7 @@
 
 @if (AppUser.EstaAutenticado())
 {
-    <a class="nav-link text-dark login" title="Manage">Olá @AppUser.ObterUserEmail()</a>
+    <a id="title-login" class="nav-link text-dark login" title="Manage">Olá @AppUser.ObterUserEmail()</a>
     <a class="nav-link text-dark" asp-controller="Auth" asp-action="Logout">Sair</a>
 }
 else

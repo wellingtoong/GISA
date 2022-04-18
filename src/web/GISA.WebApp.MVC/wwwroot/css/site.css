@@ -1,4 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
     for details on configuring this project to bundle and minify static web assets. */
 
 @font-face {
@@ -662,9 +662,9 @@ table.dataTable.no-footer {
     #example_filter > label > input {
         padding: 0;
         max-width: 1028px;
-        min-width: 550px;
+        /*min-width: 550px;*/
         transition: none;
-        margin: 10px 0px 0px -40px;
+        /*margin: 10px 0px 0px -40px;*/
         border: 1px solid #ffffff;
     }
 
@@ -711,12 +711,26 @@ table.dataTable.no-footer {
     border-color: #95aac9;
 }
 
-.page-link {
-    color: #95aac9 !important;
+.dataTables_wrapper {
+    position: absolute!important;
 }
 
-
 /* responsividade */
+@media (max-width: 425px) {
+    #title-login {
+        visibility: hidden;
+    }
+
+    #example_filter > label > input {
+        min-width: 300px !important;
+    }
+
+    #example_wrapper > div:nth-child(2) > label {
+        margin-bottom: 10px;
+        margin-top: 0px;
+    }
+}
+
 @media (min-width: 576px) {
 
     #example_wrapper > div:nth-child(2) > label {
@@ -786,16 +800,26 @@ table.dataTable.no-footer {
     #example_wrapper {
         position: relative !important;
     }
+/*
+    #body-pd > div.height-100 > div.row.pt-40 > div > div > div {
+        height: 0px;
+        padding: 0px;
+        margin-bottom: 30px;
+    }
+
+    #body-pd > div.height-100 > div.row.pt-40 > div > div > div > span {
+        display: none !important;
+    }*/
 
     /* configuração card management */
     .card-config .card-body {
         height: 90px;
     }
 
-        .card-config .card-body span {
-            width: 300px;
-            word-break: break-word;
-        }
+    .card-config .card-body span {
+        width: 300px;
+        word-break: break-word;
+    }
 }
 
 @media (min-width: 992px) {

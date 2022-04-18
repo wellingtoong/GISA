@@ -1,4 +1,4 @@
-﻿@model GISA.WebApp.MVC.Models.UsuarioLogin
+@model GISA.WebApp.MVC.Models.UsuarioLogin
 
 @{
     ViewData["Title"] = "Login";
@@ -11,8 +11,9 @@
 
                 <vc:Summary></vc:Summary>
 
-                <img class="mb-4" src="~/img/bootstrap-logo.svg" alt="" width="72" height="57">
-                <h1 class="h3 mb-3 fw-normal">Bem-vindo!</h1>
+                @*<img class="mb-4" src="~/img/bootstrap-logo.svg" alt="" width="72" height="57">*@
+                <h1 style="font-size: 45px;padding-bottom: 30px;color: #2c3748;">Boa Saúde</h1>
+                @*<h1 class="h3 mb-3 fw-normal">Bem-vindo!</h1>*@
 
                 <div class="form-floating">
                     <input asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com">

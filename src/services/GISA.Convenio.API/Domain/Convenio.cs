@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GISA.Core.DomainObjects;
 
 namespace GISA.Convenio.API.Domain

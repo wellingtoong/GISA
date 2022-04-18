@@ -1,4 +1,4 @@
-﻿@using GISA.WebApp.MVC.Extensions
+@using GISA.WebApp.MVC.Extensions
 @using GISA.WebApi.Core.Usuario
 @inject IAspNetUser AppUser
 @model GISA.WebApp.MVC.Models.DashboardViewModels
@@ -155,53 +155,95 @@
 <div class="row pt-40">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <!-- DataTable -->
-        <div id="listaPlanoUsuario"></div>
+        <div id="listaPessoa"></div>
     </div>
 </div>
 
 
+
 @section Scripts {
     <script>
-        var planoPessoa = {}
+        var pessoa = {}
 
-        planoPessoa.eventos = {
+        pessoa.eventos = {
 
             init: () => {
 
-                planoPessoa.template = {
+                pessoa.template = {
                     tabela: `<table id="example" class="table table-striped table-bordered" style="width:100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Nome</th>
-                                                            <th>Usuário</th>
-                                                            <th>Data Início</th>
-                                                            <th>Tipo</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                </table>`
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>E-mail</th>
+                                                    <th>Cidade</th>
+                                                    <th>Telefone</th>
+                                                    <th>Tipo</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                        </table>`
                 }
 
-                $('#listaPlanoUsuario').html('');
-                $('#listaPlanoUsuario').append(planoPessoa.template.tabela);
+                $('#listaPessoa').html('');
+                $('#listaPessoa').append(pessoa.template.tabela);
 
-                planoPessoa.metodos.carregarTabela();
+                pessoa.metodos.obterPessoas();
             }
 
         }
 
-        planoPessoa.metodos = {
+        pessoa.metodos = {
+
+            obterPessoas: () => {
+
+                app.metodos.get('/pessoa/todos',
+                    (response) => {
+                        console.log(response)
+
+                        var pessoas = [];
+
+                        response.forEach(function (item, index, arr) {
+                            var status = (item.ativo == true)
+                                ? "<td><div style='text-align: center;'><span class='badge bg-success'>Ativo</span></div></td>"
+                                : "<td><div style='text-align: center;'><span class='badge bg-danger'>Inativo</span></div></td>"
+
+                            var pessoa = item.tipoPessoaEnum == 0 ? "Associado" : "Colaborador";
+
+                            var dado = {
+                                id: item.id,
+                                nome: item.nomeCompleto,
+                                email: item.email,
+                                cidade: item.enderecoViewModel.municipio,
+                                telefone: item.telefone,
+                                tipoPessoa: pessoa,
+                                status: status,
+                            }
+
+                            pessoas.push(dado);
+                        });
+
+                        pessoa.metodos.carregarTabela(pessoas);
+                    },
+                    (xhr, ajaxOptions, error) => {
+                        console.log('xhr', xhr);
+                        console.log('ajaxOptions', ajaxOptions);
+                        console.log('error', error);
+                    }
+                )
+
+            },
 
             carregarTabela: (pessoas) => {
 
                 $('#example').DataTable({
                     processing: true,
-                    data: { nome: "Wellington", usuario: "wellington.gonzalez@hotmail.com", data: "12/02/2022", tipo: "Associado", status: "Ativo" },
+                    data: pessoas,
                     columns: [
                         { data: "nome" },
-                        { data: "usuario" },
-                        { data: "data" },
-                        { data: "tipo" },
+                        { data: "email" },
+                        { data: "cidade" },
+                        { data: "telefone" },
+                        { data: "tipoPessoa" },
                         { data: "status" }
                     ],
                     language: {
@@ -214,7 +256,6 @@
 
         }
 
-        planoPessoa.eventos.init();
+        pessoa.eventos.init();
     </script>
 }
-
