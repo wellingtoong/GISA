@@ -2,12 +2,12 @@
 name: Build
 
 # O fluxo (workflow) será disparado em um push ou pull request para
-# a ramificação main e develop, quando os arquivos C# ou de projeto foram alterados
+# a ramificação master e develop, quando os arquivos C# ou de projeto foram alterados
 on:
   push:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [ main, develop ]
+    branches: [ master, develop ]
     paths-ignore:
     - 'README.md'
 
